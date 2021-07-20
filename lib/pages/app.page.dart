@@ -1,0 +1,70 @@
+import 'package:coeus_v1/pages/advancedSettings.profile.dart';
+import 'package:coeus_v1/pages/login.page.dart';
+import 'package:coeus_v1/pages/newuser.page.dart';
+import 'package:coeus_v1/utils/advanced_settings_secure_storage.dart';
+import 'package:coeus_v1/utils/const.dart';
+import 'package:coeus_v1/utils/dashboard_secure_storage.dart';
+import 'package:coeus_v1/widget/button.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class OpenApp extends StatefulWidget {
+  const OpenApp({Key? key}) : super(key: key);
+
+  @override
+  _OpenAppState createState() => _OpenAppState();
+}
+
+class _OpenAppState extends State<OpenApp> {
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
+  static Future init() async {
+    DashboardSecureStorage.setBattery(53);
+    DashboardSecureStorage.setFootsteps(3123);
+    DashboardSecureStorage.setSleep(7.5);
+    DashboardSecureStorage.setHeartRate(73);
+    DashboardSecureStorage.setSpO2(98);
+    DashboardSecureStorage.setTemperature(37.5);
+    // AdvancedSettingsSecureStorage.setSamplingCommunication("Only BLE");
+    // AdvancedSettingsSecureStorage.setSamplingECG("256");
+    // AdvancedSettingsSecureStorage.setSamplingTemperature("256");
+    // AdvancedSettingsSecureStorage.setSamplingSpO2("256");
+    // AdvancedSettingsSecureStorage.setSamplingActivity("256");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        alignment: Alignment.center,
+        // decoration: BoxDecoration(
+        //   gradient: LinearGradient(
+        //       begin: Alignment.topRight,
+        //       end: Alignment.bottomLeft,
+        //       colors: [Constants.white, Constants.lightBlue]),
+        // ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image(
+                width: 350,
+                height: 350,
+                image: AssetImage('assets/icons/coeuslogo_elipse.png')),
+            Button(
+              nextNavigation: LoginPage(),
+              title: "Login",
+            ),
+            Button(
+              nextNavigation: NewUser(),
+              title: "Signup",
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
