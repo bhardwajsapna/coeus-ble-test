@@ -39,32 +39,34 @@ class _OpenAppState extends State<OpenApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        alignment: Alignment.center,
-        // decoration: BoxDecoration(
-        //   gradient: LinearGradient(
-        //       begin: Alignment.topRight,
-        //       end: Alignment.bottomLeft,
-        //       colors: [Constants.white, Constants.lightBlue]),
-        // ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image(
-                width: 350,
-                height: 350,
-                image: AssetImage('assets/icons/coeuslogo_elipse.png')),
-            Button(
-              nextNavigation: LoginPage(),
-              title: "Login",
+      body:  SingleChildScrollView(
+            child: Container(
+              alignment: Alignment.center,
+              // decoration: BoxDecoration(
+              //   gradient: LinearGradient(
+              //       begin: Alignment.topRight,
+              //       end: Alignment.bottomLeft,
+              //       colors: [Constants.white, Constants.lightBlue]),
+              // ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image(
+                      width: 350,
+                      height: 350,
+                      image: AssetImage('assets/icons/coeuslogo_elipse.png')),
+                  Button(
+                    nextNavigation: LoginPage(),
+                    title: "Login",
+                  ),
+                  Button(
+                    nextNavigation: NewUser(),
+                    title: "Signup",
+                  )
+                ],
+              ),
             ),
-            Button(
-              nextNavigation: NewUser(),
-              title: "Signup",
-            )
-          ],
-        ),
-      ),
+          ),
     );
   }
 }
