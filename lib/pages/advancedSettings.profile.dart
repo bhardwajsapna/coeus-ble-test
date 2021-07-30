@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:coeus_v1/utils/advanced_settings_secure_storage.dart';
 import 'package:coeus_v1/utils/const.dart';
 import 'package:coeus_v1/widget/dropdown.dart';
