@@ -9,11 +9,14 @@ import 'package:coeus_v1/utils/const.dart';
 import 'package:coeus_v1/utils/user_secure_storage.dart';
 
 class LoginPage extends StatefulWidget {
+  String action = "";
+  LoginPage({required this.action});
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final controllerUserName = TextEditingController();
   final controllerPassword = TextEditingController();
   String? uname;
@@ -25,12 +28,16 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future init() async {
-    String? password = await UserSecureStorage.getPassword() ?? 'admin';
-    String? uname = await UserSecureStorage.getEmailId() ?? 'admin';
-    setState(() {
-      this.uname = uname;
-      this.password = password;
-    });
+    if (widget.action == 'logout') {
+      await UserSecureStorage.logOut();
+    } else {
+      String? password = await UserSecureStorage.getPassword() ?? 'admin';
+      String? uname = await UserSecureStorage.getEmailId() ?? 'admin';
+      setState(() {
+        this.uname = uname;
+        this.password = password;
+      });
+    }
   }
 
   void onLoginSubmit() async {
@@ -68,29 +75,32 @@ class _LoginPageState extends State<LoginPage> {
         child: Container(
           child: ListView(
             children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(height: 100),
-                  TextWrapper(textstr: "Coeus", font: 34),
-                  InputField(
-                    title: "Email-id",
-                    font: 24,
-                    isPassword: false,
-                    controller: controllerUserName,
-                  ),
-                  InputField(
-                    title: "Password",
-                    font: 24,
-                    isPassword: true,
-                    controller: controllerPassword,
-                  ),
-                  Button(
-                    title: "Login",
-                    onTapFunction: onLoginSubmit,
-                  ),
-                ],
+              Form(
+                key: _key,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(height: 100),
+                    TextWrapper(textstr: "Coeus", font: 34),
+                    InputField(
+                      title: "Email-id",
+                      font: 24,
+                      isPassword: false,
+                      controller: controllerUserName,
+                    ),
+                    InputField(
+                      title: "Password",
+                      font: 24,
+                      isPassword: true,
+                      controller: controllerPassword,
+                    ),
+                    Button(
+                      title: "Login",
+                      onTapFunction: onLoginSubmit,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

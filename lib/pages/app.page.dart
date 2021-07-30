@@ -1,4 +1,6 @@
+import 'package:coeus_v1/appState/loginState.dart';
 import 'package:coeus_v1/pages/advancedSettings.profile.dart';
+import 'package:coeus_v1/pages/dashboard.page.dart';
 import 'package:coeus_v1/pages/login.page.dart';
 import 'package:coeus_v1/pages/newuser.page.dart';
 import 'package:coeus_v1/utils/advanced_settings_secure_storage.dart';
@@ -7,6 +9,7 @@ import 'package:coeus_v1/utils/dashboard_secure_storage.dart';
 import 'package:coeus_v1/widget/button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class OpenApp extends StatefulWidget {
   const OpenApp({Key? key}) : super(key: key);
@@ -38,33 +41,41 @@ class _OpenAppState extends State<OpenApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        alignment: Alignment.center,
-        // decoration: BoxDecoration(
-        //   gradient: LinearGradient(
-        //       begin: Alignment.topRight,
-        //       end: Alignment.bottomLeft,
-        //       colors: [Constants.white, Constants.lightBlue]),
-        // ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image(
-                width: 350,
-                height: 350,
-                image: AssetImage('assets/icons/coeuslogo_elipse.png')),
-            Button(
-              nextNavigation: LoginPage(),
-              title: "Login",
+    return Consumer<LoginStateProvider>(builder: (context, data, child) {
+      print(data.appState);
+     if (data.appState == AppState.LOGIN_FAILURE) {
+        return Scaffold(
+          body: Container(
+            alignment: Alignment.center,
+            // decoration: BoxDecoration(
+            //   gradient: LinearGradient(
+            //       begin: Alignment.topRight,
+            //       end: Alignment.bottomLeft,
+            //       colors: [Constants.white, Constants.lightBlue]),
+            // ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image(
+                    width: 350,
+                    height: 350,
+                    image: AssetImage('assets/icons/coeuslogo_elipse.png')),
+                Button(
+                  nextNavigation: LoginPage(action: 'Login',),
+                  title: "Login",
+                ),
+                Button(
+                  nextNavigation: NewUser(),
+                  title: "Signup",
+                )
+              ],
             ),
-            Button(
-              nextNavigation: NewUser(),
-              title: "Signup",
-            )
-          ],
-        ),
-      ),
-    );
+          ),
+        );
+      } else if (data.appState == AppState.LOGIN_SUCCESS) {
+        return Dashboard();
+      }
+      return Center(child: CircularProgressIndicator());
+    });
   }
 }

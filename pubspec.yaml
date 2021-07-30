@@ -34,6 +34,8 @@ dependencies:
   direct_select: ^2.0.0
   grouped_list: ^4.0.0
   flutter_secure_storage: ^4.1.0
+  provider: ^5.0.0
+  shared_preferences: ^2.0.6
 
 dev_dependencies:
   flutter_test:

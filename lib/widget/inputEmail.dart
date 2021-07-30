@@ -25,7 +25,13 @@ class _InputFieldState extends State<InputField> {
       child: Container(
         height: widget.font! * 2,
         width: MediaQuery.of(context).size.width,
-        child: TextField(
+        child: TextFormField(
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'Please enter username';
+            }
+            return null;
+          },
           enabled: widget.isEditable,
           controller: widget.controller,
           style: TextStyle(

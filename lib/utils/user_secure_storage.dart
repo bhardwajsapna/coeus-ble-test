@@ -11,6 +11,7 @@ class UserSecureStorage {
   static const _keyMobileNumber = 'mobilenumber';
   static const _keyDOB = 'dob';
   static const _keyGender = 'gender';
+  static const _keyLogOut = 'logout';
 
   static Future setEmailId(String username) async =>
       await _storage.write(key: _keyUsername, value: username);
@@ -87,5 +88,9 @@ class UserSecureStorage {
     String? temp = await _storage.read(key: _keyGender);
     print("outuserseecure Gender:" + temp!);
     return temp;
+  }
+
+  static Future logOut() async {
+    await _storage.deleteAll();
   }
 }

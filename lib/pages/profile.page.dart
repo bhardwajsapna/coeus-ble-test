@@ -1,11 +1,14 @@
+import 'package:coeus_v1/appState/loginState.dart';
 import 'package:coeus_v1/pages/advancedSettings.profile.dart';
 import 'package:coeus_v1/pages/deviceinfo.page.dart';
+import 'package:coeus_v1/pages/login.page.dart';
 import 'package:coeus_v1/pages/personal.profile.page.dart';
 import 'package:coeus_v1/pages/scheduling.profile.dart';
 import 'package:coeus_v1/pages/support.profile.dart';
 import 'package:coeus_v1/utils/const.dart';
 import 'package:coeus_v1/widget/button.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -42,6 +45,10 @@ class ProfilePage extends StatelessWidget {
         Button(
             title: "Device Info",
             nextNavigation: DeviceInfoProfilePage(),
+            width: MediaQuery.of(context).size.width),
+        Button(
+            title: "Log Out",
+            nextNavigation: LoginPage(action: 'logout'),
             width: MediaQuery.of(context).size.width),
       ],
     ));

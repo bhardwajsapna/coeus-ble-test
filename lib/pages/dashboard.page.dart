@@ -38,7 +38,7 @@ class _DashboardState extends State<Dashboard> {
         // the App.build method, and use it to set our appbar title.
         title: Text("Coeus"),
       ),
-      body: child,
+      body: SingleChildScrollView(child: child),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _index,
         onTap: (int index) => setState(() => _index = index),
