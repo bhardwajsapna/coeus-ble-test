@@ -1,4 +1,0 @@
-#Fri Jul 30 11:53:32 IST 2021
-base.0=D\:\\Programms\\Android\\Flutter\\coeus-app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-renamed.0=classes.dex
-path.0=classes.dex

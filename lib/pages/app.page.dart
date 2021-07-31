@@ -1,10 +1,7 @@
 import 'package:coeus_v1/appState/loginState.dart';
-import 'package:coeus_v1/pages/advancedSettings.profile.dart';
 import 'package:coeus_v1/pages/dashboard.page.dart';
 import 'package:coeus_v1/pages/login.page.dart';
 import 'package:coeus_v1/pages/newuser.page.dart';
-import 'package:coeus_v1/utils/advanced_settings_secure_storage.dart';
-import 'package:coeus_v1/utils/const.dart';
 import 'package:coeus_v1/utils/dashboard_secure_storage.dart';
 import 'package:coeus_v1/widget/button.dart';
 import 'package:flutter/cupertino.dart';

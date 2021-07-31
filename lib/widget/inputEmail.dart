@@ -28,7 +28,7 @@ class _InputFieldState extends State<InputField> {
         child: TextFormField(
           validator: (value) {
             if (value!.isEmpty) {
-              return 'Please enter username';
+              return 'Please enter ${widget.title}';
             }
             return null;
           },

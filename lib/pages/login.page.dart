@@ -1,3 +1,4 @@
+import 'package:coeus_v1/pages/scheduling.profile.dart';
 import 'package:flutter/material.dart';
 import 'package:coeus_v1/widget/button.dart';
 import 'package:coeus_v1/widget/first.dart';
@@ -42,70 +43,57 @@ class _LoginPageState extends State<LoginPage> {
 
   void onLoginSubmit() async {
     bool isvalid = false;
-    if (this.uname == controllerUserName.text) {
-      if (this.password == controllerPassword.text) {
-        isvalid = true;
-        print("success");
+    if (_key.currentState!.validate()) {
+      if (this.uname == controllerUserName.text) {
+        if (this.password == controllerPassword.text) {
+          isvalid = true;
+          print("success");
+        } else {
+          isvalid = false;
+        }
       } else {
         isvalid = false;
       }
-    } else {
-      isvalid = false;
-    }
-    if (isvalid) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Dashboard()));
-    } else {
-      controllerUserName.text = "";
-      controllerPassword.text = "";
+      if (isvalid) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Dashboard()));
+      } else {
+        controllerUserName.text = "";
+        controllerPassword.text = "";
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        alignment: Alignment.center,
-        // decoration: BoxDecoration(
-        //   gradient: LinearGradient(
-        //       begin: Alignment.topRight,
-        //       end: Alignment.bottomLeft,
-        //       colors: [Constants.white, Constants.lightBlue]),
-        // ),
-        child: Container(
-          child: ListView(
-            children: <Widget>[
-              Form(
-                key: _key,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(height: 100),
-                    TextWrapper(textstr: "Coeus", font: 34),
-                    InputField(
-                      title: "Email-id",
-                      font: 24,
-                      isPassword: false,
-                      controller: controllerUserName,
-                    ),
-                    InputField(
-                      title: "Password",
-                      font: 24,
-                      isPassword: true,
-                      controller: controllerPassword,
-                    ),
-                    Button(
-                      title: "Login",
-                      onTapFunction: onLoginSubmit,
-                    ),
-                  ],
-                ),
-              ),
-            ],
+      resizeToAvoidBottomInset: false,
+        body: Form(
+      key: _key,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          SizedBox(height: 100),
+          TextWrapper(textstr: "Coeus", font: 34),
+          InputField(
+            title: "Email-id",
+            font: 24,
+            isPassword: false,
+            controller: controllerUserName,
           ),
-        ),
+          InputField(
+            title: "Password",
+            font: 24,
+            isPassword: true,
+            controller: controllerPassword,
+          ),
+          Button(
+            title: "Login",
+            onTapFunction: onLoginSubmit,
+          ),
+        ],
       ),
-    );
+    ));
   }
 }

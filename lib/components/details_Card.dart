@@ -19,7 +19,7 @@ class _Detailed_CardState extends State<Detailed_Card> {
   int count = 0;
   String key = 'ecg';
   List<int>? key_data;
-  Timer? timer;
+  //Timer? timer;
 
   Future loadSalesData() async {
     final String jsonString = await getJsonFromAssets();
@@ -27,7 +27,7 @@ class _Detailed_CardState extends State<Detailed_Card> {
     data = get_data(key);
     count = data!.length;
     key_data = chartData!.medicalValues![key];
-    timer = Timer.periodic(const Duration(milliseconds: 10), addChartData);
+   // timer = Timer.periodic(const Duration(milliseconds: 10), addChartData);
   }
 
   Future<String> getJsonFromAssets() async {
@@ -40,14 +40,20 @@ class _Detailed_CardState extends State<Detailed_Card> {
     loadSalesData();
   }
 
-  void addChartData(Timer timer) {
-    setState(() {
-      data!.removeAt(0);
-      data!.add(Point(
-          timestamp: count.toString(), value: key_data!.elementAt(count)));
-      count = count + 1;
-    });
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
+
+  // void addChartData(Timer timer) {
+  //   setState(() {
+  //     data!.removeAt(0);
+  //     data!.add(Point(
+  //         timestamp: count.toString(), value: key_data!.elementAt(count)));
+  //     count = count + 1;
+  //   });
+  // }
 
   List<Point> get_data(key) {
     final data = chartData!.medicalValues![key];

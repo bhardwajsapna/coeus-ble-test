@@ -5,7 +5,6 @@ import 'package:coeus_v1/pages/login.page.dart';
 import 'package:coeus_v1/pages/personal.profile.page.dart';
 import 'package:coeus_v1/pages/scheduling.profile.dart';
 import 'package:coeus_v1/pages/support.profile.dart';
-import 'package:coeus_v1/utils/const.dart';
 import 'package:coeus_v1/widget/button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +21,8 @@ class ProfilePage extends StatelessWidget {
         //           end: Alignment.bottomLeft,
         //           colors: [Constants.white, Constants.lightBlue]),
         //     ),
-        child: Column(
+        child: SingleChildScrollView(
+          child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -51,6 +51,7 @@ class ProfilePage extends StatelessWidget {
             nextNavigation: LoginPage(action: 'logout'),
             width: MediaQuery.of(context).size.width),
       ],
-    ));
+    ),
+        ));
   }
 }
