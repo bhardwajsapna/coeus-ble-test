@@ -29,7 +29,7 @@ class _DashboardState extends State<Dashboard> {
         break;
 
       case 1:
-        child = ConnectDevice();
+        child = DiscoveryPage();
     }
 
     return Scaffold(
