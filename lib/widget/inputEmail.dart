@@ -1,5 +1,7 @@
 import 'package:coeus_v1/utils/const.dart';
+import 'package:coeus_v1/pages/newuser.page.dart';
 import 'package:flutter/material.dart';
+import 'package:string_validator/string_validator.dart';
 
 class InputField extends StatefulWidget {
   TextEditingController? controller;
@@ -29,8 +31,24 @@ class _InputFieldState extends State<InputField> {
           validator: (value) {
             if (value!.isEmpty) {
               return 'Please enter ${widget.title}';
+            } else {
+              switch (widget.title) {
+                case "Email-id":
+                  {
+                    if (!isEmail(value!)) return 'Enter Valid Email';
+                  }
+
+                  break;
+                   case "Mobile No." : 
+                   {
+                      if (value.length != 10)
+                        return 'Mobile Number must be of 10 digit';
+                    }
+                  
+                  break;
+                default:
+              }
             }
-            return null;
           },
           enabled: widget.isEditable,
           controller: widget.controller,

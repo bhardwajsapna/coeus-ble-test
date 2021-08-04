@@ -3,6 +3,8 @@ import 'package:coeus_v1/widget/button.dart';
 import 'package:coeus_v1/widget/date_picker.dart';
 import 'package:coeus_v1/widget/gender.dart';
 import 'package:coeus_v1/widget/inputEmail.dart';
+import 'package:coeus_v1/widget/inputEmail.dart';
+
 import 'package:coeus_v1/widget/textLogin.dart';
 import 'package:flutter/material.dart';
 
@@ -67,12 +69,14 @@ class _NewUserState extends State<NewUser> {
                 title: "Email-id",
                 font: 20,
                 isPassword: false,
+                //validator: validateEmail,
                 controller: controllerUserName,
               ),
               InputField(
                 title: "Mobile No.",
                 font: 22,
                 isPassword: false,
+                //validator: validateMobile,
                 controller: controllerMobileNumber,
               ),
               DatePickerWidget(title: "DoB"),
