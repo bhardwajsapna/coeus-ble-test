@@ -1,5 +1,6 @@
 import 'package:coeus_v1/appState/loginState.dart';
 import 'package:coeus_v1/pages/advancedSettings.profile.dart';
+import 'package:coeus_v1/pages/app.page.dart';
 import 'package:coeus_v1/pages/deviceinfo.page.dart';
 import 'package:coeus_v1/pages/login.page.dart';
 import 'package:coeus_v1/pages/personal.profile.page.dart';
@@ -22,36 +23,36 @@ class ProfilePage extends StatelessWidget {
         //           colors: [Constants.white, Constants.lightBlue]),
         //     ),
         child: SingleChildScrollView(
-          child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Button(
-            title: "Personal Info",
-            nextNavigation: PersonalProfilePage(),
-            width: MediaQuery.of(context).size.width),
-        Button(
-            title: "Caregiver Details",
-            nextNavigation: SupportProfilePage(),
-            width: MediaQuery.of(context).size.width),
-        Button(
-            title: "Monitoring Schedule",
-            nextNavigation: SchedulingProfilePage(),
-            width: MediaQuery.of(context).size.width),
-        Button(
-            title: "Advanced Settings",
-            nextNavigation: AdvancedSettingsProfilePage(),
-            width: MediaQuery.of(context).size.width),
-        Button(
-            title: "Device Info",
-            nextNavigation: DeviceInfoProfilePage(),
-            width: MediaQuery.of(context).size.width),
-        Button(
-            title: "Log Out",
-            nextNavigation: LoginPage(action: 'logout'),
-            width: MediaQuery.of(context).size.width),
-      ],
-    ),
-        ));
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Button(
+              title: "Personal Info",
+              nextNavigation: PersonalProfilePage(),
+              width: MediaQuery.of(context).size.width),
+          Button(
+              title: "Caregiver Details",
+              nextNavigation: SupportProfilePage(),
+              width: MediaQuery.of(context).size.width),
+          Button(
+              title: "Monitoring Schedule",
+              nextNavigation: SchedulingProfilePage(),
+              width: MediaQuery.of(context).size.width),
+          Button(
+              title: "Advanced Settings",
+              nextNavigation: AdvancedSettingsProfilePage(),
+              width: MediaQuery.of(context).size.width),
+          Button(
+              title: "Device Info",
+              nextNavigation: DeviceInfoProfilePage(),
+              width: MediaQuery.of(context).size.width),
+          Button(
+              title: "Log Out",
+              nextNavigation: OpenApp(),
+              width: MediaQuery.of(context).size.width),
+        ],
+      ),
+    ));
   }
 }

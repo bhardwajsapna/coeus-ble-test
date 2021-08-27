@@ -55,4 +55,15 @@ class Constants {
 
   static double headerHeight = 228.5;
   static double paddingSide = 10.0;
+
+/*
+23 aug 21 - sreeni 
+
+below variables are the global variables which are required to be used for api calls
+TODO list
+they are to be initialised during login page after successfull login.
+These data are saved in secure storage. 
+*/
+  static String userId = '611ab9bc5322c3653e8064b3';
+  static String deviceId = '123';
 }

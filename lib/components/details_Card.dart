@@ -22,16 +22,23 @@ class _Detailed_CardState extends State<Detailed_Card> {
   //Timer? timer;
 
   Future loadSalesData() async {
+    /*
+    22 aug - check the button which has called this page. Accordingly the file will be called.
+    should graph show 1 day or 1 month.?  
+    */
     final String jsonString = await getJsonFromAssets();
     chartData = bioValuesFromJson(jsonString);
     data = get_data(key);
     count = data!.length;
     key_data = chartData!.medicalValues![key];
-   // timer = Timer.periodic(const Duration(milliseconds: 10), addChartData);
+    // timer = Timer.periodic(const Duration(milliseconds: 10), addChartData);
   }
 
   Future<String> getJsonFromAssets() async {
-    return await rootBundle.loadString('assets/data.json');
+// this is new code
+   // return await rootBundle.loadString('assets/tempRecords.json');
+// this is old code
+     return await rootBundle.loadString('assets/data.json');
   }
 
   @override
@@ -71,7 +78,7 @@ class _Detailed_CardState extends State<Detailed_Card> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Syncfusion Flutter chart'),
+          title: const Text('Data Chart'),
         ),
         body: Column(
           children: [
@@ -126,11 +133,40 @@ class _Detailed_CardState extends State<Detailed_Card> {
                     }
                   }),
             ),
+            /*
+            ns on 08 aug 21
+            these buttons were added so that the content of the graph can be changed as per user request
+            update the graph
+            */
             Button(
+              onTapFunction: () => {Navigator.pop(context)},
+              title: "1 Day",
+              // width: 40,
+              width: MediaQuery.of(context).size.width,
+            ),
+            Button(
+              onTapFunction: () => {Navigator.pop(context)},
+              title: "7 Days",
+              //width: 25, // this has tobe dne approrrri
+              width: MediaQuery.of(context).size.width,
+            ),
+            /* Button(
+              onTapFunction: () => {Navigator.pop(context)},
+              title: "15 Day",
+              width: MediaQuery.of(context).size.width,
+            ),
+            */
+            Button(
+              onTapFunction: () => {Navigator.pop(context)},
+              title: "1 Month",
+              width: MediaQuery.of(context).size.width,
+            ),
+            /* Button(
               onTapFunction: () => {Navigator.pop(context)},
               title: "OK",
               width: MediaQuery.of(context).size.width,
             )
+            */
           ],
         ));
   }

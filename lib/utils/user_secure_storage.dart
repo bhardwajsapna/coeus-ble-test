@@ -63,8 +63,8 @@ class UserSecureStorage {
     return temp;
   }
 
-  static Future setDOB(DateTime val) async {
-    final temp = val.toIso8601String();
+  static Future setDOB(DateTime? val) async {
+    final temp = val!.toIso8601String();
     print("inuserseecure DOB:" + temp);
     await _storage.write(key: _keyDOB, value: temp);
   }

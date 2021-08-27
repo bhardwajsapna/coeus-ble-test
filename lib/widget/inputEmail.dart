@@ -39,12 +39,16 @@ class _InputFieldState extends State<InputField> {
                   }
 
                   break;
-                   case "Mobile No." : 
-                   {
-                      if (value.length != 10)
-                        return 'Mobile Number must be of 10 digit';
-                    }
-                  
+                case "Mobile No.":
+                  {
+                    /*
+                     06 aug 21 - ns
+                     this is not checking the numbers
+                     */
+                    if (value.length != 10)
+                      return 'Mobile Number must be of 10 digit';
+                  }
+
                   break;
                 default:
               }

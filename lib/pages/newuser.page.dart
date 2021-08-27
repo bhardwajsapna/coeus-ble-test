@@ -1,8 +1,11 @@
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:coeus_v1/utils/user_secure_storage.dart';
 import 'package:coeus_v1/widget/button.dart';
 import 'package:coeus_v1/widget/date_picker.dart';
 import 'package:coeus_v1/widget/gender.dart';
-import 'package:coeus_v1/widget/inputEmail.dart';
 import 'package:coeus_v1/widget/inputEmail.dart';
 
 import 'package:coeus_v1/widget/textLogin.dart';
@@ -30,6 +33,8 @@ class _NewUserState extends State<NewUser> {
   }
 
   void register_user() async {
+    print("we are here");
+    log("we are here");
     if (_key.currentState!.validate()) {
       await UserSecureStorage.setEmailId(controllerUserName.text);
       await UserSecureStorage.setPassword(controllerPassword.text);

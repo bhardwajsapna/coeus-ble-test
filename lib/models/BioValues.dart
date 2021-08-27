@@ -25,6 +25,10 @@ class BioValues {
   String? startTime;
   Map<String, int>? samplingInfo;
 
+/*
+22 aug 21
+below function has to be updated for reading the new json file format
+*/
   factory BioValues.fromJson(Map<String, dynamic> json) => BioValues(
         userId: json["user_id"],
         deviceId: json["device_id"],

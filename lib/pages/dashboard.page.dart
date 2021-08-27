@@ -46,11 +46,19 @@ class _DashboardState extends State<Dashboard> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
+            /*
+06 aug 21
+ns - changed colur from transperent to light blue 
+*/
             backgroundColor: Colors.lightBlue,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.watch),
             label: 'Connect Device',
+            /*
+06 aug 21
+ns - changed colur from transperent to light blue 
+*/
             backgroundColor: Colors.lightBlue,
           ),
           BottomNavigationBarItem(
