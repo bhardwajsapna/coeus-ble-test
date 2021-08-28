@@ -30,7 +30,7 @@ class StackedBarChart extends StatelessWidget {
     return new charts.BarChart(
             seriesList,
             animate:animate,
-            barGroupingType:charts.BarGroupingType.stacked,
+            barGroupingType:charts.BarGroupingType.groupedStacked,
     );
   }
 }
