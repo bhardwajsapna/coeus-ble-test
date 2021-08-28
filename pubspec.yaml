@@ -36,6 +36,8 @@ dependencies:
   flutter_secure_storage: ^4.1.0
   flutter_bluetooth_serial: ^0.3.2
   flutter_blue: ^0.8.0
+  email_validator: ^2.0.1
+  charts_flutter: ^0.11.0
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +58,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/data.json
+    - assets/tempRecords.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

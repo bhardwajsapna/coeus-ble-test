@@ -7,12 +7,17 @@ class InputField extends StatefulWidget {
   String? title;
   bool? isPassword;
   bool? isEditable = true;
+  Function(String)? onChanged ;
+  String? Function(String?)? validator   ;
   InputField(
       {this.title,
       this.font,
       this.isPassword,
       this.controller,
-      this.isEditable});
+      this.isEditable,
+      this.validator,
+      this.onChanged,
+      });
   @override
   _InputFieldState createState() => _InputFieldState();
 }
@@ -25,8 +30,10 @@ class _InputFieldState extends State<InputField> {
       child: Container(
         height: widget.font! * 2,
         width: MediaQuery.of(context).size.width,
-        child: TextField(
+        child: TextFormField(
+          validator: widget.validator,
           enabled: widget.isEditable,
+          onChanged: widget.onChanged,
           controller: widget.controller,
           style: TextStyle(
             fontSize: 1 * widget.font!,

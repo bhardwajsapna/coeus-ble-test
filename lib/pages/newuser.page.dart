@@ -4,6 +4,7 @@ import 'package:coeus_v1/widget/date_picker.dart';
 import 'package:coeus_v1/widget/gender.dart';
 import 'package:coeus_v1/widget/inputEmail.dart';
 import 'package:coeus_v1/widget/textLogin.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 class NewUser extends StatefulWidget {
@@ -19,6 +20,10 @@ class _NewUserState extends State<NewUser> {
   final controllerSecondName = TextEditingController();
   final controllerMobileNumber = TextEditingController();
   final controllerGender = TextEditingController();
+  static const validSymbols =  "!\"#\$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+  bool isPassLong = false;
+  bool isPassNumber = false;
+  bool isPassSymbol = false;
 
   @override
   void initState() {
@@ -36,6 +41,22 @@ class _NewUserState extends State<NewUser> {
     await UserSecureStorage.setMobileNumber(controllerMobileNumber.text);
     await UserSecureStorage.setGender(controllerGender.text);
     Navigator.pop(context);
+  }
+  bool passIsValid(String value){
+    String  pattern = '^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[$validSymbols]).{5,}\$';
+    RegExp regExp = new RegExp(pattern);
+    return regExp.hasMatch(value);
+  }
+  bool passHaveNumber(String value){
+    String  pattern = r'^(?=.*?[0-9]).{1,}$';
+    RegExp regExp = new RegExp(pattern);
+    return regExp.hasMatch(value);
+  }
+
+  bool passHaveSymbol(String value){
+    String  pattern = '^(?=.*?[$validSymbols]).{1,}\$';
+    RegExp regExp = new RegExp(pattern);
+    return regExp.hasMatch(value);
   }
 
   @override
@@ -74,6 +95,7 @@ class _NewUserState extends State<NewUser> {
                     title: "Email-id",
                     font: 20,
                     isPassword: false,
+                    validator: (email) => EmailValidator.validate(email!)? null: "Invalid email address",
                     controller: controllerUserName,
                   ),
                   InputField(
@@ -100,12 +122,59 @@ class _NewUserState extends State<NewUser> {
                     font: 22,
                     isPassword: true,
                     controller: controllerPassword,
+                    onChanged: (val){
+                      setState(() {
+                        controllerPassword.text.length > 5 ?
+                        isPassLong = true :
+                        isPassLong = false;
+                        passHaveNumber(controllerPassword.text) ?
+                        isPassNumber = true :
+                        isPassNumber = false;
+                        passHaveSymbol(controllerPassword.text) ?
+                        isPassSymbol = true :
+                        isPassSymbol = false;
+                      });
+                    },
+
+                    validator: (String? value){
+                      if(value!.isEmpty) {
+                        return 'Please enter password';
+                      }
+                      if(!passIsValid(controllerPassword.text)) {
+                        return 'Password must be at least 5 characters long and consist of letters, numbers and symbols';
+                      }
+                      return null;
+                    },
                   ),
+
                   InputField(
                     title: "Re-enter Password",
                     font: 22,
                     isPassword: true,
                     controller: controllerRePassword,
+                    onChanged: (val){
+                      setState(() {
+                        controllerPassword.text.length > 5 ?
+                        isPassLong = true :
+                        isPassLong = false;
+                        passHaveNumber(controllerPassword.text) ?
+                        isPassNumber = true :
+                        isPassNumber = false;
+                        passHaveSymbol(controllerPassword.text) ?
+                        isPassSymbol = true :
+                        isPassSymbol = false;
+                      });
+                    },
+
+                    validator: (String? value){
+                      if(value!.isEmpty) {
+                        return 'Please enter password';
+                      }
+                      if(!passIsValid(controllerPassword.text)) {
+                        return 'Password must be at least 5 characters long and consist of letters, numbers and symbols';
+                      }
+                      return null;
+                    },
                   ),
                   Button(
                     onTapFunction: register_user,
