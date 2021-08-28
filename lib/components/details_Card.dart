@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:coeus_v1/models/BioValues.dart';
 import 'package:coeus_v1/models/TempValue.dart';
 import 'package:coeus_v1/widget/StackedBarChart.dart';
@@ -19,6 +21,7 @@ class _Detailed_CardState extends State<Detailed_Card> {
   Temperature? chartData;
   ChartSeriesController? _chartSeriesController;
   late List<Temprature> listdata;
+  late Map<int,List<Temprature>> listMap = HashMap();
   int count = 0;
   String key = 'samples';
   List<int>? key_data;
@@ -28,18 +31,36 @@ class _Detailed_CardState extends State<Detailed_Card> {
   Future loadSalesData() async {
     final String jsonString = await getJsonFromAssets();
     chartData = welcomeFromJson(jsonString);
-    listdata = get_data(key);
-    count = listdata.length;
+   // listdata = get_data(key);
+    for(int i=0;i<chartData!.tempValues.length;i++){
+    listMap.putIfAbsent(i, () => get_data(i));
+    }
+
+    //count = listdata.length;
 
 
-    seriesList = [
-      new charts.Series<Temprature, String>(
+    // seriesList = [
+    //   new charts.Series<Temprature, String>(
+    //     id: 'Temprature',
+    //     domainFn: (Temprature sales, _) => sales.time,
+    //     measureFn: (Temprature sales, _) => sales.temperature,
+    //     data: listdata,
+    // )
+    // ];
+
+
+
+
+    for(int i=0;i<chartData!.tempValues.length;i++){
+     seriesList.add( new charts.Series<Temprature,String>(
         id: 'Temprature',
         domainFn: (Temprature sales, _) => sales.time,
         measureFn: (Temprature sales, _) => sales.temperature,
-        data: listdata,
-    )
-    ];
+        data: listMap[i]!.toList(),
+      ));
+
+    }
+
 
 
     //key_data = chartData!.tempValues![key].sampleDate;
@@ -65,8 +86,8 @@ class _Detailed_CardState extends State<Detailed_Card> {
   //   });
   // }
 
-  List<Temprature> get_data(String key) {
-    final data = chartData!.tempValues[0];
+  List<Temprature> get_data(int key) {
+    final data = chartData!.tempValues[key];
 
 
     List<Temprature> l = [];
