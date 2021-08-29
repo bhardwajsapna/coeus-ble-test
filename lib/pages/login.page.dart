@@ -1,3 +1,4 @@
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:coeus_v1/widget/button.dart';
@@ -10,11 +11,14 @@ import 'package:coeus_v1/utils/const.dart';
 import 'package:coeus_v1/utils/user_secure_storage.dart';
 
 class LoginPage extends StatefulWidget {
+  String action = "";
+  LoginPage({required this.action});
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final controllerUserName = TextEditingController();
   final controllerPassword = TextEditingController();
   String? uname;
@@ -32,12 +36,16 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future init() async {
-    String? password = await UserSecureStorage.getPassword() ?? 'admin';
-    String? uname = await UserSecureStorage.getEmailId() ?? 'admin';
-    setState(() {
-      this.uname = uname;
-      this.password = password;
-    });
+    if (widget.action == 'logout') {
+      await UserSecureStorage.logOut();
+    } else {
+      String? password = await UserSecureStorage.getPassword() ?? 'admin';
+      String? uname = await UserSecureStorage.getEmailId() ?? 'admin';
+      setState(() {
+        this.uname = uname;
+        this.password = password;
+      });
+    }
   }
   bool passIsValid(String value){
     String  pattern = '^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[$validSymbols]).{5,}\$';
@@ -57,6 +65,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void onLoginSubmit() async {
+
     if(_formKey.currentState!.validate()){
       bool isvalid = false;
       if (this.uname == controllerUserName.text) {
@@ -144,10 +153,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
-
           ),
-        ),
+        ],
       ),
-    );
+    ));
   }
 }

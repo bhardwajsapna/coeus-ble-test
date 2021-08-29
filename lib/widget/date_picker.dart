@@ -5,7 +5,8 @@ import 'package:intl/intl.dart';
 
 class DatePickerWidget extends StatefulWidget {
   String title;
-  DatePickerWidget({required this.title});
+  TextEditingController? controller;
+  DatePickerWidget({required this.title, this.controller});
   @override
   _DatePickerWidgetState createState() => _DatePickerWidgetState();
 }
@@ -17,7 +18,8 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
     if (date == null) {
       return widget.title;
     } else {
-      return widget.title + ": " + DateFormat('MM/dd/yyyy').format(date!);
+      widget.controller!.text = DateFormat('yyyy-MM-dd').format(date!);
+      return widget.title + ": " + DateFormat('yyyy-MM-dd').format(date!);
       // return '${date.month}/${date.day}/${date.year}';
     }
   }
@@ -28,14 +30,17 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         text: getText(),
         onClicked: () => pickDate(context),
       );
-
+/*
+06 aug 21
+ns - changed start date to 1930 yrs 
+*/
   Future pickDate(BuildContext context) async {
     final initialDate = DateTime.now();
     final newDate = await showDatePicker(
       context: context,
       initialDate: date ?? initialDate,
-      firstDate: DateTime(DateTime.now().year - 5),
-      lastDate: DateTime(DateTime.now().year + 5),
+      firstDate: DateTime(1930),
+      lastDate: DateTime(DateTime.now().year + 1),
     );
 
     if (newDate == null) return;

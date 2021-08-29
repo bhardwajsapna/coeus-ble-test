@@ -29,8 +29,13 @@ class _Detailed_CardState extends State<Detailed_Card> {
    List<charts.Series<Temprature, int>> seriesList=[];
 
   Future loadSalesData() async {
+    /*
+    22 aug - check the button which has called this page. Accordingly the file will be called.
+    should graph show 1 day or 1 month.?  
+    */
     final String jsonString = await getJsonFromAssets();
     chartData = welcomeFromJson(jsonString);
+
     seriesList.add( new charts.Series<Temprature,int>(
       id: 'Temprature',
       colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
@@ -51,6 +56,7 @@ class _Detailed_CardState extends State<Detailed_Card> {
 
   Future<String> getJsonFromAssets() async {
     return await rootBundle.loadString('assets/tempRecords.json');
+
   }
 
   @override
@@ -76,6 +82,7 @@ class _Detailed_CardState extends State<Detailed_Card> {
 
     }
     return l;
+
   }
   List<Temprature> get_dataMin() {
     List<Temprature> l = [];
@@ -91,6 +98,14 @@ class _Detailed_CardState extends State<Detailed_Card> {
 
       print(l.length);
 
+
+  List<Temprature> get_data(int key) {
+    final data = chartData!.tempValues[key];
+
+    List<Temprature> l = [];
+    for (int i = 0; i < data.samples.length; i++) {
+      l.add(Temprature(
+          temperature: data.samples[i].temp, time: data.samples[i].time));
     }
     return l;
   }
@@ -99,7 +114,7 @@ class _Detailed_CardState extends State<Detailed_Card> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Syncfusion Flutter chart'),
+          title: const Text('Data Chart'),
         ),
         body: Column(
           children: [
@@ -157,11 +172,40 @@ class _Detailed_CardState extends State<Detailed_Card> {
                     }
                   }),
             ),
+            /*
+            ns on 08 aug 21
+            these buttons were added so that the content of the graph can be changed as per user request
+            update the graph
+            */
             Button(
+              onTapFunction: () => {Navigator.pop(context)},
+              title: "1 Day",
+              // width: 40,
+              width: MediaQuery.of(context).size.width,
+            ),
+            Button(
+              onTapFunction: () => {Navigator.pop(context)},
+              title: "7 Days",
+              //width: 25, // this has tobe dne approrrri
+              width: MediaQuery.of(context).size.width,
+            ),
+            /* Button(
+              onTapFunction: () => {Navigator.pop(context)},
+              title: "15 Day",
+              width: MediaQuery.of(context).size.width,
+            ),
+            */
+            Button(
+              onTapFunction: () => {Navigator.pop(context)},
+              title: "1 Month",
+              width: MediaQuery.of(context).size.width,
+            ),
+            /* Button(
               onTapFunction: () => {Navigator.pop(context)},
               title: "OK",
               width: MediaQuery.of(context).size.width,
             )
+            */
           ],
         ));
   }

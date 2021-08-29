@@ -1,8 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:coeus_v1/components/summary_card.dart';
 import 'package:coeus_v1/utils/const.dart';
 import 'package:coeus_v1/utils/dashboard_secure_storage.dart';
 import 'package:coeus_v1/utils/user_secure_storage.dart';
-import 'package:coeus_v1/widget/StackedBarChart.dart';
+
+import 'package:coeus_v1/widget/button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -45,6 +49,54 @@ class _HomePageState extends State<HomePage> {
       this.temperature = temperature;
       this.username = username;
     });
+  }
+
+  callAPI() {
+    print("we are here ");
+    debugPrint("yaarr");
+
+    var url = "http://192.168.0.106:5000/userRegistration";
+    Map jsonMap = {
+      "firstName": "ss",
+      "secondName": "ss",
+      "DOB": {"date": "1995-02-20T18:30:00Z"},
+      "mobileNo": "2121212121",
+      "emergencyContact": {
+        "firstName": "Shiva",
+        "lastName": "kailash",
+        "contactNumber": "1111111",
+        "emailId": "sLs@kilasa.com"
+      },
+      "emailId": "sLs@kilasa.com",
+      "gender": "Male",
+      "password": "123",
+      "doctorId": "123",
+      "caretakerId": "333",
+      "deviceId": "coeus_v1_777",
+      "activeUser": true,
+      "recordList": [
+        {
+          "creationDT": "26 Apr 95",
+          "fullDT": "30 Apr 95",
+          "recordName": "sree_r1"
+        },
+        {"creationDT": "30 Apr 95", "fullDT": "0", "recordName": "sree_r2"}
+      ]
+    };
+    apiRequest(url, jsonMap);
+  }
+
+  Future<String> apiRequest(String url, Map jsonMap) async {
+    HttpClient httpClient = new HttpClient();
+    HttpClientRequest request = await httpClient.postUrl(Uri.parse(url));
+    request.headers.set('content-type', 'application/json');
+    request.add(utf8.encode(json.encode(jsonMap)));
+    HttpClientResponse response = await request.close();
+    // todo - you should check the response.statusCode
+    String reply = await response.transform(utf8.decoder).join();
+    httpClient.close();
+    print(reply);
+    return reply;
   }
 
   @override
@@ -94,14 +146,14 @@ class _HomePageState extends State<HomePage> {
                         title: "Footsteps",
                         value: this.footsteps.toString(),
                         unit: "steps",
-                        color: Constants.transparent),
+                        color: Constants.lightBlue),
                     SizedBox(width: 10),
                     SummaryCard(
                         image: AssetImage('assets/icons/sleep.png'),
                         title: "Sleep",
                         value: this.sleep.toString(),
                         unit: "hours",
-                        color: Constants.transparent),
+                        color: Constants.lightBlue),
                   ],
                 ),
                 SizedBox(height: 20),
@@ -142,6 +194,14 @@ class _HomePageState extends State<HomePage> {
                         color: Constants.lightBlue),
                   ],
                 ),
+                /*  Row(
+                  children: [
+                    Button(
+                      onTapFunction: callAPI,
+                      title: "API Check",
+                    )
+                  ],
+                ),*/
               ],
             ),
           ),

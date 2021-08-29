@@ -29,15 +29,13 @@ class SummaryCard extends StatelessWidget {
               (Constants.paddingSide * 2 + Constants.paddingSide / 2)) /
           2);
     }
-    return Align(
-      alignment: Alignment.topLeft,
-      child: InkWell(
-        onTap: () => {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Detailed_Card()))
-        },
-        child: Container(
-          // margin: const EdgeInsets.only(right: 10.0),
+    return InkWell(
+      onTap: () => {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Detailed_Card()))
+      },
+      child: Container(
+          padding: EdgeInsets.all(15.0),
           width: _width,
           decoration: new BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
@@ -45,75 +43,112 @@ class SummaryCard extends StatelessWidget {
             color: color,
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                width: _width,
-                child: Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 10,
-                      ),
-                      // Icon and Hearbeat
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            child: Text(
-                              title,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontSize: 18, color: Constants.textDark),
-                            ),
+            children: [
+              Text(
+                title,
+                style: TextStyle(fontSize: 18, color: Constants.textDark),
+              ),
+              Image(width: 40, height: 40, image: image),
+              value == ""
+                  ? SizedBox(
+                      height: 0,
+                      width: 0,
+                    )
+                  : Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          value,
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w900,
+                            color: Constants.textDark,
                           ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Image(width: 40, height: 40, image: image),
-                        ],
-                      ),
-                      (value != "")
-                          ? Column(
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      value,
-                                      style: TextStyle(
-                                        fontSize: 36,
-                                        fontWeight: FontWeight.w900,
-                                        color: Constants.textDark,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text(
-                                      unit,
-                                      style: TextStyle(
-                                          fontSize: 24,
-                                          color: Constants.textDark),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            )
-                          : Container(),
-                    ],
-                  ),
-                ),
-              )
+                        ),
+                        Text(
+                          ' ' + unit,
+                          style: TextStyle(
+                              fontSize: 24, color: Constants.textDark),
+                        ),
+                      ],
+                    ),
             ],
+          )
+          //   Column(
+          //     mainAxisAlignment: MainAxisAlignment.start,
+          //     crossAxisAlignment: CrossAxisAlignment.center,
+          //     children: <Widget>[
+          //       Container(
+          //         width: _width,
+          //         child: Padding(
+          //           padding: EdgeInsets.all(20.0),
+          //           child: Column(
+          //             crossAxisAlignment: CrossAxisAlignment.center,
+          //             mainAxisAlignment: MainAxisAlignment.start,
+          //             children: <Widget>[
+          //               SizedBox(
+          //                 height: 10,
+          //               ),
+          //               // Icon and Hearbeat
+          //               Column(
+          //                 mainAxisAlignment: MainAxisAlignment.start,
+          //                 children: <Widget>[
+          //                   Container(
+          // child: Text(
+          //   title,
+          //   overflow: TextOverflow.ellipsis,
+          //   style: TextStyle(
+          //       fontSize: 18, color: Constants.textDark),
+          // ),
+          //                   ),
+          //                   SizedBox(
+          //                     height: 5,
+          //                   ),
+          //                   Image(width: 40, height: 40, image: image),
+          //                 ],
+          //               ),
+          //               (value != "")
+          //                   ? Column(
+          //                       children: [
+          // Row(
+          //   crossAxisAlignment: CrossAxisAlignment.center,
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     Expanded(
+          //       child: Text(
+          //         value,
+          //         style: TextStyle(
+          //           fontSize: 36,
+          //           fontWeight: FontWeight.w900,
+          //           color: Constants.textDark,
+          //         ),
+          //       ),
+          //     ),
+          //     SizedBox(
+          //       width: 5,
+          //     ),
+          //     Expanded(
+          //       child: Text(
+          //         unit,
+          //         style: TextStyle(
+          //             fontSize: 24,
+          //             color: Constants.textDark),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          //                       ],
+          //                     )
+          //                   : Container(),
+          //             ],
+          //           ),
+          //         ),
+          //       )
+          //     ],
+          //   ),
+          // ),
           ),
-        ),
-      ),
     );
   }
 }

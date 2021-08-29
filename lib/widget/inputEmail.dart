@@ -1,5 +1,7 @@
 import 'package:coeus_v1/utils/const.dart';
+import 'package:coeus_v1/pages/newuser.page.dart';
 import 'package:flutter/material.dart';
+import 'package:string_validator/string_validator.dart';
 
 class InputField extends StatefulWidget {
   TextEditingController? controller;

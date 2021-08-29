@@ -23,7 +23,7 @@ class UserOld extends StatelessWidget {
               padding: EdgeInsets.all(0),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginPage()));
+                    MaterialPageRoute(builder: (context) => LoginPage(action: '',)));
               },
               child: Text(
                 'Sign in',

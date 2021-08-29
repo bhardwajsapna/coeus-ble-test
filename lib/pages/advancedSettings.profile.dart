@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:coeus_v1/services/api.dart';
 import 'package:coeus_v1/utils/advanced_settings_secure_storage.dart';
 import 'package:coeus_v1/utils/const.dart';
 import 'package:coeus_v1/widget/dropdown.dart';
@@ -5,6 +8,8 @@ import 'package:coeus_v1/widget/scroller.dart';
 import 'package:flutter/material.dart';
 import 'package:coeus_v1/widget/button.dart';
 import 'package:coeus_v1/widget/textLogin.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/io_client.dart';
 
 class AdvancedSettingsProfilePage extends StatefulWidget {
   @override
@@ -17,7 +22,10 @@ class _AdvancedSettingsProfilePageState
   final ScrollController _scrollController = new ScrollController();
 
   List<String> communication_list = ["Only BLE", "Only Mobile", "Both"];
-  List<String> samplingrate_list = ["256", "128", "512", "off"];
+  List<String> samplingrate_list = ["off", "128", "256", "512"];
+
+  var map_communication_list_index = {};
+  var map_samplingrate_list_value = {};
 
   int selected_index_comunication = 0;
   int selected_index_SpO2 = 0;
@@ -32,11 +40,23 @@ class _AdvancedSettingsProfilePageState
   String selected_item_activity = "";
   bool mounted = false;
 
+/*
+23 aug 21 - sreeni
+*/
+  late Future<http.Response> response;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     //init();
+    for (int i = 0; i < communication_list.length; i++) {
+      map_communication_list_index[communication_list[i]] = i;
+    }
+    map_samplingrate_list_value['off'] = 0;
+    map_samplingrate_list_value['128'] = 128;
+    map_samplingrate_list_value['256'] = 256;
+    map_samplingrate_list_value['512'] = 512;
     this.selected_item_comunication = communication_list[0];
     this.selected_item_SpO2 = samplingrate_list[0];
     this.selected_item_ecg = samplingrate_list[0];
@@ -49,6 +69,28 @@ class _AdvancedSettingsProfilePageState
     print("hi...");
     print(list.indexOf(val));
     return list.indexOf(val);
+  }
+
+  Future<http.Response> updateAdvancedSettingsService(String title) async {
+    print(this.selected_index_comunication);
+    print(this.communication_list[this.selected_index_comunication]);
+    var requestParams = {
+      'communicationChannel': map_communication_list_index[
+          this.communication_list[this.selected_index_comunication]],
+      'samplingRateInfo': <String, int>{
+        "heartRate": map_samplingrate_list_value[
+            this.samplingrate_list[this.selected_index_ecg]],
+        "spo2": map_samplingrate_list_value[
+            this.samplingrate_list[this.selected_index_SpO2]],
+        "temperature": map_samplingrate_list_value[
+            this.samplingrate_list[this.selected_index_temp]],
+        "activity": map_samplingrate_list_value[
+            this.samplingrate_list[this.selected_index_activity]]
+      }
+    };
+    print(requestParams);
+    response = updateAdvancedSettingsAPIService(requestParams);
+    return response;
   }
 
   Future init() async {
@@ -105,6 +147,14 @@ class _AdvancedSettingsProfilePageState
     await AdvancedSettingsSecureStorage.setSamplingActivity(
         this.selected_item_activity);
 
+/*
+17 aug 21
+this is to test and implement the API
+*/
+    await updateAdvancedSettingsService("govinda");
+/*
+
+*/
     Navigator.of(context).pop();
   }
 
@@ -209,9 +259,9 @@ class _AdvancedSettingsProfilePageState
                                 width: 200,
                                 title: "SpO2:",
                                 values: samplingrate_list,
-                                selectedIndex: this.selected_index_comunication,
-                                onChangedValue: (index) => setState(() =>
-                                    this.selected_index_comunication = index)),
+                                selectedIndex: this.selected_index_SpO2,
+                                onChangedValue: (index) => setState(
+                                    () => this.selected_index_SpO2 = index)),
                           ),
                         ),
                         Container(
@@ -222,9 +272,9 @@ class _AdvancedSettingsProfilePageState
                                 width: 200,
                                 title: "HeartRate:",
                                 values: samplingrate_list,
-                                selectedIndex: this.selected_index_comunication,
-                                onChangedValue: (index) => setState(() =>
-                                    this.selected_index_comunication = index)),
+                                selectedIndex: this.selected_index_ecg,
+                                onChangedValue: (index) => setState(
+                                    () => this.selected_index_ecg = index)),
                           ),
                         ),
                         Container(
@@ -235,9 +285,9 @@ class _AdvancedSettingsProfilePageState
                                 width: 200,
                                 title: "Temperature:",
                                 values: samplingrate_list,
-                                selectedIndex: this.selected_index_comunication,
-                                onChangedValue: (index) => setState(() =>
-                                    this.selected_index_comunication = index)),
+                                selectedIndex: this.selected_index_temp,
+                                onChangedValue: (index) => setState(
+                                    () => this.selected_index_temp = index)),
                           ),
                         ),
                         Container(
@@ -248,9 +298,9 @@ class _AdvancedSettingsProfilePageState
                                 width: 200,
                                 title: "Activity:",
                                 values: samplingrate_list,
-                                selectedIndex: this.selected_index_comunication,
+                                selectedIndex: this.selected_index_activity,
                                 onChangedValue: (index) => setState(() =>
-                                    this.selected_index_comunication = index)),
+                                    this.selected_index_activity = index)),
                           ),
                         )
                       ],

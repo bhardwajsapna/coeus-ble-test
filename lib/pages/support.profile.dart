@@ -1,9 +1,12 @@
+import 'package:coeus_v1/services/api.dart';
 import 'package:coeus_v1/utils/const.dart';
 import 'package:coeus_v1/utils/support_details_secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:coeus_v1/widget/button.dart';
 import 'package:coeus_v1/widget/inputEmail.dart';
 import 'package:coeus_v1/widget/textLogin.dart';
+
+import 'package:http/http.dart' as http;
 
 class SupportProfilePage extends StatefulWidget {
   @override
@@ -22,10 +25,43 @@ class _SupportProfilePageState extends State<SupportProfilePage> {
 
   final ScrollController _scrollController = new ScrollController();
 
+/*
+23 aug 21 - sreeni
+*/
+  late Future<http.Response> response;
+
   @override
   void initState() {
     super.initState();
     init();
+  }
+
+  Future<http.Response> updateCaregiverDetailsService() async {
+    var requestParams = {
+      "firstName": this.controllerCaretakerFirstName.text,
+      "secondName": this.controllerCaretakerSecondName.text,
+      "mobileNo": this.controllerCaretakerMobileNumber.text,
+      "emailId": this.controllerCaretakerEmailid.text
+    };
+    print(requestParams);
+    response = updateCaregiverDetailsAPIService(requestParams);
+    print(response);
+
+    return response;
+  }
+
+  Future<http.Response> updateEmergencyContactService() async {
+    var requestParams = {
+      "firstName": this.controllerEmergencyFirstName.text,
+      "secondName": this.controllerEmergencySecondName.text,
+      "mobileNo": this.controllerEmergencyMobileNumber.text,
+      "emailId": this.controllerEmergencyEmailid.text
+    };
+    print(requestParams);
+    response = updateEmergencyContactAPIService(requestParams);
+    print(response);
+
+    return response;
   }
 
   Future init() async {
@@ -77,6 +113,7 @@ class _SupportProfilePageState extends State<SupportProfilePage> {
     await SupportDetailsSecureStorage.setCaretakerMobileNumber(
         controllerCaretakerMobileNumber.text);
 
+/*
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
@@ -93,6 +130,14 @@ class _SupportProfilePageState extends State<SupportProfilePage> {
         ],
       ),
     );
+*/
+/*
+23 aug 21 - sreeni
+now update the server data using service functions
+*/
+
+    updateEmergencyContactService();
+    updateCaregiverDetailsService();
   }
 
   @override
