@@ -31,28 +31,6 @@ class _Detailed_CardState extends State<Detailed_Card> {
   Future loadSalesData() async {
     final String jsonString = await getJsonFromAssets();
     chartData = welcomeFromJson(jsonString);
-   // listdata = get_data(key);
-   //  for(int i=0;i<chartData!.tempValues.length;i++){
-   //  listMap.putIfAbsent(i, () => get_data(i));
-   //  }
-
-    //count = listdata.length;
-
-
-    // seriesList = [
-    //   new charts.Series<Temprature, String>(
-    //     id: 'Temprature',
-    //     domainFn: (Temprature sales, _) => sales.time,
-    //     measureFn: (Temprature sales, _) => sales.temperature,
-    //     data: listdata,
-    // )
-    // ];
-
-
-
-
-    // for(int i=0;i<2;i++){
-
     seriesList.add( new charts.Series<Temprature,int>(
       id: 'Temprature',
       colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
@@ -69,13 +47,6 @@ class _Detailed_CardState extends State<Detailed_Card> {
       data: get_dataMin(),
     )
     );
-
-   // }
-
-
-
-    //key_data = chartData!.tempValues![key].sampleDate;
-    //timer = Timer.periodic(const Duration(milliseconds: 10), addChartData);
   }
 
   Future<String> getJsonFromAssets() async {
@@ -88,22 +59,11 @@ class _Detailed_CardState extends State<Detailed_Card> {
     loadSalesData();
   }
 
-  // void addChartData(Timer timer) {
-  //   setState(() {
-  //     data!.removeAt(0);
-  //     data!.add(Point(
-  //         timestamp: count.toString(), value: key_data!.elementAt(count)));
-  //     count = count + 1;
-  //   });
-  // }
 
   List<Temprature> get_data() {
     List<Temprature> l = [];
     for (int i = 0; i < chartData!.tempValues.length; i++) {
       final data = chartData!.tempValues[i];
-
-
-
       int max =0;
       if (data.samples != null && data.samples.isNotEmpty) {
         data.samples.sort((a, b) => a.temp.compareTo(b.temp));
@@ -121,9 +81,6 @@ class _Detailed_CardState extends State<Detailed_Card> {
     List<Temprature> l = [];
     for (int i = 0; i < chartData!.tempValues.length; i++) {
       final data = chartData!.tempValues[i];
-
-
-
       int min =0;
       if (data.samples != null && data.samples.isNotEmpty) {
         data.samples.sort((a, b) => a.temp.compareTo(b.temp));
