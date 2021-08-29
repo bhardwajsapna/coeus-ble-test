@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:coeus_v1/widget/button.dart';
 import 'package:coeus_v1/widget/first.dart';
@@ -18,6 +19,12 @@ class _LoginPageState extends State<LoginPage> {
   final controllerPassword = TextEditingController();
   String? uname;
   String? password;
+  static const validSymbols =  "!\"#\$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+  bool isPassLong = false;
+  bool isPassNumber = false;
+  bool isPassSymbol = false;
+  final _formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
@@ -32,26 +39,45 @@ class _LoginPageState extends State<LoginPage> {
       this.password = password;
     });
   }
+  bool passIsValid(String value){
+    String  pattern = '^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[$validSymbols]).{5,}\$';
+    RegExp regExp = new RegExp(pattern);
+    return regExp.hasMatch(value);
+  }
+  bool passHaveNumber(String value){
+    String  pattern = r'^(?=.*?[0-9]).{1,}$';
+    RegExp regExp = new RegExp(pattern);
+    return regExp.hasMatch(value);
+  }
+
+  bool passHaveSymbol(String value){
+    String  pattern = '^(?=.*?[$validSymbols]).{1,}\$';
+    RegExp regExp = new RegExp(pattern);
+    return regExp.hasMatch(value);
+  }
 
   void onLoginSubmit() async {
-    bool isvalid = false;
-    if (this.uname == controllerUserName.text) {
-      if (this.password == controllerPassword.text) {
-        isvalid = true;
-        print("success");
+    if(_formKey.currentState!.validate()){
+      bool isvalid = false;
+      if (this.uname == controllerUserName.text) {
+        if (this.password == controllerPassword.text) {
+          isvalid = true;
+          print("success");
+        } else {
+          isvalid = false;
+        }
       } else {
         isvalid = false;
       }
-    } else {
-      isvalid = false;
+      if (isvalid) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Dashboard()));
+      } else {
+        controllerUserName.text = "";
+        controllerPassword.text = "";
+      }
     }
-    if (isvalid) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Dashboard()));
-    } else {
-      controllerUserName.text = "";
-      controllerPassword.text = "";
-    }
+
   }
 
   @override
@@ -66,8 +92,9 @@ class _LoginPageState extends State<LoginPage> {
         //       colors: [Constants.white, Constants.lightBlue]),
         // ),
         child: Container(
-          child: ListView(
-            children: <Widget>[
+          child: Form(
+            key: _formKey,
+            child:
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -79,12 +106,37 @@ class _LoginPageState extends State<LoginPage> {
                     font: 24,
                     isPassword: false,
                     controller: controllerUserName,
+                    validator:  (email) {
+                      return EmailValidator.validate(email!)? null: "Invalid email address";
+                    },
                   ),
                   InputField(
                     title: "Password",
                     font: 24,
                     isPassword: true,
                     controller: controllerPassword,
+                    onChanged: (val){
+                      setState(() {
+                        controllerPassword.text.length > 5 ?
+                        isPassLong = true :
+                        isPassLong = false;
+                        passHaveNumber(controllerPassword.text) ?
+                        isPassNumber = true :
+                        isPassNumber = false;
+                        passHaveSymbol(controllerPassword.text) ?
+                        isPassSymbol = true :
+                        isPassSymbol = false;
+                      });
+                    },
+
+                    validator: (String? value){
+                      if(value!.isEmpty) {
+                        return 'Please enter password';
+                      }
+                      if(!passIsValid(controllerPassword.text)) {
+                        return 'Password must be at least 5 characters long and consist of letters, numbers and symbols';
+                      }
+                    },
                   ),
                   Button(
                     title: "Login",
@@ -92,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
-            ],
+
           ),
         ),
       ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class StackedBarChart extends StatelessWidget {
-  final List<charts.Series<dynamic, String>> seriesList;
+  final List<charts.Series<dynamic, int>> seriesList;
   final bool animate;
 
   StackedBarChart(this.seriesList, {
@@ -27,10 +27,11 @@ class StackedBarChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new charts.BarChart(
+    return new charts.LineChart(
             seriesList,
             animate:animate,
-            barGroupingType:charts.BarGroupingType.stacked,
+        defaultRenderer:
+        new charts.LineRendererConfig(includePoints: true)
     );
   }
 }

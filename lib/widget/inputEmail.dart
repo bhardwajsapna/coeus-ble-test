@@ -8,7 +8,8 @@ class InputField extends StatefulWidget {
   bool? isPassword;
   bool? isEditable = true;
   Function(String)? onChanged ;
-  String? Function(String?)? validator   ;
+  String? Function(String?)? validator;
+  TextInputType? keyboardType;
   InputField(
       {this.title,
       this.font,
@@ -17,6 +18,7 @@ class InputField extends StatefulWidget {
       this.isEditable,
       this.validator,
       this.onChanged,
+      this.keyboardType
       });
   @override
   _InputFieldState createState() => _InputFieldState();
@@ -35,6 +37,7 @@ class _InputFieldState extends State<InputField> {
           enabled: widget.isEditable,
           onChanged: widget.onChanged,
           controller: widget.controller,
+          keyboardType: widget.keyboardType,
           style: TextStyle(
             fontSize: 1 * widget.font!,
             color: Constants.textPrimary,
