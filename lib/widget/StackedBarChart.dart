@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class StackedBarChart extends StatelessWidget {
-  final List<charts.Series<dynamic, String>> seriesList;
+
+  final List<charts.Series<dynamic, int>> seriesList;
   final bool animate;
 
-  StackedBarChart(this.seriesList, {this.animate = false});
+  StackedBarChart(this.seriesList, {
+    this.animate = false
+  });
+
 
   /// Creates a stacked [BarChart] with sample data and no transition.
 //  factory StackedBarChart.withSampleData() {
@@ -25,10 +29,13 @@ class StackedBarChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new charts.BarChart(
-      seriesList,
-      animate: animate,
-      barGroupingType: charts.BarGroupingType.groupedStacked,
+
+    return new charts.LineChart(
+            seriesList,
+            animate:animate,
+        defaultRenderer:
+        new charts.LineRendererConfig(includePoints: true)
+
     );
   }
 }

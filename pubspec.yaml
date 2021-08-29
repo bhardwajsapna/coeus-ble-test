@@ -38,6 +38,8 @@ dependencies:
   flutter_blue: ^0.8.0
   string_validator: ^0.3.0
   http: ^0.13.3
+  email_validator: ^2.0.1
+
   charts_flutter: ^0.11.0
 
 dev_dependencies:
@@ -58,6 +60,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/data.json
+
     - assets/bpmRecords.json
     - assets/spo2Records.json
     - assets/stepsSleepRecords.json
