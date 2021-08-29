@@ -21,12 +21,12 @@ class _Detailed_CardState extends State<Detailed_Card> {
   Temperature? chartData;
   ChartSeriesController? _chartSeriesController;
   late List<Temprature> listdata;
-  late Map<int,List<Temprature>> listMap = HashMap();
+  late Map<int, List<Temprature>> listMap = HashMap();
   int count = 0;
   String key = 'samples';
   List<int>? key_data;
   Timer? timer;
-   List<charts.Series<Temprature, int>> seriesList=[];
+  List<charts.Series<Temprature, int>> seriesList = [];
 
   Future loadSalesData() async {
     /*
@@ -36,27 +36,24 @@ class _Detailed_CardState extends State<Detailed_Card> {
     final String jsonString = await getJsonFromAssets();
     chartData = welcomeFromJson(jsonString);
 
-    seriesList.add( new charts.Series<Temprature,int>(
+    seriesList.add(new charts.Series<Temprature, int>(
       id: 'Temprature',
       colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
       domainFn: (Temprature temp, _) => temp.point,
       measureFn: (Temprature temp, _) => temp.temperature,
       data: get_data(),
-    )
-    );
-    seriesList.add( new charts.Series<Temprature,int>(
+    ));
+    seriesList.add(new charts.Series<Temprature, int>(
       id: 'Temprature',
       colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
       domainFn: (Temprature temp, _) => temp.point,
       measureFn: (Temprature temp, _) => temp.temperature,
       data: get_dataMin(),
-    )
-    );
+    ));
   }
 
   Future<String> getJsonFromAssets() async {
     return await rootBundle.loadString('assets/tempRecords.json');
-
   }
 
   @override
@@ -65,30 +62,28 @@ class _Detailed_CardState extends State<Detailed_Card> {
     loadSalesData();
   }
 
-
   List<Temprature> get_data() {
     List<Temprature> l = [];
     for (int i = 0; i < chartData!.tempValues.length; i++) {
       final data = chartData!.tempValues[i];
-      int max =0;
+      int max = 0;
       if (data.samples != null && data.samples.isNotEmpty) {
         data.samples.sort((a, b) => a.temp.compareTo(b.temp));
         max = data.samples.last.temp;
       }
 
-        l.add(Temprature(temperature: max, point: i));
+      l.add(Temprature(temperature: max, point: i));
 
       print(l.length);
-
     }
     return l;
-
   }
+
   List<Temprature> get_dataMin() {
     List<Temprature> l = [];
     for (int i = 0; i < chartData!.tempValues.length; i++) {
       final data = chartData!.tempValues[i];
-      int min =0;
+      int min = 0;
       if (data.samples != null && data.samples.isNotEmpty) {
         data.samples.sort((a, b) => a.temp.compareTo(b.temp));
         min = data.samples.first.temp;
@@ -97,15 +92,6 @@ class _Detailed_CardState extends State<Detailed_Card> {
       l.add(Temprature(temperature: min, point: i));
 
       print(l.length);
-
-
-  List<Temprature> get_data(int key) {
-    final data = chartData!.tempValues[key];
-
-    List<Temprature> l = [];
-    for (int i = 0; i < data.samples.length; i++) {
-      l.add(Temprature(
-          temperature: data.samples[i].temp, time: data.samples[i].time));
     }
     return l;
   }
@@ -126,7 +112,7 @@ class _Detailed_CardState extends State<Detailed_Card> {
                     if (snapshot.hasData) {
                       return SizedBox(
                           height: 400.0,
-                          child: StackedBarChart(seriesList,animate:false));
+                          child: StackedBarChart(seriesList, animate: false));
                       // return SfCartesianChart(
                       //     primaryXAxis: CategoryAxis(),
                       //     // Chart title
@@ -213,7 +199,7 @@ class _Detailed_CardState extends State<Detailed_Card> {
 
 class Temprature {
   int temperature;
-  int  point;
+  int point;
 
   Temprature({required this.temperature, required this.point});
 }
