@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:coeus_v1/services/api.dart';
 import 'package:coeus_v1/utils/user_secure_storage.dart';
 import 'package:coeus_v1/widget/button.dart';
 import 'package:coeus_v1/widget/date_picker.dart';
@@ -10,6 +11,8 @@ import 'package:coeus_v1/widget/inputEmail.dart';
 
 import 'package:coeus_v1/widget/textLogin.dart';
 import 'package:flutter/material.dart';
+
+import 'package:http/http.dart' as http;
 
 class NewUser extends StatefulWidget {
   @override
@@ -25,6 +28,13 @@ class _NewUserState extends State<NewUser> {
   final controllerSecondName = TextEditingController();
   final controllerMobileNumber = TextEditingController();
   final controllerGender = TextEditingController();
+  // adding the controller of dob to save in the db
+  final controllerDob = TextEditingController();
+
+/*
+28 aug 21 - sreeni
+*/
+  late Future<http.Response> response;
 
   @override
   void initState() {
@@ -32,9 +42,25 @@ class _NewUserState extends State<NewUser> {
     super.initState();
   }
 
+  Future<http.Response> createUserService() async {
+    var requestParams = {
+      "firstName": this.controllerFirstName.text,
+      "secondName": this.controllerSecondName.text,
+      "mobileNo": this.controllerMobileNumber.text,
+      "DOB": this.controllerDob.text,
+      "password": this.controllerPassword.text,
+      "gender": this.controllerGender.text,
+      "emailId": this.controllerUserName.text,
+      "activeUser": true,
+      "validEmail": true
+    };
+    print(requestParams);
+    response = createUserAPIService(requestParams);
+    print(response);
+    return response;
+  }
+
   void register_user() async {
-    print("we are here");
-    log("we are here");
     if (_key.currentState!.validate()) {
       await UserSecureStorage.setEmailId(controllerUserName.text);
       await UserSecureStorage.setPassword(controllerPassword.text);
@@ -42,7 +68,31 @@ class _NewUserState extends State<NewUser> {
       await UserSecureStorage.setSecondName(controllerSecondName.text);
       await UserSecureStorage.setMobileNumber(controllerMobileNumber.text);
       await UserSecureStorage.setGender(controllerGender.text);
+      //29 aug 21 - sreeni added the dob
+      await UserSecureStorage.setDOB(DateTime.parse(controllerDob.text));
+
       Navigator.pop(context);
+/*
+28 aug 21 - sreeni - api for new user
+*/
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Confirmation'),
+          content: const Text(
+              'Are you sure you want to create User with this information?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                createUserService();
+                Navigator.pop(context, 'OK');
+                Navigator.pop(context);
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
     }
   }
 
@@ -84,7 +134,7 @@ class _NewUserState extends State<NewUser> {
                 //validator: validateMobile,
                 controller: controllerMobileNumber,
               ),
-              DatePickerWidget(title: "DoB"),
+              DatePickerWidget(title: "DoB", controller: controllerDob),
               GenderSelector(),
               InputField(
                 title: "Password",

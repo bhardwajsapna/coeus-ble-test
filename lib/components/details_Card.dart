@@ -1,8 +1,13 @@
+import 'dart:collection';
+
 import 'package:coeus_v1/models/BioValues.dart';
+import 'package:coeus_v1/models/TemperatureValues.dart';
+import 'package:coeus_v1/widget/StackedBarChart.dart';
 import 'package:coeus_v1/widget/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'dart:async';
@@ -13,13 +18,15 @@ class Detailed_Card extends StatefulWidget {
 }
 
 class _Detailed_CardState extends State<Detailed_Card> {
-  BioValues? chartData;
+  Temperature? chartData;
   ChartSeriesController? _chartSeriesController;
-  List<Point>? data;
+  late List<Temprature> listdata;
+  late Map<int, List<Temprature>> listMap = HashMap();
   int count = 0;
-  String key = 'ecg';
+  String key = 'samples';
   List<int>? key_data;
-  //Timer? timer;
+  Timer? timer;
+  List<charts.Series<Temprature, String>> seriesList = [];
 
   Future loadSalesData() async {
     /*
@@ -27,18 +34,41 @@ class _Detailed_CardState extends State<Detailed_Card> {
     should graph show 1 day or 1 month.?  
     */
     final String jsonString = await getJsonFromAssets();
-    chartData = bioValuesFromJson(jsonString);
-    data = get_data(key);
-    count = data!.length;
-    key_data = chartData!.medicalValues![key];
-    // timer = Timer.periodic(const Duration(milliseconds: 10), addChartData);
+    chartData = welcomeFromJson(jsonString);
+    // listdata = get_data(key);
+    for (int i = 0; i < chartData!.tempValues.length; i++) {
+      listMap.putIfAbsent(i, () => get_data(i));
+    }
+
+    //count = listdata.length;
+
+    // seriesList = [
+    //   new charts.Series<Temprature, String>(
+    //     id: 'Temprature',
+    //     domainFn: (Temprature sales, _) => sales.time,
+    //     measureFn: (Temprature sales, _) => sales.temperature,
+    //     data: listdata,
+    // )
+    // ];
+
+    for (int i = 0; i < chartData!.tempValues.length; i++) {
+      seriesList.add(new charts.Series<Temprature, String>(
+        id: 'Temprature',
+        domainFn: (Temprature sales, _) => sales.time,
+        measureFn: (Temprature sales, _) => sales.temperature,
+        data: listMap[i]!.toList(),
+      ));
+    }
+
+    //key_data = chartData!.tempValues![key].sampleDate;
+    //timer = Timer.periodic(const Duration(milliseconds: 10), addChartData);
   }
 
   Future<String> getJsonFromAssets() async {
 // this is new code
-   // return await rootBundle.loadString('assets/tempRecords.json');
+    return await rootBundle.loadString('assets/tempRecords.json');
 // this is old code
-     return await rootBundle.loadString('assets/data.json');
+    return await rootBundle.loadString('assets/data.json');
   }
 
   @override
@@ -62,13 +92,13 @@ class _Detailed_CardState extends State<Detailed_Card> {
   //   });
   // }
 
-  List<Point> get_data(key) {
-    final data = chartData!.medicalValues![key];
-    final duration = chartData!.duration;
-    final sampling = chartData!.samplingInfo![key];
-    List<Point> l = [];
-    for (int i = 0; i < 50; i++) {
-      l.add(Point(timestamp: i.toString(), value: data![i]));
+  List<Temprature> get_data(int key) {
+    final data = chartData!.tempValues[key];
+
+    List<Temprature> l = [];
+    for (int i = 0; i < data.samples.length; i++) {
+      l.add(Temprature(
+          temperature: data.samples[i].temp, time: data.samples[i].time));
     }
     print(l.length);
     return l;
@@ -88,21 +118,24 @@ class _Detailed_CardState extends State<Detailed_Card> {
                   future: getJsonFromAssets(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      return SfCartesianChart(
-                          primaryXAxis: CategoryAxis(),
-                          // Chart title
-                          title: ChartTitle(text: 'Data plotting'),
-                          series: <ChartSeries<Point, String>>[
-                            LineSeries<Point, String>(
-                              onRendererCreated:
-                                  (ChartSeriesController controller) {
-                                _chartSeriesController = controller;
-                              },
-                              dataSource: data!,
-                              xValueMapper: (Point p, _) => p.timestamp,
-                              yValueMapper: (Point p, _) => p.value,
-                            )
-                          ]);
+                      return SizedBox(
+                          height: 400.0,
+                          child: StackedBarChart(seriesList, animate: false));
+                      // return SfCartesianChart(
+                      //     primaryXAxis: CategoryAxis(),
+                      //     // Chart title
+                      //     title: ChartTitle(text: 'Data plotting'),
+                      //     series: <ChartSeries<Point, String>>[
+                      //       LineSeries<Point, String>(
+                      //         onRendererCreated:
+                      //             (ChartSeriesController controller) {
+                      //           _chartSeriesController = controller;
+                      //         },
+                      //         dataSource: data!,
+                      //         xValueMapper: (Point p, _) => p.timestamp,
+                      //         yValueMapper: (Point p, _) => p.value,
+                      //       )
+                      //     ]);
                     } else {
                       return Card(
                         elevation: 5.0,
@@ -172,8 +205,9 @@ class _Detailed_CardState extends State<Detailed_Card> {
   }
 }
 
-class Point {
-  String timestamp;
-  int value;
-  Point({required this.timestamp, required this.value});
+class Temprature {
+  int temperature;
+  String time;
+
+  Temprature({required this.temperature, required this.time});
 }
