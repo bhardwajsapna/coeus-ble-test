@@ -61,14 +61,14 @@ class _Detailed_CardState extends State<Detailed_Card> {
       data: get_data(),
     )
     );
-    // seriesList.add( new charts.Series<Temprature,int>(
-    //   id: 'Temprature',
-    //   colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-    //   domainFn: (Temprature temp, _) => temp.point,
-    //   measureFn: (Temprature temp, _) => temp.temperature,
-    //   data: get_data(),
-    // )
-    // );
+    seriesList.add( new charts.Series<Temprature,int>(
+      id: 'Temprature',
+      colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
+      domainFn: (Temprature temp, _) => temp.point,
+      measureFn: (Temprature temp, _) => temp.temperature,
+      data: get_dataMin(),
+    )
+    );
 
    // }
 

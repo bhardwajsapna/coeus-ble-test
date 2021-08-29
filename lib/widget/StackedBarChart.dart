@@ -31,7 +31,7 @@ class StackedBarChart extends StatelessWidget {
             seriesList,
             animate:animate,
         defaultRenderer:
-        new charts.LineRendererConfig(includeArea: true, stacked: true)
+        new charts.LineRendererConfig(includePoints: true)
     );
   }
 }
