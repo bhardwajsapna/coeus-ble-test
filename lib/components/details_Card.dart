@@ -13,75 +13,110 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'dart:async';
 
 class Detailed_Card extends StatefulWidget {
+  final String title;
+  Detailed_Card({
+    required this.title,
+  });
   @override
   _Detailed_CardState createState() => _Detailed_CardState();
 }
 
 class _Detailed_CardState extends State<Detailed_Card> {
-  Temperature? chartData;
+  MonthReading? chartData;
+
   ChartSeriesController? _chartSeriesController;
-  late List<Temprature> listdata;
-  late Map<int, List<Temprature>> listMap = HashMap();
+  late List<Sensor> listdata;
+  late Map<int, List<Sensor>> listMap = HashMap();
   int count = 0;
   String key = 'samples';
   List<int>? key_data;
   Timer? timer;
-  List<charts.Series<Temprature, int>> seriesList = [];
+  List<charts.Series<Sensor, int>> seriesList = [];
 
-  Future loadSalesData() async {
+  Future loadDataFromJson() async {}
+
+  Future loadSensorData(int days) async {
     /*
     22 aug - check the button which has called this page. Accordingly the file will be called.
     should graph show 1 day or 1 month.?  
     */
     final String jsonString = await getJsonFromAssets();
-    chartData = welcomeFromJson(jsonString);
 
-    seriesList.add(new charts.Series<Temprature, int>(
-      id: 'Temprature',
-      colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-      domainFn: (Temprature temp, _) => temp.point,
-      measureFn: (Temprature temp, _) => temp.temperature,
-      data: get_data(),
-    ));
-    seriesList.add(new charts.Series<Temprature, int>(
-      id: 'Temprature',
-      colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
-      domainFn: (Temprature temp, _) => temp.point,
-      measureFn: (Temprature temp, _) => temp.temperature,
-      data: get_dataMin(),
-    ));
+    chartData = convertJsonToTemp(jsonString);
+
+    setState(() {
+      seriesList.add(new charts.Series<Sensor, int>(
+        id: 'Temprature',
+        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+        domainFn: (Sensor temp, _) => temp.point,
+        measureFn: (Sensor temp, _) => temp.value,
+        data: get_data(days),
+      ));
+      seriesList.add(new charts.Series<Sensor, int>(
+        id: 'Temprature',
+        colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
+        domainFn: (Sensor temp, _) => temp.point,
+        measureFn: (Sensor temp, _) => temp.value,
+        data: get_dataMin(days),
+      ));
+    });
   }
 
   Future<String> getJsonFromAssets() async {
-    return await rootBundle.loadString('assets/tempRecords.json');
+    String fileName = "";
+    switch (widget.title) {
+      case "Temperature":
+        fileName = 'assets/tempRecords.json';
+        break;
+      case "SPo2":
+        fileName = 'assets/spo2Records.json';
+        break;
+      case "Heart Rate":
+        fileName = 'assets/bpmRecords.json';
+        break;
+      case "ECG":
+        fileName = 'assets/tempRecords.json';
+        break;
+      case "Footsteps":
+      case "Sleep":
+        fileName = 'assets/stepsSleepRecords.json';
+        break;
+
+      default:
+        fileName = 'assets/tempRecords.json';
+    }
+    return await rootBundle.loadString(fileName);
   }
 
   @override
   void initState() {
     super.initState();
-    loadSalesData();
+    // loadDataFromJson();
+    loadSensorData(30);
   }
 
-  List<Temprature> get_data() {
-    List<Temprature> l = [];
-    for (int i = 0; i < chartData!.tempValues.length; i++) {
+  List<Sensor> get_data(int days) {
+    List<Sensor> l = [];
+    for (int i = 0; //math.max(0, chartData!.tempValues.length - days - 1);
+        i < days; // chartData!.tempValues.length;
+        i++) {
       final data = chartData!.tempValues[i];
       int max = 0;
       if (data.samples != null && data.samples.isNotEmpty) {
         data.samples.sort((a, b) => a.temp.compareTo(b.temp));
         max = data.samples.last.temp;
       }
-
-      l.add(Temprature(temperature: max, point: i));
-
+      l.add(Sensor(value: max, point: i));
       print(l.length);
     }
     return l;
   }
 
-  List<Temprature> get_dataMin() {
-    List<Temprature> l = [];
-    for (int i = 0; i < chartData!.tempValues.length; i++) {
+  List<Sensor> get_dataMin(int days) {
+    List<Sensor> l = [];
+    for (int i = 0; //math.max(0, chartData!.tempValues.length - days - 1);
+        i < days; //chartData!.tempValues.length;
+        i++) {
       final data = chartData!.tempValues[i];
       int min = 0;
       if (data.samples != null && data.samples.isNotEmpty) {
@@ -89,7 +124,7 @@ class _Detailed_CardState extends State<Detailed_Card> {
         min = data.samples.first.temp;
       }
 
-      l.add(Temprature(temperature: min, point: i));
+      l.add(Sensor(value: min, point: i));
 
       print(l.length);
     }
@@ -113,21 +148,6 @@ class _Detailed_CardState extends State<Detailed_Card> {
                       return SizedBox(
                           height: 400.0,
                           child: StackedBarChart(seriesList, animate: false));
-                      // return SfCartesianChart(
-                      //     primaryXAxis: CategoryAxis(),
-                      //     // Chart title
-                      //     title: ChartTitle(text: 'Data plotting'),
-                      //     series: <ChartSeries<Point, String>>[
-                      //       LineSeries<Point, String>(
-                      //         onRendererCreated:
-                      //             (ChartSeriesController controller) {
-                      //           _chartSeriesController = controller;
-                      //         },
-                      //         dataSource: data!,
-                      //         xValueMapper: (Point p, _) => p.timestamp,
-                      //         yValueMapper: (Point p, _) => p.value,
-                      //       )
-                      //     ]);
                     } else {
                       return Card(
                         elevation: 5.0,
@@ -163,14 +183,19 @@ class _Detailed_CardState extends State<Detailed_Card> {
             these buttons were added so that the content of the graph can be changed as per user request
             update the graph
             */
+
+            /*
+            1 , 7 15 => title , no ofdays
+            1 day by default for title , 1
+            */
             Button(
-              onTapFunction: () => {Navigator.pop(context)},
+              onTapFunction: () => loadSensorData(1),
               title: "1 Day",
               // width: 40,
               width: MediaQuery.of(context).size.width,
             ),
             Button(
-              onTapFunction: () => {Navigator.pop(context)},
+              onTapFunction: () => loadSensorData(7),
               title: "7 Days",
               //width: 25, // this has tobe dne approrrri
               width: MediaQuery.of(context).size.width,
@@ -182,7 +207,7 @@ class _Detailed_CardState extends State<Detailed_Card> {
             ),
             */
             Button(
-              onTapFunction: () => {Navigator.pop(context)},
+              onTapFunction: () => loadSensorData(30),
               title: "1 Month",
               width: MediaQuery.of(context).size.width,
             ),
@@ -197,9 +222,9 @@ class _Detailed_CardState extends State<Detailed_Card> {
   }
 }
 
-class Temprature {
-  int temperature;
+class Sensor {
+  int value;
   int point;
 
-  Temprature({required this.temperature, required this.point});
+  Sensor({required this.value, required this.point});
 }
