@@ -1,15 +1,19 @@
-/*class MonthReadingOnceADay {
+import 'dart:convert';
+
+MonthReadingOnceADay convertJsonToMonthReadingOnceADay(String str) =>
+    MonthReadingOnceADay.fromJson(json.decode(str));
+
+class MonthReadingOnceADay {
   List<DayValues> dayValues;
 
-  MonthReadingOnceADay({this.dayValues});
+  MonthReadingOnceADay({required this.dayValues});
 
-  MonthReadingOnceADay.fromJson(Map<String, dynamic> json) {
-    if (json['dayValues'] != null) {
-      dayValues = new List<DayValues>();
-      json['dayValues'].forEach((v) {
-        dayValues.add(new DayValues.fromJson(v));
-      });
-    }
+  factory MonthReadingOnceADay.fromJson(Map<String, dynamic> json) {
+    List<DayValues> dayValues = [];
+    json['dayValues'].forEach((v) {
+      dayValues.add(new DayValues.fromJson(v));
+    });
+    return MonthReadingOnceADay(dayValues: dayValues);
   }
 
   Map<String, dynamic> toJson() {
@@ -26,13 +30,15 @@ class DayValues {
   int stepsCount;
   String sleepHrs;
 
-  DayValues({this.sampleDate, this.stepsCount, this.sleepHrs});
+  DayValues(
+      {required this.sampleDate,
+      required this.stepsCount,
+      required this.sleepHrs});
 
-  DayValues.fromJson(Map<String, dynamic> json) {
-    sampleDate = json['sampleDate'];
-    stepsCount = json['stepsCount'];
-    sleepHrs = json['sleepHrs'];
-  }
+  factory DayValues.fromJson(Map<String, dynamic> json) => DayValues(
+      sampleDate: json['sampleDate'],
+      stepsCount: json['stepsCount'],
+      sleepHrs: json['sleepHrs']);
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -42,4 +48,3 @@ class DayValues {
     return data;
   }
 }
-*/

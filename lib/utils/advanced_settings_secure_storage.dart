@@ -9,6 +9,18 @@ class AdvancedSettingsSecureStorage {
   static const _keySamplingECG = 'samplingECG';
   static const _keySamplingTemperature = 'samplingtemperature';
   static const _keySamplingActivity = 'samplingactivity';
+  static const _keyMonitorAfter = 'monitorafter';
+
+  static Future setMonitorAfter(String val) async {
+    print("inuserseecure MonitorAfter:" + val);
+    await _storage.write(key: _keyMonitorAfter, value: val);
+  }
+
+  static Future<String?> getMonitorAfter() async {
+    String? temp = await _storage.read(key: _keyMonitorAfter);
+    print("outuserseecure MonitorAfter:" + temp!);
+    return temp;
+  }
 
   static Future setSamplingCommunication(String val) async {
     print("inuserseecure SamplingCommunication:" + val);

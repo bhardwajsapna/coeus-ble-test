@@ -2,6 +2,7 @@ import 'package:coeus_v1/utils/const.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'detailsCardBar.dart';
 import 'details_Card.dart';
 
 class SummaryCard extends StatelessWidget {
@@ -31,10 +32,20 @@ class SummaryCard extends StatelessWidget {
     }
     return InkWell(
       onTap: () => {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => Detailed_Card(title: this.title)))
+        if (this.title == 'Footsteps')
+          {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DetailedCardBar(title: this.title)))
+          }
+        else
+          {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Detailed_Card(title: this.title)))
+          }
       },
       child: Container(
           padding: EdgeInsets.all(15.0),
