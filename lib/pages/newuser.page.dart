@@ -110,7 +110,7 @@ class _NewUserState extends State<NewUser> {
       Navigator.pop(context);
     }
 
-  }
+
   bool passIsValid(String value){
     String  pattern = '^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[$validSymbols]).{5,}\$';
     RegExp regExp = new RegExp(pattern);
@@ -183,7 +183,10 @@ class _NewUserState extends State<NewUser> {
                     //   font: 22,
                     //   isPassword: false,
                     // ),
-                    DatePickerWidget(title: "DoB"),
+                    DatePickerWidget(title: "DoB"
+                    ,controller: controllerDob
+                      ,
+                    ),
                     // InputField(
                     //   title: "Gender",
                     //   font: 22,

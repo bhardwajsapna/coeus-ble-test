@@ -1,5 +1,6 @@
 import 'package:coeus_v1/components/summary_card.dart';
 import 'package:coeus_v1/pages/connectdevice.page.dart';
+import 'package:coeus_v1/pages/discovery_page_updated.dart';
 import 'package:coeus_v1/pages/home.page.dart';
 import 'package:coeus_v1/pages/profile.page.dart';
 import 'package:coeus_v1/utils/const.dart';
