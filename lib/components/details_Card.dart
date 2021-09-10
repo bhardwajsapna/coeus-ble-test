@@ -37,6 +37,7 @@ class _Detailed_CardState extends State<Detailed_Card> {
   bool isfirstLoading = true;
   int ndays = 7;
 
+  Future loadDataFromJson() async {}
 
   Future loadSensorData(int days) async {
     /*
