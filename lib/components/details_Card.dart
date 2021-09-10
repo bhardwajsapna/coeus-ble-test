@@ -37,6 +37,34 @@ class _Detailed_CardState extends State<Detailed_Card> {
   bool isfirstLoading = true;
   int ndays = 7;
 
+
+  Future loadSensorData(int days) async {
+    /*
+    22 aug - check the button which has called this page. Accordingly the file will be called.
+    should graph show 1 day or 1 month.?  
+    */
+    final String jsonString = await getJsonFromAssets();
+
+    chartData = convertJsonToTemp(jsonString);
+
+    //setState(() {
+    seriesList.add(new charts.Series<Sensor, int>(
+      id: 'Temprature',
+      colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+      domainFn: (Sensor temp, _) => temp.point,
+      measureFn: (Sensor temp, _) => temp.value,
+      data: get_data(days),
+    ));
+    seriesList.add(new charts.Series<Sensor, int>(
+      id: 'Temprature',
+      colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
+      domainFn: (Sensor temp, _) => temp.point,
+      measureFn: (Sensor temp, _) => temp.value,
+      data: get_dataMin(days),
+    ));
+    //  });
+  }
+
   Future<String> getJsonFromAssets() async {
     String fileName = "";
     switch (widget.title) {
@@ -112,12 +140,14 @@ class _Detailed_CardState extends State<Detailed_Card> {
   @override
   void initState() {
     super.initState();
+    // loadDataFromJson();
+    loadSensorData(7);
   }
 
   List<Sensor> get_data(int days) {
     List<Sensor> l = [];
-    for (int i = math.max(0, chartData!.tempValues.length - days);
-        i < chartData!.tempValues.length;
+    for (int i = 0; //math.max(0, chartData!.tempValues.length - days - 1);
+        i < days; //chartData!.tempValues.length;
         i++) {
       final data = chartData!.tempValues[i];
       int max = 0;
