@@ -1,3 +1,4 @@
+import 'package:coeus_v1/pages/send_receive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'dart:async';
@@ -83,23 +84,30 @@ class _DiscoveryPage extends State<DiscoveryPage> {
             return BluetoothDeviceListEntry(
               device: device,
               rssi: result.rssi,
-              onTap: () {
-                Navigator.of(context).pop(result.device);
+              onTap: () async {
+                // Navigator.of(context).pop(result.device);
+                if (device.isBonded) {
+                  print('Unbonding from ${device.address}...');
+                  await FlutterBluetoothSerial.instance
+                      .removeDeviceBondWithAddress(address);
+                  print('Unbonding from ${device.address} has succed');
+                }
               },
               onLongPress: () async {
                 try {
                   bool bonded = false;
                   if (device.isBonded) {
-                    print('Unbonding from ${device.address}...');
-                    await FlutterBluetoothSerial.instance
-                        .removeDeviceBondWithAddress(address);
-                    print('Unbonding from ${device.address} has succed');
+
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => SendReceive(device.address)));
                   } else {
                     print('Bonding with ${device.address}...');
                     bonded = (await FlutterBluetoothSerial.instance
                         .bondDeviceAtAddress(address))!;
                     print(
                         'Bonding with ${device.address} has ${bonded ? 'succed' : 'failed'}.');
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => SendReceive(device.address)));
                   }
                   setState(() {
                     results[results.indexOf(result)] = BluetoothDiscoveryResult(
@@ -113,6 +121,7 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                         ),
                         rssi: result.rssi);
                   });
+
                 } catch (ex) {
                   showDialog(
                     context: context,
@@ -135,7 +144,7 @@ class _DiscoveryPage extends State<DiscoveryPage> {
               },
             );
           },
-        
+
       ),
     );
   }
@@ -179,7 +188,11 @@ class BluetoothDeviceListEntry extends ListTile {
                   ? Icon(Icons.import_export)
                   : Container(width: 0, height: 0),
               device.isBonded
-                  ? Icon(Icons.link)
+                  ? InkWell(
+                  onTap: (){
+
+                  },
+                  child: Icon(Icons.link))
                   : Container(width: 0, height: 0),
             ],
           ),

@@ -27,6 +27,7 @@ class _Detailed_CardState extends State<Detailed_Card> {
   MonthReading? chartData;
 
   ChartSeriesController? _chartSeriesController;
+
   late List<Sensor> listdata;
   late Map<int, List<Sensor>> listMap = HashMap();
   int count = 0;
@@ -45,6 +46,7 @@ class _Detailed_CardState extends State<Detailed_Card> {
     should graph show 1 day or 1 month.?  
     */
     final String jsonString = await getJsonFromAssets();
+
 
     chartData = convertJsonToTemp(jsonString);
 
@@ -156,6 +158,7 @@ class _Detailed_CardState extends State<Detailed_Card> {
         data.samples.sort((a, b) => a.temp.compareTo(b.temp));
         max = data.samples.last.temp;
       }
+
       l.add(Sensor(value: max, point: 30 - i));
       print(l.length);
     }
@@ -178,6 +181,7 @@ class _Detailed_CardState extends State<Detailed_Card> {
     }
     return l;
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -218,19 +222,18 @@ class _Detailed_CardState extends State<Detailed_Card> {
                                     backgroundColor: Colors.grey[300],
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
-                      );
-                    }
-                  }),
-            ),
-            /*
+                          );
+                        }
+                      }),
+                ),
+                /*
             ns on 08 aug 21
             these buttons were added so that the content of the graph can be changed as per user request
             update the graph
             */
+
 
             /*
             1 , 7 15 => title , no ofdays
@@ -268,6 +271,7 @@ class _Detailed_CardState extends State<Detailed_Card> {
               title: "Done",
               width: MediaQuery.of(context).size.width,
             )
+
           ],
         ));
   }

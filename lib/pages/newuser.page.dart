@@ -108,12 +108,14 @@ class _NewUserState extends State<NewUser> {
       );
     }
 
+
     Navigator.pop(context);
   }
 
   bool passIsValid(String value) {
     String pattern =
         '^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[$validSymbols]).{5,}\$';
+
     RegExp regExp = new RegExp(pattern);
     return regExp.hasMatch(value);
   }
@@ -153,6 +155,7 @@ class _NewUserState extends State<NewUser> {
           child: Form(
             key: _formKey,
             child: Column(
+
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -229,6 +232,7 @@ class _NewUserState extends State<NewUser> {
                     }
                   },
                 ),
+
 
                 InputField(
                   title: "Re-enter Password",
