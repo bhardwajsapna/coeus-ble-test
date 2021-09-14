@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:coeus_v1/utils/const.dart';
 import 'package:coeus_v1/utils/user_secure_storage.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +37,10 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
 23 aug 21 - sreeni
 */
   late Future<http.Response> response;
+
+//30 aug 21 - ns
+  bool isNameLong = false;
+  bool isSecNameLong = false;
 
   @override
   void initState() {
@@ -87,7 +90,7 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
   onUpdate() async {
     print("outside val");
     //_key.currentState!.validate()
-    if (true) {
+    if (isNameLong && isSecNameLong) {
       print("inside val");
 
       await UserSecureStorage.setFirstName(controllerFirstName.text);
@@ -105,6 +108,25 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
             TextButton(
               onPressed: () {
                 updateProfileService();
+                Navigator.pop(context, 'OK');
+                Navigator.pop(context);
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    } else {
+      // 30 aug 21 - if first and second name are not correct
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Data Error'),
+          content: const Text(
+              'First Name and Second Name should be more than 2 characters.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
                 Navigator.pop(context, 'OK');
                 Navigator.pop(context);
               },
@@ -139,12 +161,26 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
                   font: 20,
                   isPassword: false,
                   controller: controllerFirstName,
+                  onChanged: (val) {
+                    setState(() {
+                      controllerFirstName.text.length > 2
+                          ? isNameLong = true
+                          : isNameLong = false;
+                    });
+                  },
                 ),
                 InputField(
                   title: "Last Name",
                   font: 20,
                   isPassword: false,
                   controller: controllerSecondName,
+                  onChanged: (val) {
+                    setState(() {
+                      controllerSecondName.text.length > 2
+                          ? isSecNameLong = true
+                          : isSecNameLong = false;
+                    });
+                  },
                 ),
                 InputField(
                   title: "Mobile Number",
