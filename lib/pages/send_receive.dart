@@ -39,31 +39,51 @@ class _SendReceive extends State<SendReceive>{
     }
     catch (exception) {
       print(exception.toString());
-      intialize();
       print('Cannot connect, exception occured');
     }
   }
 
-  void receive(){
-    connection.input!.listen((Uint8List data) {
-      print('Data incoming: ${ascii.decode(data)}');
-      connection.output.add(data); // Sending data
+  Future<void> receive() async {
+    try {
+      print('connected device '+widget.address);
+      connection = await BluetoothConnection.toAddress(widget.address);
+      print('Connected to the device');
+      connection.input!.listen((Uint8List data) {
+        print('Data incoming: ${ascii.decode(data)}');
+        connection.output.add(data); // Sending data
 
-      if (ascii.decode(data).contains('!')) {
-        connection.finish(); // Closing connection
-        print('Disconnecting by local host');
-      }
-    }).onDone(() {
-      print('Disconnected by remote request');
-    });
+        if (ascii.decode(data).contains('!')) {
+          connection.finish(); // Closing connection
+          print('Disconnecting by local host');
+        }
+      }).onDone(() {
+        print('Disconnected by remote request');
+      });
+
+    }
+    catch (exception) {
+      print(exception.toString());
+      print('Cannot connect, exception occured');
+    }
+
 
 
   }
 
-  void send(){
-    String name = 'Ankit';
-     Uint8List code =  ascii.encode(name);
-    connection.output.add(code);
+  Future<void> send() async {
+    try {
+      print('connected device '+widget.address);
+      connection = await BluetoothConnection.toAddress(widget.address);
+      print('Connected to the device');
+      String name = 'Ankit';
+      Uint8List code =  ascii.encode(name);
+      connection.output.add(code);
+    }
+    catch (exception) {
+      print(exception.toString());
+      print('Cannot connect, exception occured');
+    }
+
   }
 
   @override
