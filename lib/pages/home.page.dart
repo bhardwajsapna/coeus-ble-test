@@ -105,7 +105,6 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -262,5 +261,3 @@ class OrdinalSales {
 
   OrdinalSales(this.year, this.sales);
 }
-
-

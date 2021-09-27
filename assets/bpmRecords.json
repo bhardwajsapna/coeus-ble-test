@@ -1,27 +1,27 @@
 {
-    "bpmValues": [
+    "readValues": [
         {
             "sampleDate": "22-07-2021",
             "samples": [
                 {
                     "time": "15-18",
-                    "bpm": 61
+                    "value": 61
                 },
                 {
                     "time": "15-48",
-                    "bpm": 77
+                    "value": 77
                 },
                 {
                     "time": "16-18",
-                    "bpm": 57
+                    "value": 57
                 },
                 {
                     "time": "16-48",
-                    "bpm": 63
+                    "value": 63
                 },
                 {
                     "time": "17-18",
-                    "bpm": 67
+                    "value": 67
                 }
             ]
         },
@@ -30,23 +30,23 @@
             "samples": [
                 {
                     "time": "17-48",
-                    "bpm": 57
+                    "value": 57
                 },
                 {
                     "time": "18-18",
-                    "bpm": 81
+                    "value": 81
                 },
                 {
                     "time": "18-48",
-                    "bpm": 63
+                    "value": 63
                 },
                 {
                     "time": "19-18",
-                    "bpm": 71
+                    "value": 71
                 },
                 {
                     "time": "19-48",
-                    "bpm": 59
+                    "value": 59
                 }
             ]
         },
@@ -55,23 +55,23 @@
             "samples": [
                 {
                     "time": "20-18",
-                    "bpm": 81
+                    "value": 81
                 },
                 {
                     "time": "20-48",
-                    "bpm": 88
+                    "value": 88
                 },
                 {
                     "time": "21-18",
-                    "bpm": 87
+                    "value": 87
                 },
                 {
                     "time": "21-48",
-                    "bpm": 59
+                    "value": 59
                 },
                 {
                     "time": "22-18",
-                    "bpm": 56
+                    "value": 56
                 }
             ]
         },
@@ -80,23 +80,23 @@
             "samples": [
                 {
                     "time": "22-48",
-                    "bpm": 71
+                    "value": 71
                 },
                 {
                     "time": "23-18",
-                    "bpm": 67
+                    "value": 67
                 },
                 {
                     "time": "23-48",
-                    "bpm": 77
+                    "value": 77
                 },
                 {
                     "time": "00-18",
-                    "bpm": 64
+                    "value": 64
                 },
                 {
                     "time": "00-48",
-                    "bpm": 68
+                    "value": 68
                 }
             ]
         },
@@ -105,23 +105,23 @@
             "samples": [
                 {
                     "time": "01-18",
-                    "bpm": 70
+                    "value": 70
                 },
                 {
                     "time": "01-48",
-                    "bpm": 61
+                    "value": 61
                 },
                 {
                     "time": "02-18",
-                    "bpm": 86
+                    "value": 86
                 },
                 {
                     "time": "02-48",
-                    "bpm": 85
+                    "value": 85
                 },
                 {
                     "time": "03-18",
-                    "bpm": 77
+                    "value": 77
                 }
             ]
         },
@@ -130,23 +130,23 @@
             "samples": [
                 {
                     "time": "03-48",
-                    "bpm": 67
+                    "value": 67
                 },
                 {
                     "time": "04-18",
-                    "bpm": 61
+                    "value": 61
                 },
                 {
                     "time": "04-48",
-                    "bpm": 56
+                    "value": 56
                 },
                 {
                     "time": "05-18",
-                    "bpm": 87
+                    "value": 87
                 },
                 {
                     "time": "05-48",
-                    "bpm": 57
+                    "value": 57
                 }
             ]
         },
@@ -155,23 +155,23 @@
             "samples": [
                 {
                     "time": "06-18",
-                    "bpm": 81
+                    "value": 81
                 },
                 {
                     "time": "06-48",
-                    "bpm": 83
+                    "value": 83
                 },
                 {
                     "time": "07-18",
-                    "bpm": 83
+                    "value": 83
                 },
                 {
                     "time": "07-48",
-                    "bpm": 62
+                    "value": 62
                 },
                 {
                     "time": "08-18",
-                    "bpm": 75
+                    "value": 75
                 }
             ]
         },
@@ -180,23 +180,23 @@
             "samples": [
                 {
                     "time": "08-48",
-                    "bpm": 70
+                    "value": 70
                 },
                 {
                     "time": "09-18",
-                    "bpm": 70
+                    "value": 70
                 },
                 {
                     "time": "09-48",
-                    "bpm": 61
+                    "value": 61
                 },
                 {
                     "time": "10-18",
-                    "bpm": 71
+                    "value": 71
                 },
                 {
                     "time": "10-48",
-                    "bpm": 82
+                    "value": 82
                 }
             ]
         },
@@ -205,23 +205,23 @@
             "samples": [
                 {
                     "time": "11-18",
-                    "bpm": 55
+                    "value": 55
                 },
                 {
                     "time": "11-48",
-                    "bpm": 84
+                    "value": 84
                 },
                 {
                     "time": "12-18",
-                    "bpm": 57
+                    "value": 57
                 },
                 {
                     "time": "12-48",
-                    "bpm": 60
+                    "value": 60
                 },
                 {
                     "time": "13-18",
-                    "bpm": 59
+                    "value": 59
                 }
             ]
         },
@@ -230,23 +230,23 @@
             "samples": [
                 {
                     "time": "13-48",
-                    "bpm": 77
+                    "value": 77
                 },
                 {
                     "time": "14-18",
-                    "bpm": 64
+                    "value": 64
                 },
                 {
                     "time": "14-48",
-                    "bpm": 56
+                    "value": 56
                 },
                 {
                     "time": "15-18",
-                    "bpm": 66
+                    "value": 66
                 },
                 {
                     "time": "15-48",
-                    "bpm": 83
+                    "value": 83
                 }
             ]
         },
@@ -255,23 +255,23 @@
             "samples": [
                 {
                     "time": "16-18",
-                    "bpm": 81
+                    "value": 81
                 },
                 {
                     "time": "16-48",
-                    "bpm": 72
+                    "value": 72
                 },
                 {
                     "time": "17-18",
-                    "bpm": 55
+                    "value": 55
                 },
                 {
                     "time": "17-48",
-                    "bpm": 80
+                    "value": 80
                 },
                 {
                     "time": "18-18",
-                    "bpm": 59
+                    "value": 59
                 }
             ]
         },
@@ -280,23 +280,23 @@
             "samples": [
                 {
                     "time": "18-48",
-                    "bpm": 78
+                    "value": 78
                 },
                 {
                     "time": "19-18",
-                    "bpm": 68
+                    "value": 68
                 },
                 {
                     "time": "19-48",
-                    "bpm": 77
+                    "value": 77
                 },
                 {
                     "time": "20-18",
-                    "bpm": 87
+                    "value": 87
                 },
                 {
                     "time": "20-48",
-                    "bpm": 78
+                    "value": 78
                 }
             ]
         },
@@ -305,23 +305,23 @@
             "samples": [
                 {
                     "time": "21-18",
-                    "bpm": 83
+                    "value": 83
                 },
                 {
                     "time": "21-48",
-                    "bpm": 72
+                    "value": 72
                 },
                 {
                     "time": "22-18",
-                    "bpm": 71
+                    "value": 71
                 },
                 {
                     "time": "22-48",
-                    "bpm": 59
+                    "value": 59
                 },
                 {
                     "time": "23-18",
-                    "bpm": 76
+                    "value": 76
                 }
             ]
         },
@@ -330,23 +330,23 @@
             "samples": [
                 {
                     "time": "23-48",
-                    "bpm": 64
+                    "value": 64
                 },
                 {
                     "time": "00-18",
-                    "bpm": 57
+                    "value": 57
                 },
                 {
                     "time": "00-48",
-                    "bpm": 80
+                    "value": 80
                 },
                 {
                     "time": "01-18",
-                    "bpm": 65
+                    "value": 65
                 },
                 {
                     "time": "01-48",
-                    "bpm": 60
+                    "value": 60
                 }
             ]
         },
@@ -355,23 +355,23 @@
             "samples": [
                 {
                     "time": "02-18",
-                    "bpm": 84
+                    "value": 84
                 },
                 {
                     "time": "02-48",
-                    "bpm": 59
+                    "value": 59
                 },
                 {
                     "time": "03-18",
-                    "bpm": 80
+                    "value": 80
                 },
                 {
                     "time": "03-48",
-                    "bpm": 62
+                    "value": 62
                 },
                 {
                     "time": "04-18",
-                    "bpm": 87
+                    "value": 87
                 }
             ]
         },
@@ -380,23 +380,23 @@
             "samples": [
                 {
                     "time": "04-48",
-                    "bpm": 63
+                    "value": 63
                 },
                 {
                     "time": "05-18",
-                    "bpm": 71
+                    "value": 71
                 },
                 {
                     "time": "05-48",
-                    "bpm": 85
+                    "value": 85
                 },
                 {
                     "time": "06-18",
-                    "bpm": 83
+                    "value": 83
                 },
                 {
                     "time": "06-48",
-                    "bpm": 59
+                    "value": 59
                 }
             ]
         },
@@ -405,23 +405,23 @@
             "samples": [
                 {
                     "time": "07-18",
-                    "bpm": 86
+                    "value": 86
                 },
                 {
                     "time": "07-48",
-                    "bpm": 62
+                    "value": 62
                 },
                 {
                     "time": "08-18",
-                    "bpm": 56
+                    "value": 56
                 },
                 {
                     "time": "08-48",
-                    "bpm": 58
+                    "value": 58
                 },
                 {
                     "time": "09-18",
-                    "bpm": 81
+                    "value": 81
                 }
             ]
         },
@@ -430,23 +430,23 @@
             "samples": [
                 {
                     "time": "09-48",
-                    "bpm": 68
+                    "value": 68
                 },
                 {
                     "time": "10-18",
-                    "bpm": 71
+                    "value": 71
                 },
                 {
                     "time": "10-48",
-                    "bpm": 55
+                    "value": 55
                 },
                 {
                     "time": "11-18",
-                    "bpm": 62
+                    "value": 62
                 },
                 {
                     "time": "11-48",
-                    "bpm": 70
+                    "value": 70
                 }
             ]
         },
@@ -455,23 +455,23 @@
             "samples": [
                 {
                     "time": "12-18",
-                    "bpm": 72
+                    "value": 72
                 },
                 {
                     "time": "12-48",
-                    "bpm": 79
+                    "value": 79
                 },
                 {
                     "time": "13-18",
-                    "bpm": 71
+                    "value": 71
                 },
                 {
                     "time": "13-48",
-                    "bpm": 70
+                    "value": 70
                 },
                 {
                     "time": "14-18",
-                    "bpm": 87
+                    "value": 87
                 }
             ]
         },
@@ -480,23 +480,23 @@
             "samples": [
                 {
                     "time": "14-48",
-                    "bpm": 85
+                    "value": 85
                 },
                 {
                     "time": "15-18",
-                    "bpm": 83
+                    "value": 83
                 },
                 {
                     "time": "15-48",
-                    "bpm": 57
+                    "value": 57
                 },
                 {
                     "time": "16-18",
-                    "bpm": 65
+                    "value": 65
                 },
                 {
                     "time": "16-48",
-                    "bpm": 82
+                    "value": 82
                 }
             ]
         },
@@ -505,23 +505,23 @@
             "samples": [
                 {
                     "time": "17-18",
-                    "bpm": 83
+                    "value": 83
                 },
                 {
                     "time": "17-48",
-                    "bpm": 69
+                    "value": 69
                 },
                 {
                     "time": "18-18",
-                    "bpm": 83
+                    "value": 83
                 },
                 {
                     "time": "18-48",
-                    "bpm": 71
+                    "value": 71
                 },
                 {
                     "time": "19-18",
-                    "bpm": 85
+                    "value": 85
                 }
             ]
         },
@@ -530,23 +530,23 @@
             "samples": [
                 {
                     "time": "19-48",
-                    "bpm": 62
+                    "value": 62
                 },
                 {
                     "time": "20-18",
-                    "bpm": 75
+                    "value": 75
                 },
                 {
                     "time": "20-48",
-                    "bpm": 82
+                    "value": 82
                 },
                 {
                     "time": "21-18",
-                    "bpm": 60
+                    "value": 60
                 },
                 {
                     "time": "21-48",
-                    "bpm": 61
+                    "value": 61
                 }
             ]
         },
@@ -555,23 +555,23 @@
             "samples": [
                 {
                     "time": "22-18",
-                    "bpm": 66
+                    "value": 66
                 },
                 {
                     "time": "22-48",
-                    "bpm": 61
+                    "value": 61
                 },
                 {
                     "time": "23-18",
-                    "bpm": 78
+                    "value": 78
                 },
                 {
                     "time": "23-48",
-                    "bpm": 74
+                    "value": 74
                 },
                 {
                     "time": "00-18",
-                    "bpm": 77
+                    "value": 77
                 }
             ]
         },
@@ -580,23 +580,23 @@
             "samples": [
                 {
                     "time": "00-48",
-                    "bpm": 61
+                    "value": 61
                 },
                 {
                     "time": "01-18",
-                    "bpm": 55
+                    "value": 55
                 },
                 {
                     "time": "01-48",
-                    "bpm": 55
+                    "value": 55
                 },
                 {
                     "time": "02-18",
-                    "bpm": 83
+                    "value": 83
                 },
                 {
                     "time": "02-48",
-                    "bpm": 57
+                    "value": 57
                 }
             ]
         },
@@ -605,23 +605,23 @@
             "samples": [
                 {
                     "time": "03-18",
-                    "bpm": 77
+                    "value": 77
                 },
                 {
                     "time": "03-48",
-                    "bpm": 78
+                    "value": 78
                 },
                 {
                     "time": "04-18",
-                    "bpm": 74
+                    "value": 74
                 },
                 {
                     "time": "04-48",
-                    "bpm": 73
+                    "value": 73
                 },
                 {
                     "time": "05-18",
-                    "bpm": 75
+                    "value": 75
                 }
             ]
         },
@@ -630,23 +630,23 @@
             "samples": [
                 {
                     "time": "05-48",
-                    "bpm": 55
+                    "value": 55
                 },
                 {
                     "time": "06-18",
-                    "bpm": 55
+                    "value": 55
                 },
                 {
                     "time": "06-48",
-                    "bpm": 82
+                    "value": 82
                 },
                 {
                     "time": "07-18",
-                    "bpm": 87
+                    "value": 87
                 },
                 {
                     "time": "07-48",
-                    "bpm": 68
+                    "value": 68
                 }
             ]
         },
@@ -655,23 +655,23 @@
             "samples": [
                 {
                     "time": "08-18",
-                    "bpm": 76
+                    "value": 76
                 },
                 {
                     "time": "08-48",
-                    "bpm": 58
+                    "value": 58
                 },
                 {
                     "time": "09-18",
-                    "bpm": 55
+                    "value": 55
                 },
                 {
                     "time": "09-48",
-                    "bpm": 64
+                    "value": 64
                 },
                 {
                     "time": "10-18",
-                    "bpm": 62
+                    "value": 62
                 }
             ]
         },
@@ -680,23 +680,23 @@
             "samples": [
                 {
                     "time": "10-48",
-                    "bpm": 65
+                    "value": 65
                 },
                 {
                     "time": "11-18",
-                    "bpm": 85
+                    "value": 85
                 },
                 {
                     "time": "11-48",
-                    "bpm": 55
+                    "value": 55
                 },
                 {
                     "time": "12-18",
-                    "bpm": 76
+                    "value": 76
                 },
                 {
                     "time": "12-48",
-                    "bpm": 61
+                    "value": 61
                 }
             ]
         },
@@ -705,23 +705,23 @@
             "samples": [
                 {
                     "time": "13-18",
-                    "bpm": 65
+                    "value": 65
                 },
                 {
                     "time": "13-48",
-                    "bpm": 78
+                    "value": 78
                 },
                 {
                     "time": "14-18",
-                    "bpm": 59
+                    "value": 59
                 },
                 {
                     "time": "14-48",
-                    "bpm": 85
+                    "value": 85
                 },
                 {
                     "time": "15-18",
-                    "bpm": 76
+                    "value": 76
                 }
             ]
         }

@@ -2,6 +2,7 @@ import 'package:coeus_v1/utils/const.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'detailsCardBar.dart';
 import 'details_Card.dart';
 
 class SummaryCard extends StatelessWidget {
@@ -31,8 +32,20 @@ class SummaryCard extends StatelessWidget {
     }
     return InkWell(
       onTap: () => {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Detailed_Card()))
+        if (this.title == 'Footsteps')
+          {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DetailedCardBar(title: this.title)))
+          }
+        else
+          {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Detailed_Card(title: this.title)))
+          }
       },
       child: Container(
           padding: EdgeInsets.all(15.0),
@@ -74,81 +87,7 @@ class SummaryCard extends StatelessWidget {
                       ],
                     ),
             ],
-          )
-          //   Column(
-          //     mainAxisAlignment: MainAxisAlignment.start,
-          //     crossAxisAlignment: CrossAxisAlignment.center,
-          //     children: <Widget>[
-          //       Container(
-          //         width: _width,
-          //         child: Padding(
-          //           padding: EdgeInsets.all(20.0),
-          //           child: Column(
-          //             crossAxisAlignment: CrossAxisAlignment.center,
-          //             mainAxisAlignment: MainAxisAlignment.start,
-          //             children: <Widget>[
-          //               SizedBox(
-          //                 height: 10,
-          //               ),
-          //               // Icon and Hearbeat
-          //               Column(
-          //                 mainAxisAlignment: MainAxisAlignment.start,
-          //                 children: <Widget>[
-          //                   Container(
-          // child: Text(
-          //   title,
-          //   overflow: TextOverflow.ellipsis,
-          //   style: TextStyle(
-          //       fontSize: 18, color: Constants.textDark),
-          // ),
-          //                   ),
-          //                   SizedBox(
-          //                     height: 5,
-          //                   ),
-          //                   Image(width: 40, height: 40, image: image),
-          //                 ],
-          //               ),
-          //               (value != "")
-          //                   ? Column(
-          //                       children: [
-          // Row(
-          //   crossAxisAlignment: CrossAxisAlignment.center,
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     Expanded(
-          //       child: Text(
-          //         value,
-          //         style: TextStyle(
-          //           fontSize: 36,
-          //           fontWeight: FontWeight.w900,
-          //           color: Constants.textDark,
-          //         ),
-          //       ),
-          //     ),
-          //     SizedBox(
-          //       width: 5,
-          //     ),
-          //     Expanded(
-          //       child: Text(
-          //         unit,
-          //         style: TextStyle(
-          //             fontSize: 24,
-          //             color: Constants.textDark),
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          //                       ],
-          //                     )
-          //                   : Container(),
-          //             ],
-          //           ),
-          //         ),
-          //       )
-          //     ],
-          //   ),
-          // ),
-          ),
+          )),
     );
   }
 }
