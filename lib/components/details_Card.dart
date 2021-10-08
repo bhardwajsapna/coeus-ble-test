@@ -206,6 +206,7 @@ class _Detailed_CardState extends State<Detailed_Card> {
                             width: 400,
                             child: Center(
                               child: Row(
+<<<<<<< Updated upstream
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
@@ -223,6 +224,25 @@ class _Detailed_CardState extends State<Detailed_Card> {
                                   ),
                                 ],
                               ),
+=======
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text('Retriving JSON data...',
+                                        style: TextStyle(fontSize: 20.0)),
+                                    Container(
+                                      height: 40,
+                                      width: 40,
+                                      child: CircularProgressIndicator(
+                                        semanticsLabel: 'Retriving JSON data',
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Colors.blueAccent),
+                                        backgroundColor: Colors.grey[300],
+                                      ),
+                                    ),
+                                  ]),
+>>>>>>> Stashed changes
                             ),
                           ));
                     }

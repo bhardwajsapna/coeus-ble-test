@@ -35,10 +35,14 @@ class ProfilePage extends StatelessWidget {
               title: "Caregiver Details",
               nextNavigation: SupportProfilePage(),
               width: MediaQuery.of(context).size.width),
+          /*
+        29 sep 21
+        sapna sreeni - this is no more required as the schedule is provided in advance setting as discussed with sriharsha
           Button(
               title: "Monitoring Schedule",
               nextNavigation: SchedulingProfilePage(),
-              width: MediaQuery.of(context).size.width),
+              width: MediaQuery.of(context).size.width), 
+              */
           Button(
               title: "Advanced Settings",
               nextNavigation: AdvancedSettingsProfilePage(),

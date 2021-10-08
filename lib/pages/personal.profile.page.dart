@@ -29,7 +29,8 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
   final controllerFirstName = TextEditingController();
   final controllerSecondName = TextEditingController();
   final controllerMobileNumber = TextEditingController();
-  final controllerPassword = TextEditingController();
+  // ss - 29 sep 21 - removed the password display
+  //final controllerPassword = TextEditingController();
   // added this new controller for DOB for get and set - 24 aug 21
   final controllerDob = TextEditingController();
 
@@ -67,7 +68,8 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
       this.controllerFirstName.text = fname;
       this.controllerSecondName.text = sname;
       this.controllerMobileNumber.text = mobilenumber;
-      this.controllerPassword.text = password;
+      // ss - 29 sep 21 - removed the password display
+      // this.controllerPassword.text = password;
       // added this new controller for DOB for get and set - 24 aug 21
       this.controllerDob.text = dob.toString();
     });
@@ -79,7 +81,8 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
       "secondName": this.controllerSecondName.text,
       "mobileNo": this.controllerMobileNumber.text,
       "DOB": this.controllerDob.text,
-      "password": this.controllerPassword.text
+      // ss - 29 sep 21 - removed the password display
+      //  "password": this.controllerPassword.text
     };
     print(requestParams);
     response = updateProfileAPIService(requestParams);
@@ -96,7 +99,8 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
       await UserSecureStorage.setFirstName(controllerFirstName.text);
       await UserSecureStorage.setSecondName(controllerSecondName.text);
       await UserSecureStorage.setMobileNumber(controllerMobileNumber.text);
-      await UserSecureStorage.setPassword(controllerPassword.text);
+      // ss - 29 sep 21 - removed the password display
+      //   await UserSecureStorage.setPassword(controllerPassword.text);
       await UserSecureStorage.setDOB(DateTime.tryParse(controllerDob.text));
 
       showDialog<String>(
@@ -208,13 +212,15 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
                   isEditable: false,
                   controller: controllerEmailid,
                 ),*/
-                InputField(
+                /*  
+                 // ss - 29 sep 21 - removed the password display
+              InputField(
                   title: "Password",
                   font: 20,
                   isPassword: false,
                   isEditable: false,
                   controller: controllerPassword,
-                ),
+                ),*/
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Button(
                       onTapFunction: () => Navigator.pop(context),
