@@ -1,17 +1,13 @@
-
 import 'package:coeus_v1/widget/bluetoohSearch.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 
-
-
-class DiscoveryBluetoothDevice extends StatefulWidget{
-  _DiscoveryBluetoothDevice createState()=> _DiscoveryBluetoothDevice();
+class DiscoveryBluetoothDevice extends StatefulWidget {
+  _DiscoveryBluetoothDevice createState() => _DiscoveryBluetoothDevice();
 }
 
-class _DiscoveryBluetoothDevice extends State<DiscoveryBluetoothDevice>{
-
+class _DiscoveryBluetoothDevice extends State<DiscoveryBluetoothDevice> {
   FlutterBlue flutterBlue = FlutterBlue.instance;
   List<ScanResult> list = [];
 
@@ -27,26 +23,21 @@ class _DiscoveryBluetoothDevice extends State<DiscoveryBluetoothDevice>{
     // ignore: cancel_subscriptions
     var subscription = flutterBlue.scanResults.listen((results) {
       // do something with scan results
+      list = [];
       for (ScanResult r in results) {
-       setState(() {
-         list.add(r);
-       });
+        setState(() {
+          list.add(r);
+        });
 
         print('${r.device.name} found! rssi: ${r.rssi}');
-
       }
     });
-
 
     subscription.onDone(() {
       flutterBlue.stopScan();
     });
 
 // Stop scanning
-
-
-
-
   }
 
   @override
@@ -63,14 +54,18 @@ class _DiscoveryBluetoothDevice extends State<DiscoveryBluetoothDevice>{
             device: result.device,
             rssi: result.rssi,
             onTap: () async {
+              print("in tap...");
               await device.connect();
+              if (BluetoothDeviceState.connected != null) {
+                print("alisa-connected...");
+              }
             },
             onLongPress: () async {
-             try{
-               if(BluetoothDeviceState.connected != null){
-                 device.disconnect();
-               }
-
+              try {
+                if (BluetoothDeviceState.connected != null) {
+                  device.disconnect();
+                  print("alisa-disconnected...");
+                }
               } catch (ex) {
                 showDialog(
                   context: context,
@@ -93,9 +88,7 @@ class _DiscoveryBluetoothDevice extends State<DiscoveryBluetoothDevice>{
             },
           );
         },
-
       ),
     );
   }
-
 }

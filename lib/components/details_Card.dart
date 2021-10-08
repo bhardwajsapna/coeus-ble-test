@@ -47,7 +47,6 @@ class _Detailed_CardState extends State<Detailed_Card> {
     */
     final String jsonString = await getJsonFromAssets();
 
-
     chartData = convertJsonToTemp(jsonString);
 
     //setState(() {
@@ -182,7 +181,6 @@ class _Detailed_CardState extends State<Detailed_Card> {
     return l;
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -202,38 +200,39 @@ class _Detailed_CardState extends State<Detailed_Card> {
                           child: StackedLineChart(seriesList, animate: false));
                     } else {
                       return Card(
-                        elevation: 5.0,
-                        child: Container(
-                          height: 100,
-                          width: 400,
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text('Retriving JSON data...',
-                                    style: TextStyle(fontSize: 20.0)),
-                                Container(
-                                  height: 40,
-                                  width: 40,
-                                  child: CircularProgressIndicator(
-                                    semanticsLabel: 'Retriving JSON data',
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.blueAccent),
-                                    backgroundColor: Colors.grey[300],
+                          elevation: 5.0,
+                          child: Container(
+                            height: 100,
+                            width: 400,
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text('Retriving JSON data...',
+                                      style: TextStyle(fontSize: 20.0)),
+                                  Container(
+                                    height: 40,
+                                    width: 40,
+                                    child: CircularProgressIndicator(
+                                      semanticsLabel: 'Retriving JSON data',
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          Colors.blueAccent),
+                                      backgroundColor: Colors.grey[300],
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
                             ),
-                          );
-                        }
-                      }),
-                ),
-                /*
+                          ));
+                    }
+                  }),
+            ),
+            /*
             ns on 08 aug 21
             these buttons were added so that the content of the graph can be changed as per user request
             update the graph
             */
-
 
             /*
             1 , 7 15 => title , no ofdays
@@ -271,7 +270,6 @@ class _Detailed_CardState extends State<Detailed_Card> {
               title: "Done",
               width: MediaQuery.of(context).size.width,
             )
-
           ],
         ));
   }

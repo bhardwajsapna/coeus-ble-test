@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'dart:ffi';
+import 'dart:typed_data';
 
+import 'package:coeus_v1/models/SpO2Values.dart';
 import 'package:coeus_v1/services/api.dart';
 import 'package:coeus_v1/utils/advanced_settings_secure_storage.dart';
 import 'package:coeus_v1/utils/const.dart';
@@ -8,6 +11,7 @@ import 'package:coeus_v1/widget/scroller.dart';
 import 'package:flutter/material.dart';
 import 'package:coeus_v1/widget/button.dart';
 import 'package:coeus_v1/widget/textLogin.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
 
@@ -44,6 +48,7 @@ class _AdvancedSettingsProfilePageState
 23 aug 21 - sreeni
 */
   late Future<http.Response> response;
+  List<BluetoothService> services = [];
 
   @override
   void initState() {
@@ -67,6 +72,57 @@ class _AdvancedSettingsProfilePageState
     map_samplingrate_list_value['128'] = 128;
     map_samplingrate_list_value['256'] = 256;
     map_samplingrate_list_value['512'] = 512;
+
+    FlutterBlue.instance.connectedDevices.then((value) async {
+      List<BluetoothDevice> list = await value.toList();
+      for (BluetoothDevice r in list) {
+        if (r.name == 'ALISA') {
+          services = await r.services.first;
+        }
+      }
+    });
+  }
+
+  void write_to_device() {
+    services.forEach((service) async {
+      if (service.uuid.toString() == "97fe6ff7-9e89-40ec-a371-2a2ea5b4d546") {
+        print("found service...");
+
+        var characteristics = service.characteristics;
+        for (BluetoothCharacteristic c in characteristics) {
+          if (c.uuid.toString() == "97fe0108-9e89-40ec-a371-2a2ea5b4d546") {
+            print("--------------------------------------");
+            print(c);
+            String spo2 = samplingrate_list[this.selected_index_SpO2];
+            if (spo2 == 'off') {
+              spo2 = "0";
+            }
+            int spo2_int = int.parse(spo2);
+            String ecg = samplingrate_list[this.selected_index_ecg];
+            if (ecg == 'off') {
+              ecg = "0";
+            }
+            int ecg_int = int.parse(ecg);
+            String temperature = samplingrate_list[this.selected_index_temp];
+            if (temperature == 'off') {
+              temperature = "0";
+            }
+            int temperature_int = int.parse(temperature);
+
+            String accel = samplingrate_list[this.selected_index_activity];
+            if (accel == 'off') {
+              accel = "0";
+            }
+            int accel_int = int.parse(accel);
+
+            Uint16List temp = Uint16List.fromList(
+                [spo2_int, ecg_int, temperature_int, accel_int]);
+            c.write(temp).then((value) => print("written..."));
+            break;
+          }
+        }
+      }
+    });
   }
 
   int getIndexFromList(list, val) {
@@ -117,10 +173,15 @@ class _AdvancedSettingsProfilePageState
 17 aug 21
 this is to test and implement the API
 */
-    await updateAdvancedSettingsService(); //=== should be uncommented
+    var response =
+        await updateAdvancedSettingsService(); //=== should be uncommented
+    if (response.statusCode == 200) {
+      write_to_device();
+    }
 /*
 
 */
+
     Navigator.of(context).pop();
   }
 
