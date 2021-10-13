@@ -15,6 +15,8 @@ import 'package:flutter_blue/flutter_blue.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
 
+import 'package:fluttertoast/fluttertoast.dart';
+
 class AdvancedSettingsProfilePage extends StatefulWidget {
   @override
   _AdvancedSettingsProfilePageState createState() =>
@@ -76,8 +78,9 @@ class _AdvancedSettingsProfilePageState
     FlutterBlue.instance.connectedDevices.then((value) async {
       List<BluetoothDevice> list = await value.toList();
       for (BluetoothDevice r in list) {
-        if (r.name == 'ALISA') {
-          services = await r.services.first;
+        if (r.name.contains('COEUS')) {
+          //
+          services = await r.discoverServices();
         }
       }
     });
@@ -85,12 +88,12 @@ class _AdvancedSettingsProfilePageState
 
   void write_to_device() {
     services.forEach((service) async {
-      if (service.uuid.toString() == "97fe6ff7-9e89-40ec-a371-2a2ea5b4d546") {
+      if (service.uuid.toString() == "97fe0100-9e89-00ec-2371-2a2ea5b4d546") {
         print("found service...");
 
         var characteristics = service.characteristics;
         for (BluetoothCharacteristic c in characteristics) {
-          if (c.uuid.toString() == "97fe0108-9e89-40ec-a371-2a2ea5b4d546") {
+          if (c.uuid.toString() == "97fe0108-9e89-00ec-2371-2a2ea5b4d546") {
             print("--------------------------------------");
             print(c);
             String spo2 = samplingrate_list[this.selected_index_SpO2];
@@ -115,10 +118,42 @@ class _AdvancedSettingsProfilePageState
             }
             int accel_int = int.parse(accel);
 
-            Uint16List temp = Uint16List.fromList(
-                [spo2_int, ecg_int, temperature_int, accel_int]);
-            c.write(temp).then((value) => print("written..."));
-            break;
+            // Uint16List temp = Uint16List.fromList(
+            //    [spo2_int, ecg_int, temperature_int, accel_int]);
+
+            var temp = spo2 + ecg + temperature + accel;
+
+            Fluttertoast.showToast(
+                msg: "values to be written" + "${temp}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0);
+
+            var writeval = [134, 135, 136, 137, 138, 139, 140, 141];
+            var writeResult = await c.write(writeval);
+
+            Fluttertoast.showToast(
+                msg: "$writeResult",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0);
+
+            if (writeResult) {
+              Fluttertoast.showToast(
+                  msg: "written successfully",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.red,
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+            }
           }
         }
       }
@@ -156,6 +191,18 @@ class _AdvancedSettingsProfilePageState
   }
 
   void onSubmit() async {
+    // this has to be done after server commits. for testing this is done here now.
+    Fluttertoast.showToast(
+        msg: "come to write",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+
+    write_to_device();
+
     await AdvancedSettingsSecureStorage.setMonitorAfter(
         this.monitor_after_every[this.selected_index_monitor_after]);
     await AdvancedSettingsSecureStorage.setSamplingCommunication(
@@ -175,6 +222,7 @@ this is to test and implement the API
 */
     var response =
         await updateAdvancedSettingsService(); //=== should be uncommented
+
     if (response.statusCode == 200) {
       write_to_device();
     }

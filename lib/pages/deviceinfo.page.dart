@@ -23,52 +23,174 @@ class _DeviceInfoProfilePageState extends State<DeviceInfoProfilePage> {
   void initState() {
     FlutterBlue.instance.connectedDevices.then((value) async {
       List<BluetoothDevice> list = await value.toList();
+
       for (BluetoothDevice r in list) {
-        if (r.name == 'ALISA') {
+        var rname = r.name;
+        Fluttertoast.showToast(
+            msg: "inside COEUS For loop" + "$rname",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+
+//        if (r.name == 'ALISA') {
+        /*  if (r.name.contains('COEUS')) {
+          Fluttertoast.showToast(
+              msg: "finally done",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+
           services = await r.services.first;
+          var servicesLst;
+          services.forEach((element) {
+            servicesLst = servicesLst + element.uuid.toString();
+            servicesLst = servicesLst + "1";
+          });
+          Fluttertoast.showToast(
+              msg: "$servicesLst",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+        } else {
+          Fluttertoast.showToast(
+              msg: "compare not working",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+        }
+*/
+
+        if (r.name.contains('COEUS')) {
+          Fluttertoast.showToast(
+              msg: "inside COEUS = inside IF COEUS",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+
+          //services = await r.services.contains("Unknown"); //.last;
+          // var serviceLen = await r.services.length;
+          var services = await r.discoverServices();
+
+          services.forEach((element) {
+            var temp = element.uuid;
+            Fluttertoast.showToast(
+                msg: "inside COEUS service LEN = $temp",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          });
+          //.isEmpty; //.contains("Unknown");
+          //services.length; //services.length.toString();
+          Fluttertoast.showToast(
+              msg: "inside COEUS service LEN = ${services.length}",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+
           services.forEach((service) async {
+            var serviceDispName = service.uuid.toString();
+            Fluttertoast.showToast(
+                msg: "$serviceDispName",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0);
+
             if (service.uuid.toString() ==
-                "97fe6ff7-9e89-40ec-a371-2a2ea5b4d546") {
+                "97fe0100-9e89-00ec-2371-2a2ea5b4d546") {
               print("found service...");
+
+              Fluttertoast.showToast(
+                  msg: "COnnected to service 100",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.red,
+                  textColor: Colors.white,
+                  fontSize: 16.0);
 
               var characteristics = service.characteristics;
               for (BluetoothCharacteristic c in characteristics) {
                 if (c.uuid.toString() ==
-                    "97fe0103-9e89-40ec-a371-2a2ea5b4d546") {
-                  print("--------------------------------------");
-                  print(c);
+                    "97fe0103-9e89-00ec-2371-2a2ea5b4d546") {
                   // // this is for reading the writen value...
-                  if (!isReading) {
-                    isReading = true;
-                    c.read().then((value) {
-                      firmware_version = utf8.decode(value);
-                      print('value read : $firmware_version');
-                      Fluttertoast.showToast(
-                          msg: "$firmware_version",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: Colors.red,
-                          textColor: Colors.white,
-                          fontSize: 16.0);
-                    });
-                    // isReading = false;
-                  }
+                  var tempVal = await c.read();
+                  Fluttertoast.showToast(
+                      msg: "value = " + "$tempVal",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
+
+                  firmware_version = utf8.decode(tempVal);
+                  print('value read : $firmware_version');
+                  Fluttertoast.showToast(
+                      msg: "firmware Ver" + "$firmware_version",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
                 }
 
                 if (c.uuid.toString() ==
-                    "97fe0104-9e89-40ec-a371-2a2ea5b4d546") {
-                  print("--------------------------------------");
-                  print(c);
+                    "97fe0104-9e89-00ec-2371-2a2ea5b4d546") {
                   // // this is for reading the writen value...
-                  if (!isReading) {
-                    isReading = true;
-                    c.read().then((value) {
-                      software_version = utf8.decode(value);
-                      print('value read : $software_version');
-                    });
-                    // isReading = false;
-                  }
+                  var tempValSW = await c.read();
+                  Fluttertoast.showToast(
+                      msg: "software value = " + "$tempValSW",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
+
+                  software_version = utf8.decode(tempValSW);
+                  print('value read : $software_version');
+                }
+
+                if (c.uuid.toString() ==
+                    "97fe0108-9e89-00ec-2371-2a2ea5b4d546") {
+                  // // this is for reading the writen value...
+                  var tempValSW = await c.read();
+                  Fluttertoast.showToast(
+                      msg: "adv setting  value = " + "$tempValSW",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
+
+                  software_version = utf8.decode(tempValSW);
+                  print('value read : $software_version');
                 }
               }
             }
