@@ -44,8 +44,6 @@ class _AdvancedSettingsProfilePageState
 
   bool mounted = false;
 
-  double __height = 120;
-
 /*
 23 aug 21 - sreeni
 */
@@ -276,10 +274,12 @@ this is to test and implement the API
 
   @override
   Widget build(BuildContext context) {
+    double __height = MediaQuery.of(context).size.height / 6;
     return Scaffold(
       body: ListView(children: [
         Container(
-          height: MediaQuery.of(context).size.height - 50,
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           // decoration: BoxDecoration(
           //   gradient: LinearGradient(
           //       begin: Alignment.topRight,
@@ -295,7 +295,7 @@ this is to test and implement the API
                     font: 32,
                   ),
                   Container(
-                    height: MediaQuery.of(context).size.height - 300,
+                    height: MediaQuery.of(context).size.height * 0.4,
                     child: SingleChildScrollView(
                       child: FutureBuilder(
                         future: getIndex(),
@@ -311,7 +311,10 @@ this is to test and implement the API
                                       height: __height,
                                       child: CustomPickerPage(
                                           font: 22,
-                                          width: 200,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.4,
                                           title: "Monitor after every:",
                                           values: monitor_after_every,
                                           selectedIndex:
@@ -326,7 +329,10 @@ this is to test and implement the API
                                       height: __height,
                                       child: CustomPickerPage(
                                           font: 22,
-                                          width: 200,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.4,
                                           title: "Communicate via:",
                                           values: communication_list,
                                           selectedIndex:
@@ -341,7 +347,10 @@ this is to test and implement the API
                                       height: __height,
                                       child: CustomPickerPage(
                                           font: 22,
-                                          width: 200,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.4,
                                           title: "SpO2:",
                                           values: samplingrate_list,
                                           selectedIndex:
@@ -356,7 +365,10 @@ this is to test and implement the API
                                       height: __height,
                                       child: CustomPickerPage(
                                           font: 22,
-                                          width: 200,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.4,
                                           title: "HeartRate:",
                                           values: samplingrate_list,
                                           selectedIndex:
@@ -371,7 +383,10 @@ this is to test and implement the API
                                       height: __height,
                                       child: CustomPickerPage(
                                           font: 22,
-                                          width: 200,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.4,
                                           title: "Temperature:",
                                           values: samplingrate_list,
                                           selectedIndex:
@@ -386,7 +401,10 @@ this is to test and implement the API
                                       height: __height,
                                       child: CustomPickerPage(
                                           font: 22,
-                                          width: 200,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.4,
                                           title: "Activity:",
                                           values: samplingrate_list,
                                           selectedIndex:

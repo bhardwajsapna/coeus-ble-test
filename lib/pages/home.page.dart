@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SummaryCard(
-                  image: AssetImage('assets/icons/Battery.png'),
+                  image: AssetImage('assets/icons/Battery_25.png'),
                   value: "",
                   unit: "",
                   title: batteryValue.toString() + "%",
