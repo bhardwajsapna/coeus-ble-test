@@ -295,7 +295,7 @@ this is to test and implement the API
                     font: 32,
                   ),
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.4,
+                    height: MediaQuery.of(context).size.height * 0.6,
                     child: SingleChildScrollView(
                       child: FutureBuilder(
                         future: getIndex(),

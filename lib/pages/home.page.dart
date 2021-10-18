@@ -10,6 +10,7 @@ import 'package:coeus_v1/widget/button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -120,12 +121,19 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              SummaryCard(
-                  image: AssetImage('assets/icons/Battery_25.png'),
-                  value: "",
-                  unit: "",
-                  title: batteryValue.toString() + "%",
-                  color: Constants.transparent),
+              // SummaryCard(
+              //     image: AssetImage('assets/icons/Battery_25.png'),
+              //     value: "",
+              //     unit: "",
+              //     title: batteryValue.toString() + "%",
+              //     color: Constants.transparent),
+              CircularPercentIndicator(
+                radius: 60.0,
+                lineWidth: 5.0,
+                percent: 1.0,
+                center: new Text(batteryValue.toString()),
+                progressColor: Colors.green,
+              )
             ],
           ),
           Center(
