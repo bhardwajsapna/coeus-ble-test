@@ -191,6 +191,7 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
                   font: 20,
                   isPassword: false,
                   controller: controllerMobileNumber,
+                    keyboardType: TextInputType.phone
                 ),
                 DatePickerWidget(title: "DoB", controller: controllerDob),
 

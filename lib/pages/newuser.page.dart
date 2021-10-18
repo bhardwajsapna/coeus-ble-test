@@ -197,7 +197,9 @@ class _NewUserState extends State<NewUser> {
                 //   font: 22,
                 //   isPassword: false,
                 // ),
-                DatePickerWidget(title: "DoB"),
+                DatePickerWidget(title: "DoB",
+                controller: controllerDob,
+                ),
                 // InputField(
                 //   title: "Gender",
                 //   font: 22,
