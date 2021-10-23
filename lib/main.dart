@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
             create: (context) => LoginStateProvider()),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'COEUS App',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

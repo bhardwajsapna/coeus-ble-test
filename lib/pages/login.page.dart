@@ -142,9 +142,14 @@ class _LoginPageState extends State<LoginPage> {
                   if (value!.isEmpty) {
                     return 'Please enter password';
                   }
-                  if (!passIsValid(controllerPassword.text)) {
+/*
+23 oct 21 - sreeni
+i dont think this check is required here.
+*/
+                  /*       if (!passIsValid(controllerPassword.text)) {
                     return 'Password must be at least 5 characters long and consist of letters, numbers and symbols';
                   }
+                  */
                 },
               ),
               Button(
@@ -153,7 +158,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ],
           ),
-
         ),
       ),
     ));

@@ -23,7 +23,7 @@ class _OpenAppState extends State<OpenApp> {
   }
 
   static Future init() async {
-    DashboardSecureStorage.setBattery(53);
+    DashboardSecureStorage.setBattery(50);
     DashboardSecureStorage.setFootsteps(3123);
     DashboardSecureStorage.setSleep(7.5);
     DashboardSecureStorage.setHeartRate(73);
@@ -40,7 +40,7 @@ class _OpenAppState extends State<OpenApp> {
   Widget build(BuildContext context) {
     return Consumer<LoginStateProvider>(builder: (context, data, child) {
       print(data.appState);
-     if (data.appState == AppState.LOGIN_FAILURE) {
+      if (data.appState == AppState.LOGIN_FAILURE) {
         return Scaffold(
           body: Container(
             alignment: Alignment.center,
@@ -58,7 +58,9 @@ class _OpenAppState extends State<OpenApp> {
                     height: 350,
                     image: AssetImage('assets/icons/coeuslogo_elipse.png')),
                 Button(
-                  nextNavigation: LoginPage(action: 'Login',),
+                  nextNavigation: LoginPage(
+                    action: 'Login',
+                  ),
                   title: "Login",
                 ),
                 Button(

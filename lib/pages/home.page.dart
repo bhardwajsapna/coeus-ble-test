@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
     print("we are here ");
     debugPrint("yaarr");
 
-    var url = "http://192.168.0.106:5000/userRegistration";
+    var url = "http://192.168.45.49:5000/userRegistration";
     Map jsonMap = {
       "firstName": "ss",
       "secondName": "ss",
@@ -130,7 +130,8 @@ class _HomePageState extends State<HomePage> {
               CircularPercentIndicator(
                 radius: 60.0,
                 lineWidth: 5.0,
-                percent: 1.0,
+                //21 oct 21
+                percent: batteryValue / 100,
                 center: new Text(batteryValue.toString()),
                 progressColor: Colors.green,
               )

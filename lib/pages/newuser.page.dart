@@ -15,6 +15,8 @@ import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
 
+import 'package:fluttertoast/fluttertoast.dart';
+
 class NewUser extends StatefulWidget {
   @override
   _NewUserState createState() => _NewUserState();
@@ -67,6 +69,16 @@ class _NewUserState extends State<NewUser> {
     print(requestParams);
     response = createUserAPIService(requestParams);
     print(response);
+
+    Fluttertoast.showToast(
+        msg: response.toString(),
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+
     return response;
   }
 
@@ -83,11 +95,23 @@ class _NewUserState extends State<NewUser> {
 
       //29 aug 21 - sreeni added the dob
       await UserSecureStorage.setDOB(DateTime.parse(controllerDob.text));
-
-      Navigator.pop(context);
-/*
+      Fluttertoast.showToast(
+          msg: "validation passed",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      /*
 28 aug 21 - sreeni - api for new user
 */
+
+      //  createUserService();
+/*
+
+*/
+
       showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
@@ -106,9 +130,18 @@ class _NewUserState extends State<NewUser> {
           ],
         ),
       );
+
+      Navigator.pop(context);
+    } else {
+      Fluttertoast.showToast(
+          msg: "validation failed",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
-
-
     Navigator.pop(context);
   }
 
@@ -155,7 +188,6 @@ class _NewUserState extends State<NewUser> {
           child: Form(
             key: _formKey,
             child: Column(
-
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -197,8 +229,9 @@ class _NewUserState extends State<NewUser> {
                 //   font: 22,
                 //   isPassword: false,
                 // ),
-                DatePickerWidget(title: "DoB",
-                controller: controllerDob,
+                DatePickerWidget(
+                  title: "DoB",
+                  controller: controllerDob,
                 ),
                 // InputField(
                 //   title: "Gender",
@@ -235,7 +268,6 @@ class _NewUserState extends State<NewUser> {
                   },
                 ),
 
-
                 InputField(
                   title: "Re-enter Password",
                   font: 22,
@@ -263,6 +295,13 @@ class _NewUserState extends State<NewUser> {
                     }
                     if (!repassIsValid(controllerPassword.text)) {
                       return 'Password must be at least 5 characters long and consist of letters, numbers and symbols';
+                    }
+                    /*
+                    23 oct 21 - sreeni
+                    this check was not implemented earlier, so added this 
+                    */
+                    if (controllerRePassword.text != controllerPassword.text) {
+                      return 'Password doesnot match';
                     }
                     return null;
                   },

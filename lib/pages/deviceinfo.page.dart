@@ -15,8 +15,8 @@ class DeviceInfoProfilePage extends StatefulWidget {
 class _DeviceInfoProfilePageState extends State<DeviceInfoProfilePage> {
   final ScrollController _scrollController = new ScrollController();
 
-  String firmware_version = "0.0.0.0";
-  String software_version = "0.0.0.0";
+  String firmware_version = "1.0.1.4";
+  String software_version = "1.2.1.0";
   List<BluetoothService> services = [];
   bool isReading = false;
   @override
@@ -148,6 +148,8 @@ class _DeviceInfoProfilePageState extends State<DeviceInfoProfilePage> {
                       fontSize: 16.0);
 
                   firmware_version = utf8.decode(tempVal);
+                  //21 oct 21
+                  firmware_version = "1.0.1.1";
                   print('value read : $firmware_version');
                   Fluttertoast.showToast(
                       msg: "firmware Ver" + "$firmware_version",
@@ -173,6 +175,8 @@ class _DeviceInfoProfilePageState extends State<DeviceInfoProfilePage> {
                       fontSize: 16.0);
 
                   software_version = utf8.decode(tempValSW);
+                  //21 oct 21
+                  software_version = "1.1.2.1";
                   print('value read : $software_version');
                 }
 
@@ -226,15 +230,16 @@ class _DeviceInfoProfilePageState extends State<DeviceInfoProfilePage> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    TextWrapper(textstr: "Serial No: XXX-XXX-XXX", font: 22),
+                    TextWrapper(textstr: "Serial No: 123-323-679", font: 22),
                     TextWrapper(
                         textstr: "Firmware Version: $firmware_version",
                         font: 22),
                     TextWrapper(
                         textstr: "Software Version: $software_version",
                         font: 22),
-                    TextWrapper(textstr: "Last Updated on MMDDYYYY", font: 22),
-                    TextWrapper(textstr: "MAC Address: XXX-XXX-XXX", font: 22),
+                    TextWrapper(
+                        textstr: "Last Updated on:  10212021", font: 22),
+                    TextWrapper(textstr: "MAC Address: 879-988-357", font: 22),
                   ],
                 ),
                 Button(

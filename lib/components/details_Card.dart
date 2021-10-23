@@ -37,6 +37,8 @@ class _Detailed_CardState extends State<Detailed_Card> {
   List<charts.Series<Sensor, int>> seriesList = [];
   bool isfirstLoading = true;
   int ndays = 7;
+  int minY = 0;
+  int maxY = 0;
 
   Future loadDataFromJson() async {}
 
@@ -100,12 +102,20 @@ class _Detailed_CardState extends State<Detailed_Card> {
       switch (widget.title) {
         case "Temperature":
           fileName = 'assets/tempRecords.json';
+          minY = 25;
+          maxY = 50;
           break;
         case "SPo2":
           fileName = 'assets/spo2Records.json';
+          minY = 50;
+          maxY = 100;
+
           break;
         case "Heart Rate":
           fileName = 'assets/bpmRecords.json';
+          minY = 50;
+          maxY = 140;
+
           break;
         case "ECG":
           fileName = 'assets/tempRecords.json';
@@ -148,8 +158,9 @@ class _Detailed_CardState extends State<Detailed_Card> {
 
   List<Sensor> get_data(int days) {
     List<Sensor> l = [];
-    for (int i = 0; //math.max(0, chartData!.tempValues.length - days - 1);
-        i < days; //chartData!.tempValues.length;
+    // changes made for fixing the graph min an max bug - 22 oct 21
+    for (int i = math.max(0, chartData!.tempValues.length - days);
+        i < chartData!.tempValues.length;
         i++) {
       final data = chartData!.tempValues[i];
       int max = 0;
@@ -197,7 +208,12 @@ class _Detailed_CardState extends State<Detailed_Card> {
                     if (snapshot.hasData) {
                       return SizedBox(
                           height: 400.0,
-                          child: StackedLineChart(seriesList, animate: false));
+                          child: StackedLineChart(
+                            seriesList,
+                            animate: false,
+                            minY: this.minY,
+                            maxY: this.maxY,
+                          ));
                     } else {
                       return Card(
                           elevation: 5.0,

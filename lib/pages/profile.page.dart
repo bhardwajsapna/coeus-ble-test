@@ -53,6 +53,10 @@ class ProfilePage extends StatelessWidget {
               width: MediaQuery.of(context).size.width),
           Button(
               title: "Log Out",
+              /*
+              23 oct 21 - sreeni
+              this function on openapp is opening the app once again but not logging out
+              */
               nextNavigation: OpenApp(),
               width: MediaQuery.of(context).size.width),
         ],
