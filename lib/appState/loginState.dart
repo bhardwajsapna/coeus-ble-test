@@ -19,10 +19,9 @@ class LoginStateProvider extends ChangeNotifier {
       await userLogin(userName!, passWord!);
       print('>>>>>>>>>' + userName);
     } catch (e) {
-       _appState = AppState.LOGIN_FAILURE;
+      _appState = AppState.LOGIN_FAILURE;
       notifyListeners();
     }
-   
   }
 
   Future userLogin(String userName, String password) async {
@@ -38,6 +37,7 @@ class LoginStateProvider extends ChangeNotifier {
   }
 
   Future userLogout() async {
+    print("deleteing user...");
     await StorageUtil.clear();
     _appState = AppState.LOGIN_SUCCESS;
     notifyListeners();

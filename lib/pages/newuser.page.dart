@@ -86,15 +86,7 @@ class _NewUserState extends State<NewUser> {
     if (_formKey.currentState!.validate()) {
       print(controllerUserName.text);
       print(controllerPassword.text);
-      await UserSecureStorage.setEmailId(controllerUserName.text);
-      await UserSecureStorage.setPassword(controllerPassword.text);
-      await UserSecureStorage.setFirstName(controllerFirstName.text);
-      await UserSecureStorage.setSecondName(controllerSecondName.text);
-      await UserSecureStorage.setMobileNumber(controllerMobileNumber.text);
-      await UserSecureStorage.setGender(controllerGender.text);
 
-      //29 aug 21 - sreeni added the dob
-      await UserSecureStorage.setDOB(DateTime.parse(controllerDob.text));
       Fluttertoast.showToast(
           msg: "validation passed",
           toastLength: Toast.LENGTH_SHORT,
@@ -107,31 +99,40 @@ class _NewUserState extends State<NewUser> {
 28 aug 21 - sreeni - api for new user
 */
 
-      //  createUserService();
-/*
+      createUserService().then((response) {
+        print(response.statusCode);
+        print(jsonDecode(response.body));
+        if (response.statusCode == 200) {
+          UserSecureStorage.setEmailId(controllerUserName.text);
+          UserSecureStorage.setPassword(controllerPassword.text);
+          UserSecureStorage.setFirstName(controllerFirstName.text);
+          UserSecureStorage.setSecondName(controllerSecondName.text);
+          UserSecureStorage.setMobileNumber(controllerMobileNumber.text);
+          UserSecureStorage.setGender(controllerGender.text);
+          //29 aug 21 - sreeni added the dob
+          UserSecureStorage.setDOB(DateTime.parse(controllerDob.text));
+          Navigator.pop(context);
+        }
+      });
+      // showDialog<String>(
+      //   context: context,
+      //   builder: (BuildContext context) => AlertDialog(
+      //     title: const Text('Confirmation'),
+      //     content: const Text(
+      //         'Are you sure you want to create User with this information?'),
+      //     actions: <Widget>[
+      //       TextButton(
+      //         onPressed: () {
+      //           createUserService();
+      //           Navigator.pop(context, 'OK');
+      //           Navigator.pop(context);
+      //         },
+      //         child: const Text('OK'),
+      //       ),
+      //     ],
+      //   ),
+      // );
 
-*/
-
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Confirmation'),
-          content: const Text(
-              'Are you sure you want to create User with this information?'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                createUserService();
-                Navigator.pop(context, 'OK');
-                Navigator.pop(context);
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-
-      Navigator.pop(context);
     } else {
       Fluttertoast.showToast(
           msg: "validation failed",
@@ -142,7 +143,7 @@ class _NewUserState extends State<NewUser> {
           textColor: Colors.white,
           fontSize: 16.0);
     }
-    Navigator.pop(context);
+    //Navigator.pop(context);
   }
 
   bool passIsValid(String value) {
@@ -239,7 +240,7 @@ class _NewUserState extends State<NewUser> {
                 //   isPassword: false,
                 //   controller: controllerGender,
                 // ),
-                GenderSelector(),
+                GenderSelector(controller: controllerGender),
                 InputField(
                   title: "Password",
                   font: 22,

@@ -47,6 +47,8 @@ class CustomRadio extends StatelessWidget {
 }
 
 class GenderSelector extends StatefulWidget {
+  TextEditingController? controller;
+  GenderSelector({this.controller});
   @override
   _GenderSelectorState createState() => _GenderSelectorState();
 }
@@ -75,6 +77,7 @@ class _GenderSelectorState extends State<GenderSelector> {
             setState(() {
               genders.forEach((gender) => gender.isSelected = false);
               genders[0].isSelected = true;
+              widget.controller!.text = "Male";
             });
           },
           child: CustomRadio(genders[0]),
@@ -85,6 +88,7 @@ class _GenderSelectorState extends State<GenderSelector> {
             setState(() {
               genders.forEach((gender) => gender.isSelected = false);
               genders[1].isSelected = true;
+              widget.controller!.text = "Female";
             });
           },
           child: CustomRadio(genders[1]),
@@ -95,6 +99,7 @@ class _GenderSelectorState extends State<GenderSelector> {
             setState(() {
               genders.forEach((gender) => gender.isSelected = false);
               genders[2].isSelected = true;
+              widget.controller!.text = "Others";
             });
           },
           child: CustomRadio(genders[2]),

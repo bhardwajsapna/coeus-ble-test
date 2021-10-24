@@ -5,14 +5,14 @@ import 'package:coeus_v1/utils/const.dart' as globalAccess;
 
 Future<http.Response> createUserAPIService(requestParams) async {
   print(requestParams);
-
-  final response = await http.post(
-      Uri.parse('http://192.168.45.49:5000/updateUserProfile?userId=' +
-          globalAccess.Constants.userId),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(requestParams));
+  print(jsonEncode(requestParams));
+  String url_add = globalAccess.Constants.apiurl;
+  final response =
+      await http.post(Uri.parse('http://$url_add:5000/userRegistration'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(requestParams));
   print(response.body);
   return response;
 }

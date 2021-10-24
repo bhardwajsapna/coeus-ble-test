@@ -57,6 +57,9 @@ class ProfilePage extends StatelessWidget {
               23 oct 21 - sreeni
               this function on openapp is opening the app once again but not logging out
               */
+              onTapFunction: () {
+                // .userLogout();
+              },
               nextNavigation: OpenApp(),
               width: MediaQuery.of(context).size.width),
         ],
