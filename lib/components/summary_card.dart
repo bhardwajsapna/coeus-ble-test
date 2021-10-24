@@ -48,6 +48,7 @@ class SummaryCard extends StatelessWidget {
           }
       },
       child: Container(
+          height: MediaQuery.of(context).size.height * 0.15,
           padding: EdgeInsets.all(15.0),
           width: _width,
           decoration: new BoxDecoration(
@@ -56,10 +57,11 @@ class SummaryCard extends StatelessWidget {
             color: color,
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
                 title,
-                style: TextStyle(fontSize: 18, color: Constants.textDark),
+                style: TextStyle(fontSize: 22, color: Constants.textDark),
               ),
               Image(width: 40, height: 40, image: image),
               value == ""
@@ -74,8 +76,8 @@ class SummaryCard extends StatelessWidget {
                         Text(
                           value,
                           style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w900,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w700,
                             color: Constants.textDark,
                           ),
                         ),

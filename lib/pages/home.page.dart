@@ -11,6 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -104,8 +105,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -116,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                   "Hello, " + username,
                   style: TextStyle(
                     fontSize: 38,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.w700,
                     color: Colors.black,
                   ),
                 ),
@@ -127,14 +129,14 @@ class _HomePageState extends State<HomePage> {
               //     unit: "",
               //     title: batteryValue.toString() + "%",
               //     color: Constants.transparent),
-              CircularPercentIndicator(
-                radius: 60.0,
-                lineWidth: 5.0,
-                //21 oct 21
-                percent: batteryValue / 100,
-                center: new Text(batteryValue.toString()),
-                progressColor: Colors.green,
-              )
+              // CircularPercentIndicator(
+              //   radius: 60.0,
+              //   lineWidth: 5.0,
+              //   //21 oct 21
+              //   percent: batteryValue / 100,
+              //   center: new Text(batteryValue.toString()),
+              //   progressColor: Colors.green,
+              // )
             ],
           ),
           Center(
@@ -154,14 +156,14 @@ class _HomePageState extends State<HomePage> {
                         title: "Footsteps",
                         value: this.footsteps.toString(),
                         unit: "steps",
-                        color: Constants.lightBlue),
+                        color: Constants.musturd),
                     SizedBox(width: 10),
                     SummaryCard(
                         image: AssetImage('assets/icons/sleep.png'),
                         title: "Sleep",
                         value: this.sleep.toString(),
                         unit: "hours",
-                        color: Constants.lightBlue),
+                        color: Constants.dull_light_purple),
                   ],
                 ),
                 SizedBox(height: 20),
@@ -173,14 +175,14 @@ class _HomePageState extends State<HomePage> {
                         title: "Heart Rate",
                         value: this.heartrate.toString(),
                         unit: "bpm",
-                        color: Constants.lightBlue),
+                        color: Constants.dull_blue_gray),
                     SizedBox(width: 10),
                     SummaryCard(
                         image: AssetImage('assets/icons/oxygen_.png'),
                         title: "SPo2",
                         value: this.spo2.toString(),
                         unit: "%",
-                        color: Constants.lightBlue),
+                        color: Constants.gray),
                   ],
                 ),
                 SizedBox(height: 20),
@@ -192,14 +194,66 @@ class _HomePageState extends State<HomePage> {
                         title: "Temperature",
                         value: this.temperature.toString(),
                         unit: "˚C",
-                        color: Constants.lightBlue),
+                        color: Constants.greendull),
                     SizedBox(width: 10),
-                    SummaryCard(
-                        image: AssetImage('assets/icons/sync.jpg'),
-                        title: " Get  Data ",
-                        value: "     ",
-                        unit: "  ",
-                        color: Constants.lightYellow),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.15,
+                      padding: EdgeInsets.all(15.0),
+                      width: ((MediaQuery.of(context).size.width -
+                              (Constants.paddingSide * 2 +
+                                  Constants.paddingSide / 2)) /
+                          2),
+                      decoration: new BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        shape: BoxShape.rectangle,
+                        color: Constants.dull_move,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            "Battery",
+                            style: TextStyle(
+                              fontSize: 22,
+                              color: Constants.textDark,
+                              // fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          // CircularPercentIndicator(
+                          //   radius: 60.0,
+                          //   lineWidth: 5.0,
+                          //   //21 oct 21
+                          //   percent: batteryValue / 100,
+                          //   center: new Text(batteryValue.toString()),
+                          //   progressColor: Colors.black,
+                          // )
+                          LinearPercentIndicator(
+                            width: MediaQuery.of(context).size.width / 3,
+                            animation: true,
+                            lineHeight: 20.0,
+                            animationDuration: 2500,
+                            percent: batteryValue / 100,
+                            center: Text(""),
+                            linearStrokeCap: LinearStrokeCap.roundAll,
+                            progressColor: Colors.brown.shade300,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "$batteryValue%",
+                            style: TextStyle(
+                              fontSize: 24,
+                              color: Constants.textDark,
+                              // fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
                 /*  Row(
@@ -211,6 +265,47 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),*/
               ],
+            ),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.03,
+          ),
+          Container(
+            child: InkWell(
+              onTap: () => {},
+              child: Container(
+                padding: EdgeInsets.all(15.0),
+                width: MediaQuery.of(context).size.width * 0.95,
+                decoration: new BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  shape: BoxShape.rectangle,
+                  color: Constants.dull_light_blue,
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      "Refresh Data",
+                      style: TextStyle(
+                        fontSize: 22,
+                        color: Constants.textDark,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    Image(
+                        width: 40,
+                        height: 40,
+                        image: AssetImage('assets/icons/sync.png')),
+                    Text(
+                      "October 28, 2021  10:30 AM",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Constants.textDark,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         ],

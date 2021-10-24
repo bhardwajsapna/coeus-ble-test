@@ -36,6 +36,14 @@ class Constants {
   static Color transparent = Color(0x00FFB700);
   static Color white = Color(0xFFFFFFFF);
 
+  static Color musturd = Color(0xffdec68a);
+  static Color gray = Color(0xffd3cbc5);
+  static Color greendull = Color(0xffcbdec0);
+  static Color lightgreendull = Color(0xffd8e8cf);
+  static Color dull_move = Color(0xffe7c5b1);
+  static Color dull_light_purple = Color(0xffc6cae3);
+  static Color dull_blue_gray = Color(0xffa4bbc9);
+  static Color dull_light_blue = Color(0xff9ed2e8);
   static ThemeData lighTheme(BuildContext context) {
     return ThemeData(
       backgroundColor: lightBackground,
