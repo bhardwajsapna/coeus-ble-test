@@ -63,7 +63,10 @@ class SummaryCard extends StatelessWidget {
                 title,
                 style: TextStyle(fontSize: 22, color: Constants.textDark),
               ),
-              Image(width: 40, height: 40, image: image),
+              Image(
+                  width: MediaQuery.of(context).size.height * 0.04,
+                  height: MediaQuery.of(context).size.height * 0.04,
+                  image: image),
               value == ""
                   ? SizedBox(
                       height: 0,
