@@ -195,11 +195,11 @@ class _HomePageState extends State<HomePage> {
                         color: Constants.lightBlue),
                     SizedBox(width: 10),
                     SummaryCard(
-                        image: AssetImage('assets/icons/ECG.png'),
-                        title: "ECG",
-                        value: "??",
-                        unit: "",
-                        color: Constants.lightBlue),
+                        image: AssetImage('assets/icons/sync.jpg'),
+                        title: " Get  Data ",
+                        value: "     ",
+                        unit: "  ",
+                        color: Constants.lightYellow),
                   ],
                 ),
                 /*  Row(
