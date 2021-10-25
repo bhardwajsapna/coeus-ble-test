@@ -2,8 +2,10 @@ import 'dart:collection';
 
 import 'package:coeus_v1/models/BioValues.dart';
 import 'package:coeus_v1/models/TempValue.dart';
+import 'package:coeus_v1/utils/const.dart';
 import 'package:coeus_v1/widget/SimpleBarChart.dart';
 import 'package:coeus_v1/widget/button.dart';
+import 'package:coeus_v1/widget/textLogin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
@@ -195,99 +197,105 @@ class _Detailed_CardState extends State<Detailed_Card> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Data Chart'),
-        ),
         body: Column(
-          children: [
-            Container(
-              height: 300,
-              child: FutureBuilder(
-                  future: render_chart(ndays),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return SizedBox(
-                          height: 400.0,
-                          child: StackedLineChart(
-                            seriesList,
-                            animate: false,
-                            minY: this.minY,
-                            maxY: this.maxY,
-                          ));
-                    } else {
-                      return Card(
-                          elevation: 5.0,
-                          child: Container(
-                            height: 100,
-                            width: 400,
-                            child: Center(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text('Retriving JSON data...',
-                                      style: TextStyle(fontSize: 20.0)),
-                                  Container(
-                                    height: 40,
-                                    width: 40,
-                                    child: CircularProgressIndicator(
-                                      semanticsLabel: 'Retriving JSON data',
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                          Colors.blueAccent),
-                                      backgroundColor: Colors.grey[300],
-                                    ),
-                                  ),
-                                ],
+      children: [
+        SizedBox(
+          height: 50,
+        ),
+        TextWrapper(textstr: widget.title, font: 28),
+        TextWrapper(textstr: ndays.toString() + " days details", font: 22),
+        Container(
+          // height: MediaQuery.of(context).size.height / 3,
+          child: FutureBuilder(
+              future: render_chart(ndays),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      child: StackedLineChart(
+                        seriesList,
+                        animate: false,
+                        minY: this.minY,
+                        maxY: this.maxY,
+                        ndays: ndays,
+                      ));
+                } else {
+                  return Card(
+                      elevation: 5.0,
+                      child: Container(
+                        height: 100,
+                        width: 400,
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text('Retriving JSON data...',
+                                  style: TextStyle(fontSize: 20.0)),
+                              Container(
+                                height: 40,
+                                width: 40,
+                                child: CircularProgressIndicator(
+                                  semanticsLabel: 'Retriving JSON data',
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.blueAccent),
+                                  backgroundColor: Colors.grey[300],
+                                ),
                               ),
-                            ),
-                          ));
-                    }
-                  }),
-            ),
-            /*
+                            ],
+                          ),
+                        ),
+                      ));
+                }
+              }),
+        ),
+        /*
             ns on 08 aug 21
             these buttons were added so that the content of the graph can be changed as per user request
             update the graph
             */
 
-            /*
+        /*
             1 , 7 15 => title , no ofdays
             1 day by default for title , 1
             */
-            Button(
-              onTapFunction: () => {
-                setState(() {
-                  ndays = 7;
-                })
-              },
-              title: "7 Days",
-              width: MediaQuery.of(context).size.width,
-            ),
-            Button(
-              onTapFunction: () => {
-                setState(() {
-                  ndays = 15;
-                })
-              },
-              title: "15 Days",
-              width: MediaQuery.of(context).size.width,
-            ),
-            Button(
-              onTapFunction: () => {
-                setState(() {
-                  ndays = 30;
-                })
-              },
-              title: "1 Month",
-              width: MediaQuery.of(context).size.width,
-            ),
-            Button(
-              onTapFunction: () => {Navigator.pop(context)},
-              title: "Done",
-              width: MediaQuery.of(context).size.width,
-            )
-          ],
-        ));
+        Button(
+          onTapFunction: () => {
+            setState(() {
+              ndays = 7;
+            })
+          },
+          title: "7 Days",
+          width: MediaQuery.of(context).size.width,
+          baseColor: Color(0xffeff3d0),
+        ),
+        Button(
+          onTapFunction: () => {
+            setState(() {
+              ndays = 15;
+            })
+          },
+          title: "15 Days",
+          width: MediaQuery.of(context).size.width,
+          baseColor: Color(0xffd6eeee),
+        ),
+        Button(
+          onTapFunction: () => {
+            setState(() {
+              ndays = 30;
+            })
+          },
+          title: "1 Month",
+          width: MediaQuery.of(context).size.width,
+          baseColor: Color(0xffdde3f3),
+        ),
+        Button(
+          onTapFunction: () => {Navigator.pop(context)},
+          title: "Done",
+          width: MediaQuery.of(context).size.width,
+          baseColor: Constants.dull_blue_gray,
+        )
+      ],
+    ));
   }
 }
 

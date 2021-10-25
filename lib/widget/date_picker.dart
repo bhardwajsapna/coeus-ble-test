@@ -5,8 +5,11 @@ import 'package:intl/intl.dart';
 
 class DatePickerWidget extends StatefulWidget {
   String title;
+  int? font;
   TextEditingController? controller;
-  DatePickerWidget({required this.title, this.controller});
+  Color? color;
+  DatePickerWidget(
+      {required this.title, this.controller, this.color, this.font});
   @override
   _DatePickerWidgetState createState() => _DatePickerWidgetState();
 }
@@ -28,7 +31,9 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
   Widget build(BuildContext context) => ButtonHeaderWidget(
         title: 'Date',
         text: getText(),
+        color: widget.color != null ? widget.color! : Constants.backgroundColor,
         onClicked: () => pickDate(context),
+        font: widget.font != null ? widget.font! : 22,
       );
 /*
 06 aug 21
@@ -53,12 +58,16 @@ class ButtonHeaderWidget extends StatelessWidget {
   final String title;
   final String text;
   final VoidCallback onClicked;
+  final Color color;
+  final int font;
 
   const ButtonHeaderWidget({
     Key? key,
     required this.title,
     required this.text,
     required this.onClicked,
+    required this.color,
+    required this.font,
   }) : super(key: key);
 
   @override
@@ -67,6 +76,8 @@ class ButtonHeaderWidget extends StatelessWidget {
         child: ButtonWidget(
           text: text,
           onClicked: onClicked,
+          color: color,
+          font: font,
         ),
       );
 }
@@ -74,11 +85,14 @@ class ButtonHeaderWidget extends StatelessWidget {
 class ButtonWidget extends StatelessWidget {
   final String text;
   final VoidCallback onClicked;
-
+  final Color color;
+  final int font;
   const ButtonWidget({
     Key? key,
     required this.text,
     required this.onClicked,
+    required this.color,
+    required this.font,
   }) : super(key: key);
 
   @override
@@ -87,13 +101,14 @@ class ButtonWidget extends StatelessWidget {
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             minimumSize: Size.fromHeight(40),
-            primary: Constants.backgroundColor,
+            primary: this.color,
           ),
           child: Container(
             alignment: Alignment.centerLeft,
             child: Text(
               text,
-              style: TextStyle(fontSize: 22, color: Constants.textPrimary),
+              style: TextStyle(
+                  fontSize: this.font.toDouble(), color: Constants.textPrimary),
             ),
           ),
           onPressed: onClicked,

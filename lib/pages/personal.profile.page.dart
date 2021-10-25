@@ -16,6 +16,8 @@ import 'package:http/io_client.dart';
 import 'package:coeus_v1/services/api.dart';
 
 class PersonalProfilePage extends StatefulWidget {
+  Color color;
+  PersonalProfilePage(this.color);
   @override
   _PersonalProfilePageState createState() => _PersonalProfilePageState();
 }
@@ -146,23 +148,25 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(children: [
+        SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+        TextWrapper(
+            textstr: "Personal Info",
+            font: MediaQuery.of(context).size.height * 0.05),
         Container(
-          height: MediaQuery.of(context).size.height - 50,
+          height: MediaQuery.of(context).size.height * 0.8,
           // decoration: BoxDecoration(
-          //   gradient: LinearGradient(
-          //       begin: Alignment.topRight,
-          //       end: Alignment.bottomLeft,
-          //       colors: [Constants.white, Constants.lightBlue]),
-          // ),
+          // gradient: LinearGradient(
+          //     begin: Alignment.topRight,
+          //     end: Alignment.bottomLeft,
+          //     colors: [Constants.white, widget.color]),
+          // color: widget.color),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                SizedBox(height: 20),
-                TextWrapper(textstr: "Personal Info", font: 26),
                 InputField(
                   title: "First Name",
-                  font: 20,
+                  font: MediaQuery.of(context).size.height * 0.025,
                   isPassword: false,
                   controller: controllerFirstName,
                   onChanged: (val) {
@@ -175,7 +179,7 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
                 ),
                 InputField(
                   title: "Last Name",
-                  font: 20,
+                  font: MediaQuery.of(context).size.height * 0.025,
                   isPassword: false,
                   controller: controllerSecondName,
                   onChanged: (val) {
@@ -187,14 +191,23 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
                   },
                 ),
                 InputField(
-                  title: "Mobile Number",
-                  font: 20,
-                  isPassword: false,
-                  controller: controllerMobileNumber,
-                    keyboardType: TextInputType.phone
+                    title: "Mobile Number",
+                    font: MediaQuery.of(context).size.height * 0.025,
+                    isPassword: false,
+                    controller: controllerMobileNumber,
+                    keyboardType: TextInputType.phone),
+                // SizedBox(
+                //   height: MediaQuery.of(context).size.height * 0.025,
+                // ),
+                DatePickerWidget(
+                  title: "DoB",
+                  controller: controllerDob,
+                  font: (MediaQuery.of(context).size.height * 0.03).toInt(),
+                  // color: widget.color
                 ),
-                DatePickerWidget(title: "DoB", controller: controllerDob),
-
+                // SizedBox(
+                //   height: MediaQuery.of(context).size.height * 0.025,
+                // ),
                 /*
                 InputField(
                   title: "DOB",
@@ -224,15 +237,19 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
                 ),*/
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Button(
-                      onTapFunction: () => Navigator.pop(context),
-                      nextNavigation: null,
-                      title: "Cancel",
-                      width: MediaQuery.of(context).size.width / 3),
+                    onTapFunction: () => Navigator.pop(context),
+                    nextNavigation: null,
+                    title: "Cancel",
+                    width: MediaQuery.of(context).size.width / 3,
+                    baseColor: widget.color,
+                  ),
                   Button(
-                      onTapFunction: onUpdate,
-                      nextNavigation: null,
-                      title: "Update",
-                      width: MediaQuery.of(context).size.width / 3),
+                    onTapFunction: onUpdate,
+                    nextNavigation: null,
+                    title: "Update",
+                    width: MediaQuery.of(context).size.width / 3,
+                    baseColor: widget.color,
+                  ),
                 ]),
               ]),
         ),

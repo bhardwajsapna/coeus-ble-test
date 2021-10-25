@@ -3,18 +3,18 @@ import 'package:coeus_v1/utils/const.dart';
 import 'package:flutter/material.dart';
 
 class Button extends StatefulWidget {
-
   Function? onTapFunction;
   String? title;
   Widget? nextNavigation;
   double? width;
+  Color? baseColor;
 
   Button(
-      {
-      this.onTapFunction,
+      {this.onTapFunction,
       this.nextNavigation,
       this.title,
-      this.width});
+      this.width,
+      this.baseColor});
 
   @override
   _ButtonState createState() => _ButtonState();
@@ -27,7 +27,6 @@ class _ButtonState extends State<Button> {
       padding: const EdgeInsets.all(20),
       child: InkWell(
         onTap: () {
-         
           if (widget.onTapFunction != null) {
             widget.onTapFunction!();
           }
@@ -40,22 +39,24 @@ class _ButtonState extends State<Button> {
         },
         child: Container(
           alignment: Alignment.center,
-          height: 70,
+          height: MediaQuery.of(context).size.height * 0.07,
           width: widget.width,
           decoration: BoxDecoration(
-            color: Constants.lightBlue,
+            color: widget.baseColor != null
+                ? widget.baseColor
+                : Constants.lightBlue,
             borderRadius: BorderRadius.circular(30),
             border: Border.all(
-              color: Constants.darkBlue,
-              width: 2,
+              // color: Constants.darkBlue,
+              width: 1,
             ),
           ),
           child: Text(
             widget.title!,
             style: TextStyle(
               color: Constants.textDark,
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
+              fontSize: MediaQuery.of(context).size.height * 0.027,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ),
