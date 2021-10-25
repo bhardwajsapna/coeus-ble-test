@@ -7,6 +7,8 @@ import 'package:coeus_v1/widget/inputEmail.dart';
 import 'package:coeus_v1/widget/textLogin.dart';
 
 import 'package:http/http.dart' as http;
+// 25 oct 21 -sreeni - to provide msg to user.
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SupportProfilePage extends StatefulWidget {
   @override
@@ -138,6 +140,18 @@ now update the server data using service functions
 
     updateEmergencyContactService();
     updateCaregiverDetailsService();
+
+    Fluttertoast.showToast(
+        msg: "Details updated",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+
+// 25 Oct 21 - sreeni - added to get back to home screen
+    Navigator.pop(context);
   }
 
   @override
