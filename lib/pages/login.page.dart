@@ -80,6 +80,8 @@ class _LoginPageState extends State<LoginPage> {
         isvalid = false;
       }
       if (isvalid) {
+        UserSecureStorage.getUserID()
+            .then((value) => Constants.userId = value!);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Dashboard()));
       } else {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Constants {
   // Name
   static String appName = "Rhinestone";
-  static String apiurl = "192.168.45.49";
+  static String apiurl = "192.168.1.9";
 
   // Material Design Color
   static Color lightPrimary = Color(0xFFFFDAC1);

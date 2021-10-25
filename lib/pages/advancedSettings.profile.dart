@@ -190,44 +190,45 @@ class _AdvancedSettingsProfilePageState
 
   void onSubmit() async {
     // this has to be done after server commits. for testing this is done here now.
-    Fluttertoast.showToast(
-        msg: "come to write",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0);
-
-    write_to_device();
-
-    await AdvancedSettingsSecureStorage.setMonitorAfter(
-        this.monitor_after_every[this.selected_index_monitor_after]);
-    await AdvancedSettingsSecureStorage.setSamplingCommunication(
-        this.communication_list[this.selected_index_comunication]);
-    await AdvancedSettingsSecureStorage.setSamplingSpO2(
-        this.samplingrate_list[this.selected_index_SpO2]);
-    await AdvancedSettingsSecureStorage.setSamplingECG(
-        this.samplingrate_list[this.selected_index_ecg]);
-    await AdvancedSettingsSecureStorage.setSamplingTemperature(
-        this.samplingrate_list[this.selected_index_temp]);
-    await AdvancedSettingsSecureStorage.setSamplingActivity(
-        this.samplingrate_list[this.selected_index_activity]);
 
 /*
 17 aug 21
 this is to test and implement the API
 */
-    var response =
-        await updateAdvancedSettingsService(); //=== should be uncommented
-
-    if (response.statusCode == 200) {
-      write_to_device();
-    }
-/*
-
-*/
-
+    updateAdvancedSettingsService().then((response) {
+      if (response.statusCode == 200) {
+        //write_to_device(); commented by sapna
+        AdvancedSettingsSecureStorage.setMonitorAfter(
+            this.monitor_after_every[this.selected_index_monitor_after]);
+        AdvancedSettingsSecureStorage.setSamplingCommunication(
+            this.communication_list[this.selected_index_comunication]);
+        AdvancedSettingsSecureStorage.setSamplingSpO2(
+            this.samplingrate_list[this.selected_index_SpO2]);
+        AdvancedSettingsSecureStorage.setSamplingECG(
+            this.samplingrate_list[this.selected_index_ecg]);
+        AdvancedSettingsSecureStorage.setSamplingTemperature(
+            this.samplingrate_list[this.selected_index_temp]);
+        AdvancedSettingsSecureStorage.setSamplingActivity(
+            this.samplingrate_list[this.selected_index_activity]);
+        Fluttertoast.showToast(
+            msg: "Successfully done.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else {
+        Fluttertoast.showToast(
+            msg: "Some error occured. Please try later.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
+    });
     Navigator.of(context).pop();
   }
 
@@ -274,7 +275,7 @@ this is to test and implement the API
 
   @override
   Widget build(BuildContext context) {
-    double __height = MediaQuery.of(context).size.height / 6;
+    double __height = MediaQuery.of(context).size.height * 0.12;
     return Scaffold(
       body: ListView(children: [
         Container(

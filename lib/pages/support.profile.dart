@@ -97,24 +97,6 @@ class _SupportProfilePageState extends State<SupportProfilePage> {
   }
 
   onUpdate() async {
-    await SupportDetailsSecureStorage.setEmergencyEmailId(
-        controllerEmergencyEmailid.text);
-    await SupportDetailsSecureStorage.setEmergencyFirstName(
-        controllerEmergencyFirstName.text);
-    await SupportDetailsSecureStorage.setEmergencySecondName(
-        controllerEmergencySecondName.text);
-    await SupportDetailsSecureStorage.setEmergencyMobileNumber(
-        controllerEmergencyMobileNumber.text);
-
-    await SupportDetailsSecureStorage.setCaretakerEmailId(
-        controllerCaretakerEmailid.text);
-    await SupportDetailsSecureStorage.setCaretakerFirstName(
-        controllerCaretakerFirstName.text);
-    await SupportDetailsSecureStorage.setCaretakerSecondName(
-        controllerCaretakerSecondName.text);
-    await SupportDetailsSecureStorage.setCaretakerMobileNumber(
-        controllerCaretakerMobileNumber.text);
-
 /*
     showDialog<String>(
       context: context,
@@ -137,20 +119,56 @@ class _SupportProfilePageState extends State<SupportProfilePage> {
 23 aug 21 - sreeni
 now update the server data using service functions
 */
+    bool isValid = true;
+    updateEmergencyContactService().then((response) {
+      if (response.statusCode != 200) {
+        isValid = false;
+      }
+    });
+    updateCaregiverDetailsService().then((response) {
+      if (response.statusCode != 200) {
+        isValid = false;
+      }
+    });
 
-    updateEmergencyContactService();
-    updateCaregiverDetailsService();
+    if (isValid) {
+      SupportDetailsSecureStorage.setEmergencyEmailId(
+          controllerEmergencyEmailid.text);
+      SupportDetailsSecureStorage.setEmergencyFirstName(
+          controllerEmergencyFirstName.text);
+      SupportDetailsSecureStorage.setEmergencySecondName(
+          controllerEmergencySecondName.text);
+      SupportDetailsSecureStorage.setEmergencyMobileNumber(
+          controllerEmergencyMobileNumber.text);
 
-    Fluttertoast.showToast(
-        msg: "Details updated",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0);
+      SupportDetailsSecureStorage.setCaretakerEmailId(
+          controllerCaretakerEmailid.text);
+      SupportDetailsSecureStorage.setCaretakerFirstName(
+          controllerCaretakerFirstName.text);
+      SupportDetailsSecureStorage.setCaretakerSecondName(
+          controllerCaretakerSecondName.text);
+      SupportDetailsSecureStorage.setCaretakerMobileNumber(
+          controllerCaretakerMobileNumber.text);
 
-// 25 Oct 21 - sreeni - added to get back to home screen
+      Fluttertoast.showToast(
+          msg: "Details updated",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    } else {
+      Fluttertoast.showToast(
+          msg: "Some error occured. Please try later.",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+    // 25 Oct 21 - sreeni - added to get back to home screen
     Navigator.pop(context);
   }
 

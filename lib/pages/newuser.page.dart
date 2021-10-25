@@ -101,7 +101,7 @@ class _NewUserState extends State<NewUser> {
 
       createUserService().then((response) {
         print(response.statusCode);
-        print(jsonDecode(response.body));
+        var jsonresponse = jsonDecode(response.body);
         if (response.statusCode == 200) {
           UserSecureStorage.setEmailId(controllerUserName.text);
           UserSecureStorage.setPassword(controllerPassword.text);
@@ -111,6 +111,8 @@ class _NewUserState extends State<NewUser> {
           UserSecureStorage.setGender(controllerGender.text);
           //29 aug 21 - sreeni added the dob
           UserSecureStorage.setDOB(DateTime.parse(controllerDob.text));
+          //25 oct 21 - sapna - userid added
+          UserSecureStorage.setUserID(jsonresponse['id']);
           Navigator.pop(context);
         }
       });

@@ -28,27 +28,42 @@ class CustomPickerPageState extends State<CustomPickerPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              widget.title,
-              style: TextStyle(
-                  fontSize: widget.font,
-                  color: Constants.textPrimary,
-                  fontWeight: FontWeight.w900),
+            // Align(
+            //   alignment: Alignment.centerRight,
+            // child:
+            Container(
+              width: MediaQuery.of(context).size.width * 0.5,
+              child: Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    widget.title,
+                    style: TextStyle(
+                        fontSize: widget.font,
+                        color: Constants.textPrimary,
+                        fontWeight: FontWeight.w700),
+                  ),
+                ),
+              ),
             ),
+            // ),
             buildCustomPicker(),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.05,
+            ),
           ],
         ),
       );
 
   Widget buildCustomPicker() => Container(
-        height: 130,
+        height: MediaQuery.of(context).size.height * 0.08,
         width: widget.width,
         child: CupertinoPicker(
-          itemExtent: 64,
-          diameterRatio: 0.7,
+          itemExtent: MediaQuery.of(context).size.height * 0.05,
+          diameterRatio: 1.2,
           looping: true,
           scrollController:
               FixedExtentScrollController(initialItem: widget.selectedIndex),

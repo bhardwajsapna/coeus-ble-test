@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 class UserSecureStorage {
   static final _storage = FlutterSecureStorage();
 
+  static const _keyUserID = 'userid';
   static const _keyUsername = 'username';
   static const _keyPassword = 'password';
   static const _keyFirstName = 'firstname';
@@ -13,6 +14,12 @@ class UserSecureStorage {
   static const _keyDOB = 'dob';
   static const _keyGender = 'gender';
   static const _keyLogOut = 'logout';
+
+  static Future setUserID(String userid) async =>
+      await _storage.write(key: _keyUserID, value: userid);
+
+  static Future<String?> getUserID() async =>
+      await _storage.read(key: _keyUserID);
 
   static Future setEmailId(String username) async =>
       await _storage.write(key: _keyUsername, value: username);
