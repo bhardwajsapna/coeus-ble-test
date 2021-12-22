@@ -77,7 +77,7 @@ class _Detailed_CardState extends State<Detailed_Card> {
       case "Temperature":
         fileName = 'assets/tempRecords.json';
         break;
-      case "SPo2":
+      case "SpO2":
         fileName = 'assets/spo2Records.json';
         break;
       case "Heart Rate":
@@ -107,7 +107,7 @@ class _Detailed_CardState extends State<Detailed_Card> {
           minY = 25;
           maxY = 50;
           break;
-        case "SPo2":
+        case "SpO2":
           fileName = 'assets/spo2Records.json';
           minY = 50;
           maxY = 100;

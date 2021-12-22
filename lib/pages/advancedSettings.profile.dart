@@ -1,7 +1,3 @@
-import 'dart:convert';
-import 'dart:ffi';
-import 'dart:typed_data';
-
 import 'package:coeus_v1/models/SpO2Values.dart';
 import 'package:coeus_v1/services/api.dart';
 import 'package:coeus_v1/utils/advanced_settings_secure_storage.dart';
@@ -16,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:coeus_v1/utils/const.dart' as globalAccess;
 
 class AdvancedSettingsProfilePage extends StatefulWidget {
   @override
@@ -86,12 +83,20 @@ class _AdvancedSettingsProfilePageState
 
   void write_to_device() {
     services.forEach((service) async {
-      if (service.uuid.toString() == "97fe0100-9e89-00ec-2371-2a2ea5b4d546") {
+      if (service.uuid.toString() == globalAccess.Constants.service) {
         print("found service...");
+        Fluttertoast.showToast(
+            msg: "Inside uuid service - to be written",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
 
         var characteristics = service.characteristics;
         for (BluetoothCharacteristic c in characteristics) {
-          if (c.uuid.toString() == "97fe0108-9e89-00ec-2371-2a2ea5b4d546") {
+          if (c.uuid.toString() == Constants.character108) {
             print("--------------------------------------");
             print(c);
             String spo2 = samplingrate_list[this.selected_index_SpO2];
@@ -197,7 +202,7 @@ this is to test and implement the API
 */
     updateAdvancedSettingsService().then((response) {
       if (response.statusCode == 200) {
-        //write_to_device(); commented by sapna
+        write_to_device(); //commented by sapna  //uncommneted by sreeni
         AdvancedSettingsSecureStorage.setMonitorAfter(
             this.monitor_after_every[this.selected_index_monitor_after]);
         AdvancedSettingsSecureStorage.setSamplingCommunication(
@@ -218,6 +223,7 @@ this is to test and implement the API
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
+        Navigator.of(context).pop();
       } else {
         Fluttertoast.showToast(
             msg: "Some error occured. Please try later.",
@@ -229,7 +235,6 @@ this is to test and implement the API
             fontSize: 16.0);
       }
     });
-    Navigator.of(context).pop();
   }
 
   Future<String> getIndex() async {
@@ -352,7 +357,7 @@ this is to test and implement the API
                                                   .size
                                                   .width *
                                               0.4,
-                                          title: "SpO2:",
+                                          title: "SpO2 (Hz):",
                                           values: samplingrate_list,
                                           selectedIndex:
                                               this.selected_index_SpO2,
@@ -370,7 +375,7 @@ this is to test and implement the API
                                                   .size
                                                   .width *
                                               0.4,
-                                          title: "HeartRate:",
+                                          title: "HeartRate (Hz):",
                                           values: samplingrate_list,
                                           selectedIndex:
                                               this.selected_index_ecg,
@@ -388,7 +393,7 @@ this is to test and implement the API
                                                   .size
                                                   .width *
                                               0.4,
-                                          title: "Temperature:",
+                                          title: "Temperature (Hz):",
                                           values: samplingrate_list,
                                           selectedIndex:
                                               this.selected_index_temp,
@@ -406,7 +411,7 @@ this is to test and implement the API
                                                   .size
                                                   .width *
                                               0.4,
-                                          title: "Activity:",
+                                          title: "Activity (Hz):",
                                           values: samplingrate_list,
                                           selectedIndex:
                                               this.selected_index_activity,

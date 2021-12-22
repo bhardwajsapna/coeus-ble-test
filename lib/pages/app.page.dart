@@ -40,9 +40,9 @@ class _OpenAppState extends State<OpenApp> {
   Widget build(BuildContext context) {
     return Consumer<LoginStateProvider>(builder: (context, data, child) {
       print(data.appState);
-      // MAJOR CHANGE _ SAPNA _ DEBUG
-      // if (data.appState == AppState.LOGIN_FAILURE) {
-      if (true) {
+
+      if (data.appState == AppState.LOGIN_FAILURE) {
+        //if (true) {
         return Scaffold(
           body: Container(
             alignment: Alignment.center,

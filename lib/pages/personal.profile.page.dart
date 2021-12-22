@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:coeus_v1/utils/const.dart';
 import 'package:coeus_v1/utils/user_secure_storage.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +8,7 @@ import 'package:coeus_v1/widget/date_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
 
+import 'package:intl/intl.dart';
 /*
 23 aug 21 - sreeni
 */
@@ -35,6 +34,7 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
   //final controllerPassword = TextEditingController();
   // added this new controller for DOB for get and set - 24 aug 21
   final controllerDob = TextEditingController();
+  late DateTime selectedDate = DateTime.now();
 
 /*
 23 aug 21 - sreeni
@@ -61,6 +61,9 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
     final password = await UserSecureStorage.getPassword() ?? "";
     // added this new controller for DOB for get and set - 24 aug 21
     final dob = await UserSecureStorage.getDOB() ?? "";
+    final f = new DateFormat('yyyy-MM-dd');
+
+    selectedDate = DateTime.parse(dob.toString());
 
     setState(() {
       print("personal.profile.page:" + fname);
@@ -144,6 +147,22 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
     }
   }
 
+  void presentDatePicker() {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(1940),
+            lastDate: DateTime(2022))
+        .then((pickedDate) => {
+              if (pickedDate != null)
+                {
+                  setState(() {
+                    selectedDate = pickedDate;
+                  })
+                }
+            });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -199,6 +218,18 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
                 // SizedBox(
                 //   height: MediaQuery.of(context).size.height * 0.025,
                 // ),
+                Text(
+                  selectedDate == null
+                      ? 'Select DOB'
+                      : (selectedDate.toString().split(" "))[0],
+                  style: TextStyle(fontSize: 20),
+                ),
+                TextButton(
+                    onPressed: presentDatePicker,
+                    child: Text('Choose DoB'),
+                    style: TextButton.styleFrom(
+                        textStyle: const TextStyle(fontSize: (20)))),
+                //     (MediaQuery.of(context).size.height * 0.03).toInt())),
                 DatePickerWidget(
                   title: "DoB",
                   controller: controllerDob,

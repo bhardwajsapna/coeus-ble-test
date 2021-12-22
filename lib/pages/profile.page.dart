@@ -45,11 +45,13 @@ class ProfilePage extends StatelessWidget {
             /*
           29 sep 21
           sapna sreeni - this is no more required as the schedule is provided in advance setting as discussed with sriharsha
+
+          10nov 21 - sreeni this page we are planning to be used for demonstration
+           */
             Button(
-                title: "Monitoring Schedule",
+                title: "Integration Test",
                 nextNavigation: SchedulingProfilePage(),
-                width: MediaQuery.of(context).size.width), 
-                */
+                width: MediaQuery.of(context).size.width),
             Button(
               title: "Advanced Settings",
               nextNavigation: AdvancedSettingsProfilePage(),

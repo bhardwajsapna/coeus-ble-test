@@ -35,10 +35,10 @@ class _DashboardState extends State<Dashboard> {
 
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text("Coeus"),
-      ),
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text("Coeus"),
+          backgroundColor: Colors.blueAccent),
       body: SingleChildScrollView(child: child),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _index,

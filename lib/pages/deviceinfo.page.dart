@@ -15,197 +15,137 @@ class DeviceInfoProfilePage extends StatefulWidget {
 class _DeviceInfoProfilePageState extends State<DeviceInfoProfilePage> {
   final ScrollController _scrollController = new ScrollController();
 
-  String firmware_version = "1.0.1.4";
-  String software_version = "1.2.1.0";
+  String firmware_version = "0.0.0.0";
+  String software_version = "0.0.0.0";
   List<BluetoothService> services = [];
+
+  List bledata = [];
+  late BluetoothCharacteristic ch213;
   bool isReading = false;
   @override
-  void initState() {
+  void initState() {}
+
+  buttonOK() {
+    Navigator.pop(context);
+  }
+
+/*
+04 nov 21 - done for demonstration of app - sreeni
+*/
+
+  displayOnScreen(String msg) {
+    debugPrint(msg);
+    Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+
+  readDeviceInfo() {
+    displayOnScreen("Demo reading");
     FlutterBlue.instance.connectedDevices.then((value) async {
       List<BluetoothDevice> list = await value.toList();
 
+      displayOnScreen(
+          "number of ble devices connected" + list.length.toString());
+// instead of taking list of conncted devices we need to take COEUS.. for optimisation
+//step 1: get the list of BLE devices
       for (BluetoothDevice r in list) {
-        var rname = r.name;
-        Fluttertoast.showToast(
-            msg: "inside COEUS For loop" + "$rname",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0);
-
-//        if (r.name == 'ALISA') {
-        /*  if (r.name.contains('COEUS')) {
-          Fluttertoast.showToast(
-              msg: "finally done",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-              fontSize: 16.0);
-
-          services = await r.services.first;
-          var servicesLst;
-          services.forEach((element) {
-            servicesLst = servicesLst + element.uuid.toString();
-            servicesLst = servicesLst + "1";
-          });
-          Fluttertoast.showToast(
-              msg: "$servicesLst",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-              fontSize: 16.0);
-        } else {
-          Fluttertoast.showToast(
-              msg: "compare not working",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-              fontSize: 16.0);
-        }
-*/
-
-        if (r.name.contains('COEUS')) {
-          Fluttertoast.showToast(
-              msg: "inside COEUS = inside IF COEUS",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-              fontSize: 16.0);
-
-          //services = await r.services.contains("Unknown"); //.last;
-          // var serviceLen = await r.services.length;
+        debugPrint("device @ name" + r.name);
+//Step 2: get the COEUS device for communication
+        if (r.name.contains(Constants.deviceName)) {
+//step 3: Get the list of services of coeus
           var services = await r.discoverServices();
 
-          services.forEach((element) {
-            var temp = element.uuid;
-            Fluttertoast.showToast(
-                msg: "inside COEUS service LEN = $temp",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0);
-          });
-          //.isEmpty; //.contains("Unknown");
-          //services.length; //services.length.toString();
-          Fluttertoast.showToast(
-              msg: "inside COEUS service LEN = ${services.length}",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-              fontSize: 16.0);
+          displayOnScreen(
+              "number of services in COEUS " + services.length.toString());
+// step 4: iterate through all the services
+          //  services.forEach((service) async {
+          for (BluetoothService service in services) {
+            displayOnScreen("service @ " + service.uuid.toString());
 
-          services.forEach((service) async {
-            var serviceDispName = service.uuid.toString();
-            Fluttertoast.showToast(
-                msg: "$serviceDispName",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0);
-
-            if (service.uuid.toString() ==
-                "97fe0100-9e89-00ec-2371-2a2ea5b4d546") {
-              print("found service...");
-
-              Fluttertoast.showToast(
-                  msg: "COnnected to service 100",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
-                  timeInSecForIosWeb: 1,
-                  backgroundColor: Colors.red,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
-
+// step 5: look the for the required service
+            if (service.uuid.toString() == Constants.service) {
+// step 6: once you get the required services, get all the characteristics of this service
               var characteristics = service.characteristics;
+              displayOnScreen(
+                  "length of character @ " + characteristics.length.toString());
+// step 7: iterate on all the characteristics of the service
               for (BluetoothCharacteristic c in characteristics) {
-                if (c.uuid.toString() ==
-                    "97fe0103-9e89-00ec-2371-2a2ea5b4d546") {
+                displayOnScreen("character uuid @ " + c.uuid.toString());
+                displayOnScreen(
+                    "character serviceuuid@ " + c.serviceUuid.toString());
+                displayOnScreen("character 2ndaryServiceUuid@ " +
+                    c.secondaryServiceUuid.toString());
+
+// step 8: from here on check for the required characteristic of a service to read or write the data
+// step 8.1 : looking for firmware service to read the firmware version
+                if (c.uuid.toString() == Constants.character104) {
+                  ch213 = c;
+                  displayOnScreen("in firmware read");
                   // // this is for reading the writen value...
+
+                  // code for read
                   var tempVal = await c.read();
-                  Fluttertoast.showToast(
-                      msg: "value = " + "$tempVal",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.red,
-                      textColor: Colors.white,
-                      fontSize: 16.0);
+                  //  c.read().then((tempVal) =>
+                  displayOnScreen("tempval data is " + tempVal.toString()); //);
 
-                  firmware_version = utf8.decode(tempVal);
+                  /*         await c.setNotifyValue(true);
+                  c.value.listen((tempVal) {
+                    bledata.add(tempVal);
+                    displayOnScreen("tempval data is " + tempVal.toString());
+                  });
+*/
+                  // this code has been written like this as the version data is not utf8 encoded.
+                  /*  setState(() {
+                    firmware_version = "";
+                    for (var tint in tempVal) {
+                      firmware_version =
+                          firmware_version + tint.toString() + ".";
+                    }
+                  });
+*/
                   //21 oct 21
-                  firmware_version = "1.0.1.1";
-                  print('value read : $firmware_version');
-                  Fluttertoast.showToast(
-                      msg: "firmware Ver" + "$firmware_version",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.red,
-                      textColor: Colors.white,
-                      fontSize: 16.0);
+                  firmware_version = tempVal.toString();
+                  displayOnScreen('firmware ver :  $firmware_version');
                 }
 
-                if (c.uuid.toString() ==
-                    "97fe0104-9e89-00ec-2371-2a2ea5b4d546") {
+// step 8.2 : looking for firmware service to read the software version
+                /*            if (c.uuid.toString() == Constants.character104) {
                   // // this is for reading the writen value...
                   var tempValSW = await c.read();
-                  Fluttertoast.showToast(
-                      msg: "software value = " + "$tempValSW",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.red,
-                      textColor: Colors.white,
-                      fontSize: 16.0);
 
-                  software_version = utf8.decode(tempValSW);
+                  displayOnScreen("in software version read");
+                  // software_version = utf8.decode(tempValSW);
+                  // this code has been written like this as the version data is not utf8 encoded.
+                  setState(() {
+                    software_version = "";
+                    for (var tint in tempValSW) {
+                      software_version =
+                          software_version + tint.toString() + ".";
+                    }
+                  });
                   //21 oct 21
-                  software_version = "1.1.2.1";
-                  print('value read : $software_version');
-                }
-
-                if (c.uuid.toString() ==
-                    "97fe0108-9e89-00ec-2371-2a2ea5b4d546") {
-                  // // this is for reading the writen value...
-                  var tempValSW = await c.read();
-                  Fluttertoast.showToast(
-                      msg: "adv setting  value = " + "$tempValSW",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.red,
-                      textColor: Colors.white,
-                      fontSize: 16.0);
-
-                  software_version = utf8.decode(tempValSW);
-                  print('value read : $software_version');
-                }
+                  // software_version = "1.1.2.1";
+                  displayOnScreen('software ver : $software_version');
+                }*/
               }
             }
-          });
+          } //);
         }
       }
     });
   }
 
-  buttonOK() {
-    Navigator.pop(context);
+  stopReading() {
+    ch213.setNotifyValue(false);
+    displayOnScreen("now stop reading");
+    debugPrint(bledata.first.toString());
+    debugPrint(bledata.last.toString());
   }
 
   @override
@@ -214,12 +154,6 @@ class _DeviceInfoProfilePageState extends State<DeviceInfoProfilePage> {
       body: ListView(children: [
         Container(
           height: MediaQuery.of(context).size.height - 50,
-          // decoration: BoxDecoration(
-          //   gradient: LinearGradient(
-          //       begin: Alignment.topRight,
-          //       end: Alignment.bottomLeft,
-          //       colors: [Constants.white, Constants.lightBlue]),
-          // ),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -241,6 +175,20 @@ class _DeviceInfoProfilePageState extends State<DeviceInfoProfilePage> {
                         textstr: "Last Updated on:  10212021", font: 22),
                     TextWrapper(textstr: "MAC Address: 879-988-357", font: 22),
                   ],
+                ),
+                Button(
+                  title: "Demo",
+                  nextNavigation: null,
+                  onTapFunction: readDeviceInfo,
+                  width: MediaQuery.of(context).size.width,
+                  baseColor: Constants.dull_move,
+                ),
+                Button(
+                  title: "Stop Reading",
+                  nextNavigation: null,
+                  onTapFunction: stopReading,
+                  width: MediaQuery.of(context).size.width,
+                  baseColor: Constants.dull_move,
                 ),
                 Button(
                   title: "OK",

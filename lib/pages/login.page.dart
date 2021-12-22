@@ -109,8 +109,12 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: 100),
-              TextWrapper(textstr: "Coeus", font: 34),
+              //SizedBox(height: 10),
+              Image(
+                  width: 250,
+                  height: 250,
+                  image: AssetImage('assets/icons/coeuslogo_elipse.png')),
+              //      TextWrapper(textstr: "Coeus", font: 34),
               InputField(
                 title: "Email-id",
                 font: 24,

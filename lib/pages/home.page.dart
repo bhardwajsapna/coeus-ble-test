@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
     print("we are here ");
     debugPrint("yaarr");
 
-    var url = "http://192.168.45.49:5000/userRegistration";
+    var url = "http://192.168.0.103:5000/userRegistration";
     Map jsonMap = {
       "firstName": "ss",
       "secondName": "ss",
@@ -179,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(width: 10),
                     SummaryCard(
                         image: AssetImage('assets/icons/oxygen_.png'),
-                        title: "SPo2",
+                        title: "SpO2",
                         value: this.spo2.toString(),
                         unit: "%",
                         color: Constants.gray),
@@ -296,7 +296,7 @@ class _HomePageState extends State<HomePage> {
                         height: 40,
                         image: AssetImage('assets/icons/sync.png')),
                     Text(
-                      "October 28, 2021  10:30 AM",
+                      "November 04, 2021  02:30 AM",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,

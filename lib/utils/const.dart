@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 
 class Constants {
   // Name
   static String appName = "Rhinestone";
-  static String apiurl = "192.168.1.9";
+  static String apiurl = "192.168.0.103"; //173.49";
 
   // Material Design Color
   static Color lightPrimary = Color(0xFFFFDAC1);
@@ -45,6 +46,59 @@ class Constants {
   static Color dull_light_purple = Color(0xffc6cae3);
   static Color dull_blue_gray = Color(0xffa4bbc9);
   static Color dull_light_blue = Color(0xff9ed2e8);
+
+/*
+28 Nov 21
+ss
+List of services for BLE communication
+*/ // 18 dec 21 - changed during blore integration work
+  static String service = "97fe1000-9e89-00ec-2371-2a2ea5b4d546";
+  static String service_100 = "97fe0000-9e89-00ec-2371-2a2ea5b4d546";
+  // "97fe6ff7-9e89-40ec-a371-2a2ea5b4d546"; // "97fe0100-9e89-00ec-2371-2a2ea5b4d546";
+  static String characteristic_format = "97fe0XXX-9e89-00ec-2371-2a2ea5b4d546";
+  static String character100 = "97fe0100-9e89-00ec-2371-2a2ea5b4d546";
+  static String character101 = "97fe0101-9e89-00ec-2371-2a2ea5b4d546";
+  static String character102 = "97fe0102-9e89-00ec-2371-2a2ea5b4d546";
+  static String character103 = "97fe0103-9e89-00ec-2371-2a2ea5b4d546";
+  //"00000103-0000-1000-8000-00805f9b34fb";
+  //"97fe0103-9e89-00ec-2371-2a2ea5b4d546";
+  static String character104 = "97fe0104-9e89-00ec-2371-2a2ea5b4d546";
+  //"00000104-0000-1000-8000-00805f9b34fb";
+  static String character105 = "97fe0105-9e89-00ec-2371-2a2ea5b4d546";
+  //"00000105-0000-1000-8000-00805f9b34fb";
+  static String character106 = "97fe0106-9e89-00ec-2371-2a2ea5b4d546";
+  static String character107 = "97fe0107-9e89-00ec-2371-2a2ea5b4d546";
+  static String character108 = "97fe0108-9e89-00ec-2371-2a2ea5b4d546";
+
+  static String character200 = "97fe0200-9e89-40ec-a371-2a2ea5b4d546";
+  static String character201 = "97fe0201-9e89-40ec-a371-2a2ea5b4d546";
+  static String character202 = "97fe0202-9e89-40ec-a371-2a2ea5b4d546";
+  static String character203 = "97fe0203-9e89-40ec-a371-2a2ea5b4d546";
+  static String character204 = "97fe0204-9e89-40ec-a371-2a2ea5b4d546";
+  static String character205 = "97fe0205-9e89-40ec-a371-2a2ea5b4d546";
+  static String character206 = "97fe0206-9e89-40ec-a371-2a2ea5b4d546";
+  static String character207 = "97fe0207-9e89-40ec-a371-2a2ea5b4d546";
+  static String character208 = "97fe0208-9e89-40ec-a371-2a2ea5b4d546";
+  static String character209 = "97fe0209-9e89-40ec-a371-2a2ea5b4d546";
+  static String character210 = "97fe0210-9e89-40ec-a371-2a2ea5b4d546";
+  static String character211 = "97fe0211-9e89-40ec-a371-2a2ea5b4d546";
+  static String character212 = "97fe0212-9e89-40ec-a371-2a2ea5b4d546";
+  static String character213 = "00000213-0000-1000-8000-00805f9b34fb";
+  static String character214 = "97fe0214-9e89-40ec-a371-2a2ea5b4d546";
+  static String character215 = "97fe0215-9e89-40ec-a371-2a2ea5b4d546";
+  static String character216 = "97fe0216-9e89-40ec-a371-2a2ea5b4d546";
+  static String character217 = "97fe0217-9e89-40ec-a371-2a2ea5b4d546";
+
+  /* 18 dec 21
+  during the blore integration
+  */
+  static String deviceName = "daikoku";
+  static String ctsService = "00001800-0000-1000-8000-00805f9b34fb";
+  static String ctsCharacteristic = "0000282b-0000-1000-8000-00805f9b34fb";
+// for implementation of CTS
+
+  static late BluetoothDevice bleDevice;
+
   static ThemeData lighTheme(BuildContext context) {
     return ThemeData(
       backgroundColor: lightBackground,

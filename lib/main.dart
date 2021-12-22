@@ -6,10 +6,19 @@ import 'package:coeus_v1/utils/storageUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import './pages/login.page.dart';
+//below library is required for setting screen orientation
+import 'package:flutter/services.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  return runApp(MyApp());
+  /*
+  14 Nov 21 
+  sreeni - set this preferred orientation to portrait
+   */
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]).then((_) {
+    return runApp(MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {

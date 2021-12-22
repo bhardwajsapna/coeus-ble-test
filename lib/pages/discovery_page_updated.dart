@@ -1,3 +1,4 @@
+import 'package:coeus_v1/utils/const.dart';
 import 'package:coeus_v1/widget/bluetoohSearch.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,7 @@ class _DiscoveryBluetoothDevice extends State<DiscoveryBluetoothDevice> {
             rssi: result.rssi,
             onTap: () async {
               Fluttertoast.showToast(
-                  msg: "come for connection",
+                  msg: "Tapped for connection",
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.CENTER,
                   timeInSecForIosWeb: 1,
@@ -69,13 +70,18 @@ class _DiscoveryBluetoothDevice extends State<DiscoveryBluetoothDevice> {
                 print("alisa-connected...");
 
                 Fluttertoast.showToast(
-                    msg: "connected",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.CENTER,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.red,
-                    textColor: Colors.white,
-                    fontSize: 16.0);
+                  msg: "connected",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.red,
+                  textColor: Colors.white,
+                  fontSize: 16.0,
+                );
+
+                if (device.name.contains(Constants.deviceName)) {
+                  Constants.bleDevice = device;
+                }
               }
             },
             onLongPress: () async {

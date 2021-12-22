@@ -62,7 +62,7 @@ class _DetailedCardBarState extends State<DetailedCardBar> {
       case "Temperature":
         fileName = 'assets/tempRecords.json';
         break;
-      case "SPo2":
+      case "SpO2":
         fileName = 'assets/spo2Records.json';
         break;
       case "Heart Rate":
