@@ -6,7 +6,7 @@ import 'package:coeus_v1/utils/const.dart';
 import 'package:coeus_v1/widget/inputEmail.dart';
 import 'package:coeus_v1/widget/scroller.dart';
 import 'package:coeus_v1/widget/time_picker.dart';
-//import 'package:dio/dio.dart';
+import 'package:dio/dio.dart';
 import 'package:direct_select/direct_select.dart';
 import 'package:flutter/material.dart';
 import 'package:coeus_v1/widget/button.dart';
@@ -16,7 +16,7 @@ import 'package:flutter_blue/flutter_blue.dart';
 // import 'package:flutter_blue/gen/flutterblue.pb.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-//import 'package:path_provider/path_provider.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'dart:async';
 
@@ -114,7 +114,7 @@ class _SchedulingProfilePageState extends State<SchedulingProfilePage> {
       services.forEach((service) async {
         var serviceDispName = service.uuid.toString();
         print("print:servicename" + serviceDispName);
-        if (service.uuid.toString() == Constants.service) {
+        if (service.uuid.toString() == Constants.service_100) {
           print("found service...");
           String full_char = Constants.characteristic_format;
           full_char = full_char.replaceAll('XXX', characteristic_given);
@@ -294,78 +294,80 @@ class _SchedulingProfilePageState extends State<SchedulingProfilePage> {
     });
   }
 
-  // Future downloadFile() async {
-  //   try {
-  //     Dio dio = Dio();
+  Future downloadFile() async {
+    try {
+      Dio dio = Dio();
 
-  //     String fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+      String fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
 
-  //     debugPrint("filename = " + fileName);
+      debugPrint("filename = " + fileName);
 
-  //     savePath = await getFilePath(fileName);
-  //     debugPrint("save path" + savePath);
-  //     await dio.download(fileUrl, savePath, onReceiveProgress: (rec, total) {
-  //       setState(() {
-  //         downloading = true;
-  //         // download = (rec / total) * 100;
-  //         downloadingStr = "Downloading Image : $rec";
-  //       });
-  //     });
-  //     setState(() {
-  //       downloading = false;
-  //       downloadingStr = "Completed";
-  //       debugPrint("saved path =" + savePath);
-  //       debugPrint("download " + downloadingStr);
-  //       File binFile = new File(savePath);
-  //       final bytes = binFile.readAsBytesSync().lengthInBytes;
-  //       debugPrint("size of file is = " + bytes.toString());
-  //     });
-  //   } catch (e) {
-  //     print(e.toString());
-  //   }
-  // }
+      savePath = await getFilePath(fileName);
+      debugPrint("save path" + savePath);
+      await dio.download(fileUrl, savePath, onReceiveProgress: (rec, total) {
+        setState(() {
+          downloading = true;
+          // download = (rec / total) * 100;
+          downloadingStr = "Downloading Image : $rec";
+        });
+      });
+      setState(() {
+        downloading = false;
+        downloadingStr = "Completed";
+        debugPrint("saved path =" + savePath);
+        debugPrint("download " + downloadingStr);
+        File binFile = new File(savePath);
+        final bytes = binFile.readAsBytesSync().lengthInBytes;
+        debugPrint("size of file is = " + bytes.toString());
+      });
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
-  // Future<String> getFilePath(uniqueFileName) async {
-  //   String path = '';
+  Future<String> getFilePath(uniqueFileName) async {
+    String path = '';
 
-  //   Directory dir = await getApplicationDocumentsDirectory();
+    Directory dir = await getApplicationDocumentsDirectory();
 
-  //   path = '${dir.path}/$uniqueFileName';
+    path = '${dir.path}/$uniqueFileName';
 
-  //   return path;
-  // }
+    return path;
+  }
 
-  // Future<void> doDfu(String deviceId) async {
-  //   // stopScan();
-  //   //dfuRunning = true;
-  //   try {
-  //     // deviceId,
-  //     debugPrint("started uploading");
-  //     var s = await FlutterNordicDfu.startDfu(
-  //       'FB:36:25:8F:DC:4D',
-  //       'assets/App_dfu.zip',
-  //       fileInAsset: true,
-  //       progressListener:
-  //           DefaultDfuProgressListenerAdapter(onProgressChangedHandle: (
-  //         deviceAddress,
-  //         percent,
-  //         speed,
-  //         avgSpeed,
-  //         currentPart,
-  //         partsTotal,
-  //       ) {
-  //         print('deviceAddress: $deviceAddress, percent: $percent');
-  //         debugPrint('deviceAddress: $deviceAddress, percent: $percent');
-  //       }),
-  //     );
-  //     print(s);
-  //     debugPrint(s);
-  //     // dfuRunning = false;
-  //   } catch (e) {
-  //     // dfuRunning = false;
-  //     print(e.toString());
-  //   }
-  // }
+  Future<void> doDfu(String deviceId) async {
+    // stopScan();
+    //dfuRunning = true;
+    try {
+      // deviceId,
+      debugPrint("started uploading");
+      var s = await FlutterNordicDfu.startDfu(
+        'FB:36:25:8F:DC:4D',
+        'assets/dfu_application_0d.zip',
+        fileInAsset: true,
+        forceDfu: true,
+        enableUnsafeExperimentalButtonlessServiceInSecureDfu: true,
+        progressListener:
+            DefaultDfuProgressListenerAdapter(onProgressChangedHandle: (
+          deviceAddress,
+          percent,
+          speed,
+          avgSpeed,
+          currentPart,
+          partsTotal,
+        ) {
+          print('deviceAddress: $deviceAddress, percent: $percent');
+          debugPrint('deviceAddress: $deviceAddress, percent: $percent');
+        }),
+      );
+      print(s);
+      debugPrint(s);
+      // dfuRunning = false;
+    } catch (e) {
+      // dfuRunning = false;
+      print(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -439,7 +441,7 @@ class _SchedulingProfilePageState extends State<SchedulingProfilePage> {
                   DateTime now = DateTime.now();
                   String time_now = now.millisecondsSinceEpoch.toString();
                   print("time_now:" + time_now);
-                  writeBLEData(time_now, '111');
+                  writeBLEData(time_now, '112');
                 },
                 width: MediaQuery.of(context).size.width,
                 baseColor: Constants.lightgreendull,
@@ -452,27 +454,26 @@ class _SchedulingProfilePageState extends State<SchedulingProfilePage> {
                 width: MediaQuery.of(context).size.width,
                 baseColor: Constants.lightgreendull,
               ),
-
               Button(
                 title: "Read Packet",
                 onTapFunction: () => readSensorsData('201'),
                 width: MediaQuery.of(context).size.width,
                 baseColor: Constants.lightgreendull,
               ),
-              // Button(
-              //   title: "Download latest Firmware",
-              //   onTapFunction: downloadFile,
-              //   width: MediaQuery.of(context).size.width,
-              //   baseColor: Constants.lightgreendull,
-              // ),
-              // Button(
-              //   title: "Upload to Device",
-              //   onTapFunction: () async {
-              //     await this.doDfu("1"); //result.device.id.id);
-              //   },
-              //   width: MediaQuery.of(context).size.width,
-              //   baseColor: Constants.lightgreendull,
-              // )
+              Button(
+                title: "Download latest Firmware",
+                onTapFunction: downloadFile,
+                width: MediaQuery.of(context).size.width,
+                baseColor: Constants.lightgreendull,
+              ),
+              Button(
+                title: "Upload to Device",
+                onTapFunction: () async {
+                  await this.doDfu("1"); //result.device.id.id);
+                },
+                width: MediaQuery.of(context).size.width,
+                baseColor: Constants.lightgreendull,
+              )
             ],
           ),
         ),

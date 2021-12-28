@@ -92,7 +92,7 @@ List of services for BLE communication
   /* 18 dec 21
   during the blore integration
   */
-  static String deviceName = "daikoku";
+  static String deviceName = "COEUS";
   static String ctsService = "00001800-0000-1000-8000-00805f9b34fb";
   static String ctsCharacteristic = "0000282b-0000-1000-8000-00805f9b34fb";
 // for implementation of CTS

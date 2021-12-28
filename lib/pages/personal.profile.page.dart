@@ -180,7 +180,7 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
           //     colors: [Constants.white, widget.color]),
           // color: widget.color),
           child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 InputField(
@@ -218,24 +218,33 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
                 // SizedBox(
                 //   height: MediaQuery.of(context).size.height * 0.025,
                 // ),
-                Text(
-                  selectedDate == null
-                      ? 'Select DOB'
-                      : (selectedDate.toString().split(" "))[0],
-                  style: TextStyle(fontSize: 20),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      child: Text(
+                        selectedDate == null
+                            ? 'Select DOB'
+                            : (selectedDate.toString().split(" "))[0],
+                        style: TextStyle(fontSize: 20),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    TextButton(
+                        onPressed: presentDatePicker,
+                        child: Text('Choose DoB'),
+                        style: TextButton.styleFrom(
+                            textStyle: const TextStyle(fontSize: (20)))),
+                  ],
                 ),
-                TextButton(
-                    onPressed: presentDatePicker,
-                    child: Text('Choose DoB'),
-                    style: TextButton.styleFrom(
-                        textStyle: const TextStyle(fontSize: (20)))),
+
                 //     (MediaQuery.of(context).size.height * 0.03).toInt())),
-                DatePickerWidget(
+                /* DatePickerWidget(
                   title: "DoB",
                   controller: controllerDob,
                   font: (MediaQuery.of(context).size.height * 0.03).toInt(),
                   // color: widget.color
-                ),
+                ), */
                 // SizedBox(
                 //   height: MediaQuery.of(context).size.height * 0.025,
                 // ),
