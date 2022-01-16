@@ -30,7 +30,7 @@ class ProfilePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Button(
+            /*          Button(
               title: "Personal Info",
               nextNavigation: PersonalProfilePage(Constants.dull_light_purple),
               width: MediaQuery.of(context).size.width,
@@ -48,11 +48,12 @@ class ProfilePage extends StatelessWidget {
 
           10nov 21 - sreeni this page we are planning to be used for demonstration
            */
+          */
             Button(
                 title: "Integration Test",
                 nextNavigation: SchedulingProfilePage(),
                 width: MediaQuery.of(context).size.width),
-            Button(
+            /*          Button(
               title: "Advanced Settings",
               nextNavigation: AdvancedSettingsProfilePage(),
               width: MediaQuery.of(context).size.width,
@@ -77,6 +78,7 @@ class ProfilePage extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               baseColor: Constants.gray,
             ),
+            */
           ],
         ),
       ),

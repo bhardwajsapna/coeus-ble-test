@@ -7,7 +7,6 @@ import 'package:coeus_v1/widget/scroller.dart';
 import 'package:flutter/material.dart';
 import 'package:coeus_v1/widget/button.dart';
 import 'package:coeus_v1/widget/textLogin.dart';
-import 'package:flutter_blue/flutter_blue.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
 
@@ -45,7 +44,6 @@ class _AdvancedSettingsProfilePageState
 23 aug 21 - sreeni
 */
   late Future<http.Response> response;
-  List<BluetoothService> services = [];
 
   @override
   void initState() {
@@ -69,7 +67,7 @@ class _AdvancedSettingsProfilePageState
     map_samplingrate_list_value['128'] = 128;
     map_samplingrate_list_value['256'] = 256;
     map_samplingrate_list_value['512'] = 512;
-
+/*
     FlutterBlue.instance.connectedDevices.then((value) async {
       List<BluetoothDevice> list = await value.toList();
       for (BluetoothDevice r in list) {
@@ -79,11 +77,13 @@ class _AdvancedSettingsProfilePageState
         }
       }
     });
+    */
   }
 
   void write_to_device() {
+    /*
     services.forEach((service) async {
-      if (service.uuid.toString() == globalAccess.Constants.service) {
+      if (service.uuid.toString() == globalAccess.Constants.service_100) {
         print("found service...");
         Fluttertoast.showToast(
             msg: "Inside uuid service - to be written",
@@ -161,6 +161,7 @@ class _AdvancedSettingsProfilePageState
         }
       }
     });
+    */
   }
 
   int getIndexFromList(list, val) {

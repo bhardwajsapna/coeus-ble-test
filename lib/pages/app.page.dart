@@ -41,7 +41,7 @@ class _OpenAppState extends State<OpenApp> {
     return Consumer<LoginStateProvider>(builder: (context, data, child) {
       print(data.appState);
 
-      if (data.appState == AppState.LOGIN_FAILURE) {
+      /*    if (data.appState == AppState.LOGIN_FAILURE) {
         //if (true) {
         return Scaffold(
           body: Container(
@@ -76,7 +76,10 @@ class _OpenAppState extends State<OpenApp> {
       } else if (data.appState == AppState.LOGIN_SUCCESS) {
         return Dashboard();
       }
+      
       return Center(child: CircularProgressIndicator());
+      */
+      return Dashboard();
     });
   }
 }

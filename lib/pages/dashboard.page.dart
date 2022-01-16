@@ -1,5 +1,4 @@
 import 'package:coeus_v1/components/summary_card.dart';
-import 'package:coeus_v1/pages/connectdevice.page.dart';
 import 'package:coeus_v1/pages/discovery_page_updated.dart';
 import 'package:coeus_v1/pages/home.page.dart';
 import 'package:coeus_v1/pages/profile.page.dart';
@@ -21,15 +20,15 @@ class _DashboardState extends State<Dashboard> {
     Widget child = Container();
 
     switch (_index) {
-      case 2:
+      case 1:
         child = ProfilePage();
         break;
 
-      case 0:
+      /*  case 0:
         child = HomePage();
         break;
-
-      case 1:
+*/
+      case 0:
         child = DiscoveryBluetoothDevice();
     }
 
@@ -44,7 +43,7 @@ class _DashboardState extends State<Dashboard> {
         currentIndex: _index,
         onTap: (int index) => setState(() => _index = index),
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+          /*  BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
             /*
@@ -53,6 +52,7 @@ ns - changed colur from transperent to light blue
 */
             backgroundColor: Colors.lightBlue,
           ),
+          */
           BottomNavigationBarItem(
             icon: Icon(Icons.watch),
             label: 'Connect Device',

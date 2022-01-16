@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blue/flutter_blue.dart';
+import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 
 class Constants {
   // Name
@@ -47,15 +47,23 @@ class Constants {
   static Color dull_blue_gray = Color(0xffa4bbc9);
   static Color dull_light_blue = Color(0xff9ed2e8);
 
+/* 16 jan 22
+ this is done while doing ble services */
+  static FlutterReactiveBle flutterReactiveBle = FlutterReactiveBle();
+
+  static String fileUrl = "http://192.168.173.49:5000/file/App_update.bin";
 /*
 28 Nov 21
 ss
 List of services for BLE communication
 */ // 18 dec 21 - changed during blore integration work
-  static String service = "97fe1000-9e89-00ec-2371-2a2ea5b4d546";
+  static String service_200 = "97fe1000-9e89-00ec-2371-2a2ea5b4d546";
   static String service_100 = "97fe0000-9e89-00ec-2371-2a2ea5b4d546";
   // "97fe6ff7-9e89-40ec-a371-2a2ea5b4d546"; // "97fe0100-9e89-00ec-2371-2a2ea5b4d546";
-  static String characteristic_format = "97fe0XXX-9e89-00ec-2371-2a2ea5b4d546";
+  static String characteristic_format_100 =
+      "97fe0XXX-9e89-00ec-2371-2a2ea5b4d546";
+  static String characteristic_format_200 =
+      "97fe1XXX-9e89-00ec-2371-2a2ea5b4d546";
   static String character100 = "97fe0100-9e89-00ec-2371-2a2ea5b4d546";
   static String character101 = "97fe0101-9e89-00ec-2371-2a2ea5b4d546";
   static String character102 = "97fe0102-9e89-00ec-2371-2a2ea5b4d546";
@@ -97,7 +105,7 @@ List of services for BLE communication
   static String ctsCharacteristic = "0000282b-0000-1000-8000-00805f9b34fb";
 // for implementation of CTS
 
-  static late BluetoothDevice bleDevice;
+  static late DiscoveredDevice bleDevice;
 
   static ThemeData lighTheme(BuildContext context) {
     return ThemeData(
